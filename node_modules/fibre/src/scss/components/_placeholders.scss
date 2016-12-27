@@ -1,0 +1,14 @@
+%clearfix {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+%hyphenate {
+    -ms-word-break: break-all;
+    // Non standard for webkit
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
+}

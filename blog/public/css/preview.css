@@ -1,0 +1,17 @@
+.forpreview {
+	position: fixed;
+	top: 25%;
+	right: 0px;
+	width: 48px;
+	height: 48px;
+	z-index: 100;
+	background:#FC9F15;
+	border-radius:50px;
+}
+.forpreview span{
+	line-height:48px;
+	text-align:center;
+	display:block;
+}
+
+

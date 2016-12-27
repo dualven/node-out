@@ -1,7 +1,7 @@
-//ÊäÈë²ÎÊý£º ÈÕÆÚ£¬ÔÚ´ËÈÕÆÚÖ®Ç°µÄÊý¾Ýµ¼³ö
-//Âß¼­£ºµ¼³ö¹ý³ÌÖÐ£¬½«Êý¾ÝÈÕÆÚµÄÆðÊ¼Óë½áÎ²×÷ÎªÎÄ¼þÃû£¬Èç¹û·¶Î§ÄÚÊý¾ÝÔÚÊ®ÍòÖ®Àà£¬ÔòÔÚÒ»¸öÎÄ¼þ£»
-//Èç¹ûÊý¾Ý³¬¹ýÊ®Íò£¬×Ô¶¯ÐÂÉú³ÉÒ»¸öÎÄ¼þ¡£
-//eg: 2016-6-1  Êä³öµÄ¿ÉÄÜÊÇ 2016-1-1~2016-3-1, 2016-3-2~2016-6-1, µÚ¶þ¸öÎÄ¼þµÄÊý¾Ý¿ÉÄÜ²»×ãÊ®Íò¡£
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú£ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½ï¿½Ö®Ç°ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½
+//ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Î²ï¿½ï¿½Îªï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê®ï¿½ï¿½Ö®ï¿½à£¬ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½Ê®ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
+//eg: 2016-6-1  ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ 2016-1-1~2016-3-1, 2016-3-2~2016-6-1, ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ü²ï¿½ï¿½ï¿½Ê®ï¿½ï¿½
 var mysql = require('mysql');  
 var TEST_DATABASE = 'gwifi';  
 var TEST_TABLE = 'think_history_access';  
@@ -15,7 +15,7 @@ for(var i=0;i<options.length;i++)
 }
 LOGIN_TIME=options[2];
 console.log("%s", LOGIN_TIME);
-//´´½¨Á¬½Ó  
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 var client = mysql.createConnection({  
   user: 'root',  
   password: 'gbcom123',  
@@ -66,10 +66,10 @@ client.query(
 		            }
 		          data2.push(rowdata);
 		          if(j==0){
-		          	start = dateFormat(new Date(temp[KEYFIELD] * 1000), 'yyyy-mm-dd');
+		          	start = dateFormat(new Date(temp[KEYFIELD] * 1000), 'yyyy-mm-dd hh:mm');
 		          }
 		          if(j==num -1 ){
-		          	end = dateFormat(new Date(temp[KEYFIELD] * 1000), 'yyyy-mm-dd');
+		          	end = dateFormat(new Date(temp[KEYFIELD] * 1000), 'yyyy-mm-dd hh:mm');
 		          }
 		        }	
 		         console.log("%s",data2);

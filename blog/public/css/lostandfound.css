@@ -1,0 +1,43 @@
+.res-pic{
+	height: 110px;
+	overflow: hidden;
+}
+.res-pic img{
+	max-width: 100%;
+	max-height: 100%;
+}
+.fix-button-b{
+	width: 100%;
+	position: fixed;
+	bottom: 10px;
+}
+.fix-button-t{
+	width: 100%;
+	position: fixed;
+	top: 3px;
+}
+.filtrate-other h3{
+	font-size: 14px;
+	font-weight: 600;
+	color: #676a6c;
+}
+.filtrate-other h3 span{
+	font-size: 12px;
+	font-weight: normal;
+	color: #676a6c;
+}
+.filtrate-other li{
+	width: 100%;
+}
+input.filtrate-reset { 
+	padding: 6px 12px;
+	background-color: #1c84c6;
+    border-color: #1c84c6;
+	color: #fff;
+}
+input.filtrate-submit { 
+	padding: 6px 12px;
+	background-color: #18a689;
+    border-color: #18a689;
+	color: #fff;
+}

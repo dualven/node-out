@@ -1,0 +1,321 @@
+/*page begin 分页*/
+
+@media screen and (max-width: 500px) {
+.page {color: #fff;height:auto;width:90%;margin-left:5%;margin-right:5%;display: block;position:relative;float: left;margin-bottom:30px;margin-top:20px;}	
+.page span {display: block;float: left;background: #f2f2f2;padding: 2px 8px;margin-right: 1px;color: #fff;font-size: 12px;border: 1px solid #fff;border-radius:3px;width:6%;}
+}
+@media screen and (min-width: 500px) {	
+.page {color: #fff;height:auto;width:80%;margin-left:10%;margin-right:10%;margin-top:2%;display: block;position:relative;float: left;}
+.page span {display: block;float: left;background: #f2f2f2;padding: 2px 8px;margin-right: 1px;color: #fff;font-size: 12px;border: 1px solid #fff;border-radius:3px;width:4%;}		
+}
+.page input#pageno{width:38px;height:23px;}
+.page span.current {
+	background: #5ad1ff;
+	color: #fff;
+	border: 1px solid #5ad1ff;
+}
+.page a {
+	display: block;
+	background: #ffffff;
+	float: left;
+	padding: 2px 8px;
+	margin-right: 1px;
+	font-size: 12px;
+	text-decoration: none;
+	border: 1px solid #fff;
+	width:4%;
+}
+.page a:hover{ 
+	color:#5ad1ff!important; 
+	border: 1px solid #5ad1ff;
+}
+.page input{
+	text-align:center; 
+	border-radius:2px; 
+	color:#383838;
+}
+.page num{ 
+	backgroung:#f2f2f2;
+}
+/*page ended*/
+
+/** 个人中心模块，头部样式**/
+.flea_ul{
+	border-bottom: 1px solid #dcdcdc;
+	padding: 0;
+}
+.flea_ul li {
+	list-style: none;
+	float: left;
+	display: block;
+	width: 33.33%;
+	text-align: center;
+	background: #fff;
+}
+.flea_ul-four li {
+	width: 25%;
+}
+.flea_ul li a{
+	display: block;
+	padding: 10px 20px 10px 25px;
+	line-height: 1.42857;
+	font-weight: 600;
+	color: #676a6c;
+}
+
+.flea_ul .flea_active a{
+	border-bottom:1px solid #df3031;
+	color: #df3031;
+	margin-left: 0px;
+}
+.flea_unactive a{
+	border-bottom:1px solid #dcdcdc;
+}
+.flea_ul li a:hover {color: #df3031;}
+
+.panel-content{
+	margin: -30px 0 0;
+    background: #fff;
+    padding: 12px 15px 0;
+}
+/** 首页样式 **/
+.index_flea_mine {
+	position: fixed;
+	bottom: 10%;
+	right: 18px;
+	width: 38px;
+	z-index: 100;
+}
+.index_content-type span {width: 100%;color: #878787;font-size: 13px;text-align: center;display: block;padding-top:2px;padding-bottom:2px;}
+.index_content-type img {
+	margin: 5% auto 0;
+	height: auto;
+	position: relative;
+	width: 60%;
+	display: block;
+}
+.index_typeclass {
+	padding-top: 8px;
+	background-color: #ffffff;
+}
+.index_listdivblock a{
+	color: #676a6c;
+}
+.index_content-type {
+	float: left;
+	height: auto;
+	position: relative;
+	display: block;
+	background-color: #ffffff;
+	padding-bottom: 8px;
+}
+.list-title{
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	margin-bottom: 2px;
+}
+.list-content{
+	color: #999;
+}
+.index_pricescss {float: right;}
+.index_flea_mine img {width: 100%;}
+@media screen and (max-width: 500px) {
+/** 首页样式 **/
+.index_content-type {
+	width: 20%;
+}
+.list-pic{
+	width: 100%;
+	height: 140px;
+	overflow: hidden;
+}
+.list-pic img {
+	width: 100%;
+}
+
+}
+
+/** 大于于500px的屏幕**/
+@media screen and (min-width: 500px) {
+/** 首页样式 **/
+
+
+.index_content-type {
+	width: 10%;
+}
+.list-pic{
+	width: 100%;
+	height: 240px;
+	overflow: hidden;
+}
+.list-pic img {
+	width: 100%;
+}
+.index_flea_mine{
+	width: 48px;
+}
+}
+
+/** 这是buyzone的样式,同上，一般样式同上 **/
+.buyzone-head-image{
+	width:60px;
+	height:60px;
+	float:left;
+	margin-right: 15px;
+}
+.buyzone-head{
+	margin: 12px 0 2px;
+}
+.buyzone-detail-username{
+	margin: 15px 0 0;
+}
+.buyzone-detail-details{
+	margin-bottom: 3px;
+}
+.buyzone-detail-name{
+	margin-bottom: 4px;
+}
+.buyzone_auth-info{float:left;width:15%;margin-top:2%;margin-bottom:2%;}
+.buyzone_auth-info-name{text-align:center;height:50%;margin-top:auto;margin-bottom:auto;}
+.buyzone_auth-info-college{text-align:center;height:50%;margin-top:auto;margin-bottom:auto;	}
+.buyzone-detail{float:left;width:85%;}
+.buyzone_listvodivblock {
+	width:98%;
+	position:relative;
+	border-bottom:1px solid #dcdcdc;
+	min-height:100px;
+	margin-left:1%;
+	margin-right:1%;
+}
+.buyzone_lianxita{
+	float: right;
+	margin-top: 16px;
+}
+/**这是个人中心的二手模块 **/
+.fleapersonalcenter_addpicclass{
+	margin-top: 47px;
+}
+.fleapersonalcenter_span1href{color:#22b5eb;}
+.fleapersonalcenter_span2href{color:#fc575d;}
+.fleapersonalcenter_span3href{color:#fc9f15;}
+.fleapersonalcenter_span4href{color:#24a265;}
+.fleapersonalcenter_contantdiv {
+	margin: 8px;
+}
+.fleapersonalcenter_listvodivblock{
+	margin-bottom: 8px;
+	background:#fff;
+	padding-bottom: 8px;
+}
+.fleapersonalcenter_div1img{
+	float: left;
+	margin:10px;
+	width: 30%;
+	max-width:130px;
+	max-height:130px;
+	overflow:hidden;
+}
+.fleapersonalcenter_div1img img{
+	width: 100%;
+}
+.fleapersonalcenter_name{
+	padding-top: 12px;
+	margin-bottom: 4px;
+}
+.fleapersonalcenter_details{
+	text-indent:2em;
+	max-height: 108px;
+    overflow: hidden;
+}
+.fleapersonalcenter_operationclass{
+	text-align: center;
+}
+
+/** 二手商品详细信息页面**/
+@media screen and (min-width: 500px) {
+.carousel-inner{width:100%;min-height:400px;overflow: hidden;max-height:400px;max-width:400px;margin: auto;}
+.addcollection{width:10%;margin-left:85%;}
+}
+@media screen and (max-width: 500px) {
+.carousel-inner{width:100%;min-height:200px;overflow: hidden;max-height:200px;max-width:400px;margin: auto;}	
+}
+/** 二手商品编辑页面**/
+.flea_details{
+	margin: 8px 0;
+	background: #fff;
+    padding: 8px;
+}
+.seller-said img.img-circle{
+	height: 60px;
+	width:60px;
+	float: left;
+	margin-right: 15px;
+}
+.flea_details_media-list h4{
+	display: inline-block;
+	width: 70px;
+    text-align: right;
+}
+.flea_details_media-list p{
+	display: inline;
+	padding-left: 20px;
+}
+.flea_message{
+	
+}
+.flea_messageList{
+	padding: 8px;
+	margin-bottom: 8px;
+	background: #fff;
+}
+/** 我的求购页面信息**/
+.mybuyzone_addpicclass{margin-top:50px;margin-left:auto;margin-right:auto;text-align:center;}
+.mybuyzone_name{
+	padding: 8px 0 0 15px;
+}
+.mybuyzone_details{
+	text-indent: 2em;
+}
+.mybuyzone_operationclass{
+	text-align: center;
+}
+.mybuyzone_contantdiv{
+    margin: 8px;
+}
+.mybuyzone_listvodivblock{
+	margin-bottom: 8px;
+	background:#fff;
+	padding-bottom: 8px;
+}
+
+/**收藏页面 **/
+.collection_cancle-a{
+	float: right;
+}
+.collection_contantdiv{
+	margin: 8px;
+}
+.collection_listvodivblock{
+	margin-bottom: 8px;
+    background: #fff;
+    padding: 8px;
+}
+.collection_listvodivblock-title{
+	color: #676a6c;
+}
+/**返回首页的处理 **/
+@media screen and (min-width: 500px) {
+.have_no_more{width:70%;margin-left:15%;margin-right:15%;border-radius:5px;text-align:center;background:#1AB394;float: left;display:block;line-height:40px;margin-bottom:30px;color:#ffffff;}
+.gofleamarket {position: fixed;top: 20px;right: 20px;z-index: 100}
+}
+@media screen and (max-width: 500px) {
+.gofleamarket {position: fixed;top: 40px;right: 20px;z-index: 100}
+.have_no_more{width:90%;margin-left:5%;margin-right:5%;border-radius:5px;text-align:center;background:#F70505;float: left;display:block;line-height:40px;margin-bottom:30px;color:#ffffff;}
+.gofleamarket a {height: 38px;width: 38px;display: block;background: #fc575d;padding: 9px 8px;text-align: center;color: #fff;border-radius: 50%;opacity: .5}
+.gofleamarket a:hover {opacity: 1}
+}
+.have_no_date{
+width:70%;margin-left:15%;margin-right:15%;text-align:center;display:block;line-height:40px;margin-bottom:30px;color:#2f2f2;
+}
+

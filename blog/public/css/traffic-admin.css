@@ -1,0 +1,10 @@
+/******** 后台校园交通分类模块---- 排序的样式-index.html--结束 ********/
+.order {
+    width:30px;
+    border:1px solid #E5E6E7;
+    padding:1px;
+    text-align:center;
+}
+.order:hover {
+    border:1px solid #1AB394;
+}

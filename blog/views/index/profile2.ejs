@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico"> <link href="/plugins/inspinia/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="/plugins/inspinia/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="/plugins/inspinia/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/plugins/inspinia/css/animate.min.css" rel="stylesheet">
+    <link href="/plugins/inspinia/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="/plugins/inspinia/js/plugins/date/daterangepicker-bs3.css" rel="stylesheet">
+    <link href="/plugins/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="/css/public.css" rel="stylesheet">
+    <link href="/css/index.css" rel="stylesheet">
+ <link href="/plugins/inspinia/js/plugins/date/daterangepicker-bs3.css" rel="stylesheet">
+</head>
+<body class="gray-bg">
+<div class="wrapper-app animated fadeInRight">
+    <div class="ibox-title">
+        <h5>个人资料</h5>
+    </div>
+    <div class="ibox-content ibox-content-app">
+        <form class="form-horizontal form-app" id="menuform1" role="form" action="" method="post">
+
+            <div class="form-group profile-center profile-input-head">
+                <label class="profile-label-input">联系电话：</label>
+                <input type="text" placeholder="请输入" class="input-width form-input-app" name="phone" value="{$result['phone']}">
+            </div>
+
+            <div class="form-group profile-center">
+                <label class="profile-label-input">姓名：</label>
+                <input type="text" placeholder="请输入" class="input-width form-input-app" name="user_name" value="<%= name%>">
+            </div>
+
+            <if condition="$role eq '学生'">
+            <div class="form-group profile-center">
+                <label class="profile-label-input">学号：</label>
+                <input type="text" placeholder="请输入" class="input-width form-input-app" name="user_edu_num" value="<%=pwd%>">
+            </div>
+
+            <div class="form-group profile-center">
+                <label class="profile-label-input">学校：</label>
+                <input type="text" placeholder="请输入" class="input-width form-input-app" name="user_school_campus" value="{$result['user_school_campus']}">
+            </div>
+
+            <div class="form-group profile-center">
+                <label class="profile-label-input">年级：</label>
+                <input type="text" placeholder="请输入" class="input-width form-input-app" name="user_grade" value="{$result['user_grade']}">
+            </div>
+
+            <div class="form-group profile-center">
+                <label class="profile-label-input">宿舍：</label>
+                <input type="text" placeholder="请输入" class="input-width form-input-app" name="user_dorm" value="{$result['user_dorm']}">
+            </div>
+            </if>
+
+            <div class="form-group profile-center">
+                <label class="profile-label-input">邮箱：</label>
+                <input type="text" placeholder="请输入" class="input-width form-input-app" name="email" value="{$result['email']}">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-mwidth btn-info btn-block">修改</button>
+            </div>
+            <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                <span class="sr-only">60% Complete</span>
+            </div>
+            </div>
+           <div class="form-group">
+            <label class="col-sm-2 control-label">截止时间<%=dtime%></label>
+            <div class="col-sm-10">
+                <div class="controls">
+                    <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                    <input type="text" style="width: 400px" name="reservation" id="reservationtime" class="form-control" value="2016-11-08 00:00- 2016-12-07 00:00"  class="span4"/>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+<script src="/plugins/inspinia/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/plugins/inspinia/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/plugins/inspinia/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/plugins/inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="/plugins/inspinia/js/plugins/layer/layer.min.js"></script>
+    <script src="/plugins/inspinia/js/hplus.min.js?v=4.1.0"></script>
+
+<script src="/plugins/inspinia/js/plugins/date/moment.js"></script>
+<script src="/plugins/inspinia/js/plugins/date/daterangepicker.js"></script>
+<script src="/js/vote-admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,269 @@
+/*public style begin*/
+.wrapper-app{
+	padding: 0 8px;
+}
+.form-app{
+	max-width: 800px;
+	margin: auto;
+}
+.form-group .control-label{
+	width: 67px;
+}
+/*for old android begin*/
+.form-input-app {
+    width: 76%;
+}
+.form-select{
+	width: 75%;
+}
+/*for old android end*/
+.form-input-app {
+    display:inline;
+    width: calc(100% - 71px);
+    padding: 7px 0 0 8px;
+    border:0;
+    border-radius: 0;
+    border-bottom: 1px solid #e7eaec;
+}
+.form-select{
+	width: calc(100% - 72px);
+	float: right;
+}
+.form-horizontal .input-lable{
+	padding-top: 9px;
+}
+.well-repair {
+    padding: 10px 16px 16px;
+    margin-bottom: 8px;
+    background-color:white;
+    border:0;
+}
+.well-title{
+	margin: 0;
+	display: inline-block;
+}
+.well-padding {
+    padding: 10px 16px 6px;
+}
+.well-info h3{
+	margin-bottom: 0px;
+}
+.well-content{
+	margin: 2px 0 5px;
+}
+.margin-no{
+	margin: 0;
+}
+.padding-no{
+	padding: 0;
+}
+.border-no{
+	border: none;
+}
+.margin-top{
+	margin-top: 8px;
+}
+.margin-bottom{
+	margin-bottom: 8px;
+}
+.position-r{
+	float: right;
+}
+.over-auto{
+	zoom: 1; 
+	overflow:auto;
+}
+.clear{
+	clear: both;
+}
+.btn-block{
+	max-width: 500px;
+	margin: auto;
+}
+.a-color,
+.a-color:link, 
+.a-color:visited, 
+.a-color:hover, 
+.a-color:active{
+	color: #676a6c;
+}
+.search-app{
+	height: 46px;
+    overflow: hidden;
+	padding: 8px 15px;
+	background: #d9edf7;
+}
+.dropdown-menu{
+	top: 39px;
+	left: 15px;
+}
+/*for old android begin*/
+.search-app input{
+	width: 80%;
+}
+/*for old android end*/
+.search-app input{
+	width: calc(100% - 61px);
+	height: 30px;
+	padding: 4px 12px;
+    display: inline;
+    border-top: 1px solid #e5e6e7;
+}
+.search-app h3{
+	text-align: center;
+	margin-top: 5px;
+	font-size: 16px;
+	font-weight: 600;
+	
+}
+.search-btn{
+	height:30px;
+	float:right;
+}
+.search-sub{
+	position: relative;
+    top: -30px;
+	left: -8px;
+	float: right;
+	padding: 4px;
+	border: none;
+    background: none;
+	color: #1ab394;
+}
+.button-icon,
+.button-icon:hover,
+.button-icon:link{
+	float: left;
+	margin-right: 2px;
+	color: #fff;
+}
+.upload_imageview{
+	max-width: 250px;
+	display: inline-block;
+	margin-bottom: 8px;
+}
+.upload_imageviewclass{
+    width:100%; 	
+}
+.upload_cancle{
+    height:20px;
+    width: 20px;
+	position:absolute;
+	top: -6px;
+    right: 6px;
+}
+.upload_cancleimg{
+    width:100%;
+    height:100%;		
+}
+.upload_addcontinue{
+	width: 80px;
+	height: 80px;
+	display: inline-block;
+	padding-left: 15px;
+	margin-bottom: 8px;
+}
+
+.upload_file{
+	position: relative;
+	display: inline-block;
+	border-radius: 4px;
+	overflow: hidden;  
+	text-decoration: none;
+	text-indent: 0;
+	line-height: 5%;
+}
+.upload_file input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+}
+.upload_file:hover {
+    text-decoration: none;
+}
+.imgtag{
+	width: 100%;
+}
+.text-indent-2{
+	text-indent: 2em;
+}
+.panel-body .nav{
+	padding-bottom: 8px;
+}
+.nav.nav-tabs li{
+	position: relative;
+}
+.nav-app ul li{
+    margin-right: 8px;
+}
+.nav-tabs > li.active > a, 
+.nav-tabs > li.active > a:focus, 
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li > a:focus, 
+.nav-tabs > li > a:hover{
+	background: #fff;
+	border-color: #ddd #ddd rgba(0,0,0,0);
+}
+.nav-app{
+	padding-bottom: 15px;
+}
+.nav-app ul{
+	padding: 8px 15px 0;
+}
+.nav-app ul> li > a{
+	padding: 8px 16px 8px 18px;
+}
+
+/*public style end*/
+
+/*bootstrap repair begin*/
+.form-horizontal .form-group{
+    margin-right: 0px;
+    margin-left: 0px;
+    vertical-align: middle;
+}
+.form-content{
+	padding-left: 8px;
+}
+.ibox-content-app{
+	padding: 14px 15px 1px;
+	margin-bottom: 8px;
+}
+.table-responsive{
+	border: none;
+}
+.modal-header .modal-title{
+	text-align: center;
+	font-size: 18px;
+	font-weight: 600;
+}
+.carousel-control {
+	width: 10%;
+}
+.carousel-caption {
+    right: 10%;
+    left: 10%;
+}
+.carousel-control.right,
+.carousel-control.left{
+	background-image: none;
+	text-shadow: none;
+	color: #1ab394;
+}
+.carousel-control .fa{
+	font-size: 2em;
+	margin-left: -7px;
+}
+.carousel-control span{
+	line-height: 1;
+}
+a.carousel-control i{
+	position: absolute;
+    top: 45%;
+}
+.form-horizontal .control-label {
+    padding-top: 7px;
+}
+/*bootstrap repair end*/

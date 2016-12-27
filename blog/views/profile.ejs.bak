@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico"> <link href="/plugins/inspinia/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="/plugins/inspinia/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="/plugins/inspinia/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/plugins/inspinia/css/animate.min.css" rel="stylesheet">
+    <link href="/plugins/inspinia/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="/plugins/inspinia/js/plugins/date/daterangepicker-bs3.css" rel="stylesheet">
+    <link href="/plugins/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="/css/public.css" rel="stylesheet">
+    <link href="/css/index.css" rel="stylesheet">
+</head>
+<body class="gray-bg">
+<div class="wrapper-app animated fadeInRight">
+    <div class="ibox-title">
+        <h5>个人资料</h5>
+    </div>
+    <div class="ibox-content ibox-content-app">
+        <form class="form-horizontal form-app" id="menuform1" role="form" action="" method="post">
+
+            <div class="form-group profile-center profile-input-head">
+                <label class="profile-label-input">联系电话：</label>
+                <input type="text" placeholder="请输入" class="input-width form-input-app" name="phone" value="{$result['phone']}">
+            </div>
+
+            <div class="form-group profile-center">
+                <label class="profile-label-input">姓名：</label>
+                <input type="text" placeholder="请输入" class="input-width form-input-app" name="user_name" value="<%= name%>">
+            </div>
+
+            <if condition="$role eq '学生'">
+            <div class="form-group profile-center">
+                <label class="profile-label-input">学号：</label>
+                <input type="text" placeholder="请输入" class="input-width form-input-app" name="user_edu_num" value="{$result['user_edu_num']}">
+            </div>
+
+            <div class="form-group profile-center">
+                <label class="profile-label-input">学校：</label>
+                <input type="text" placeholder="请输入" class="input-width form-input-app" name="user_school_campus" value="{$result['user_school_campus']}">
+            </div>
+
+            <div class="form-group profile-center">
+                <label class="profile-label-input">年级：</label>
+                <input type="text" placeholder="请输入" class="input-width form-input-app" name="user_grade" value="{$result['user_grade']}">
+            </div>
+
+            <div class="form-group profile-center">
+                <label class="profile-label-input">宿舍：</label>
+                <input type="text" placeholder="请输入" class="input-width form-input-app" name="user_dorm" value="{$result['user_dorm']}">
+            </div>
+            </if>
+
+            <div class="form-group profile-center">
+                <label class="profile-label-input">邮箱：</label>
+                <input type="text" placeholder="请输入" class="input-width form-input-app" name="email" value="{$result['email']}">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-mwidth btn-info btn-block">修改</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

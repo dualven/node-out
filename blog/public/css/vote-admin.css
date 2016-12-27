@@ -1,0 +1,123 @@
+
+/* 后台投票管理-编辑投票项上传图片使用到的样式 ----- 开始 */
+.upload-vote ul {
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+.upload-vote li{list-style:none;}
+.upload-vote li > img{
+    width:280px;
+    border:0;
+}
+.tips{color:red}
+/* 后台投票管理-编辑投票项上传图片使用到的样式 ----- 结束 */
+
+/* 前台后的投票结果页面的CSS 这里和后台的一样，可以共用 ----- 开始 */    
+p{
+  color:#525252;
+  color:#525252;
+  font-size:12px;
+}
+
+.skillbar {
+	position:relative;
+	display:block;
+	margin-bottom:15px;
+	width:100%;
+	background:#eee;
+	height:35px;
+	border-radius:3px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	-webkit-transition:0.4s linear;
+	-moz-transition:0.4s linear;
+	-ms-transition:0.4s linear;
+	-o-transition:0.4s linear;
+	transition:0.4s linear;
+	-webkit-transition-property:width, background-color;
+	-moz-transition-property:width, background-color;
+	-ms-transition-property:width, background-color;
+	-o-transition-property:width, background-color;
+	transition-property:width, background-color;
+}
+
+.skillbar-title {
+	position:absolute;
+	top:0;
+	left:0;
+	left:40%;
+	min-width:80px;
+	width:auto;
+	font-weight:bold;
+	font-size:11px;
+	color:#ffffff;
+	/*background:#6adcfa;*/
+	background:rgba(0, 0, 0, 0);
+	-webkit-border-top-left-radius:3px;
+	-webkit-border-bottom-left-radius:4px;
+	-moz-border-radius-topleft:3px;
+	-moz-border-radius-bottomleft:3px;
+	border-top-left-radius:3px;
+	border-bottom-left-radius:3px;
+}
+
+.skillbar-title span {
+	display:block;
+	/*background:rgba(0, 0, 0, 0.1);*/
+	padding:0 20px;
+	height:35px;
+	line-height:35px;
+	-webkit-border-top-left-radius:3px;
+	-webkit-border-bottom-left-radius:3px;
+	-moz-border-radius-topleft:3px;
+	-moz-border-radius-bottomleft:3px;
+	border-top-left-radius:3px;
+	border-bottom-left-radius:3px;
+	color:rgba(0, 0, 0, 0.4);
+}
+
+.skillbar-bar {
+	height:35px;
+	width:0px;
+	background:#6adcfa;
+	border-radius:3px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+}
+
+.skill-bar-percent {
+	position:absolute;
+	right:10px;
+	top:0;
+	font-size:11px;
+	height:35px;
+	line-height:35px;
+	color:#ffffff;
+	color:rgba(0, 0, 0, 0.4);
+}
+.vote-text-color0 {background-color: #d35400;}
+.vote-text-color1 { background-color: #2980b9;}
+.vote-text-color2 { background-color: #2c3e50;}
+.vote-text-color3 { background-color: #46465e;}
+.vote-text-color4 { background-color: #333333;}
+.vote-text-color5 { background-color: #27ae60;}
+.vote-text-color6 { background-color: #124e8c;}
+
+.vote-bg-color0 { background-color: #e67e22;}
+.vote-bg-color1 { background-color: #3498db;}
+.vote-bg-color2 { background-color: #2c3e50;}
+.vote-bg-color3 { background-color: #5a68a5;}
+.vote-bg-color4 { background-color: #525252;}
+.vote-bg-color5 { background-color: #2ecc71;}
+.vote-bg-color6 { background-color: #4288d0;}
+/* 前台后的投票结果页面的CSS 这里和后台的一样，可以共用 ----- 结束 */   
+/* 后台投票项首页（列表页）页面的CSS --index.html--- 开始 */   
+.order {
+    width:30px;
+    border:1px solid #E5E6E7;
+    padding:1px;
+    text-align:center;
+}
+.order:hover {border:1px solid #1AB394;}
+/* 后台投票项首页（列表页）页面的CSS --index.html--- 结束 */   

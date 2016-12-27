@@ -1,0 +1,56 @@
+.input-infor {
+    position: relative;
+    display: inline;
+    border-collapse: separate;
+}
+.btn-mwidth {
+    width:47%;
+    background-color: #df3031;
+    border-color: #df3031;
+}
+
+.btn-left{
+    float: left;
+}
+.btn-right{
+    float: right;
+}
+
+.btn-left-button{
+    padding: 3px 6px;
+    font-size: 12px;
+    margin-right:8px;
+}
+.phone-position {
+    float:right;
+}
+
+.circle-width-height {
+    float: left;
+    margin-right: 10px;
+    line-height: 0.428571429;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin-top: -10px;
+}
+
+.repair-go {
+    background-color: #df3031;
+    border-color: #df3031;
+}
+
+#reservationtime {
+    display:inline;
+}
+.p-color {
+    color: red;
+    margin-top: 7px;
+}
+/*repair index modify -wuwuen begin*/
+.padding-0{
+	padding: 0;
+}
+/*repair index modify -wuwuen end*/

@@ -1,0 +1,45 @@
+/******** 请销假首页（列表）模块---- index.html--开始 ********/
+.nav-app {
+	margin-left: 8px;
+	margin-right: 8px;
+}
+
+.list-block {
+	position: relative;
+	padding: 0 15px 5px;
+	border-bottom: 1px solid #dcdcdc;
+}
+
+.head-line {
+	margin: 12px 0 2px;
+}
+
+.head-line-image {
+	width: 60px;
+	height: 60px;
+	float: left;
+	margin-right: 15px;
+}
+
+.right-btn {
+	float: right;
+}
+
+.head-name {
+	margin: 15px 0 2px;
+}
+
+.leave-detai {
+	margin-bottom: 3px;
+}
+
+.panel-content {
+	margin: -15px 8px 0;
+	padding: 2px 0 0;
+	background: #fff;
+}
+
+.left5px {
+	margin-left: 5px;
+}
+/******** 请销假首页（列表）模块---- index.html--结束 ********/

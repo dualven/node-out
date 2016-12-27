@@ -1,0 +1,400 @@
+
+/******** 前台投票模块---- 投票主题的样式-index.html--开始 ********/
+/* 2个共用的CSS */
+.padding-lr0 {
+    padding-left:0;
+    padding-right:0;
+}
+
+.wrapper {
+    padding: 0 15px;
+}
+
+/* 设置高度采用父高度 */
+
+.edu-line-solid {
+    border-top:1px solid #dcdcdc;
+    color:#fff;
+    background-color:#fff;
+    height:1px;
+    margin:0 auto;
+    padding:0;
+}
+
+/* 投票主题界面 - 投票标题链接的样式  */
+.vote-subject > .vote-subject-content > .subject-note a,
+.vote-subject > .vote-subject-content > .subject-note a:active,
+.vote-subject > .vote-subject-content > .subject-note a:hover {
+    color:#000;
+    font-size:14px;
+    font-size:1.4rem;
+}
+
+/* 投票主题界面 - 投票图片框的样式  */
+.vote-content{
+    padding:6px 15px 18px 15px;
+    margin:0 auto;
+    max-width:310px;
+    height:204px;
+    text-align:center;
+}
+
+/* 投票主题界面 - 投票图片的样式  */
+.vote-img {
+    border:0;
+    width:100%;
+    height:100%;
+}
+/******** 前台投票模块---- 投票主题的样式--结束 ********/
+
+/******** 前台投票模块---- 投票主页的样式-vote_index.html--开始 ********/
+.edu-line-solid {
+    border-top:1px solid #dcdcdc;
+    color:#fff;
+    background-color:#fff;
+    height:1px;
+    margin:0 auto;
+    padding:0;
+}
+
+.edu-vline-solid {border-right:1px solid #fecdcf;}
+/* 投票大标题样式 */
+.vote-title {
+    background-color: #fc575d;
+    color: #fff;
+    line-height:26px;
+    padding:12px 0;
+    margin:0;
+}
+
+.vote-title h1 {
+    margin:0;
+    padding:0;
+    font-size:26px;
+    font-family: 黑体,SimHei,宋体,SimSun;
+}
+
+/* 前台投票主页 - 投票统计数字的样式  */
+.vote-index > .vote-total {
+	overflow: hidden;
+	color: #fff;
+	background-color: #fc575d;
+	padding: 16px 0;
+	text-align: center;
+	font-family: 宋体,SimSun;
+	font-weight: 700;
+	line-height: 180%;
+	width: 100%;
+}
+
+/* 投票主页界面，投票介绍的样式 */
+.vote-index > .vote-index-row-title {
+    width:100%;
+    margin:0 auto;
+    padding:0;
+    background-color:#fff;
+}
+
+.vote-index > .vote-index-row-title > p {
+    margin:0;
+    padding:18px 18px 18px 15px;
+}
+
+.vote-index > .vote-index-row-title > p > span {
+    color: #666;
+    margin-left:30px;
+}
+
+/* 投票主页界面，投票活动介绍的样式  */
+.vote-index > .vote-index-row-content {
+    width:100%;
+    margin:10px auto;
+    padding:10px 0 1px 0;
+    background-color:#fff;
+}
+
+.vote-index > .vote-index-row-content > .detail-note {
+    padding:0px 10px 15px 15px;
+    color:#df3031;
+    border-bottom:1px solid #dcdcdc;
+    font-size:14px;
+}
+
+.vote-index > .vote-index-row-content > .detail-content {
+    padding:5px 15px 10px 15px;
+    margin:0;
+    line-height:180%;
+    color:#666;
+}
+
+/* 投票主页 投票按钮区的样式 */
+.vote-index > .vote-index-row-button {
+    padding:15px 0;
+    margin:0;
+    text-align:center;
+    font-weight:700;
+}
+/******** 前台投票模块---- 投票主页的样式--结束 ********/
+
+/******** 前台投票模块---- 投票项列表的样式-vote_list.html--开始 ********/
+/* 投票大标题样式 */
+.vote-title {
+    background-color: #fc575d;
+    color: #fff;
+    line-height:26px;
+    padding:12px 0;
+    margin:0;
+}
+
+.vote-title h1 {
+    margin:0;
+    padding:0;
+    font-size:26px;
+    font-size:2.6rem;
+    font-family: 黑体,SimHei,宋体,SimSun;
+}
+
+/* 后台审核用户需要在后台打开投票项列表和投票项详情页面， 这里给两个页面加个返回链接的样式 */
+.check-user-use {
+    position: absolute;
+    left: 10px;
+    font-size: 1.4rem;
+}
+.check-user-use a {color: #fff;}
+
+/* 投票服务投票项列表界面 - 样式 */
+.vote-detail-list {
+    background-color:#fff;
+    padding:10px;
+    position:relative;
+    overflow:hidden;
+    height:80px;
+    border-bottom:1px solid #dcdcdc;
+}
+
+/* 投票项列表 头像的样式 */
+.vote-detail-list > .item-pic {
+    position: absolute;
+    left: 10px;
+    width:62px;
+    height:60px;
+}
+
+.vote-detail-list > .item-pic > a > img {
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    border:2px solid #fff;
+}
+
+.vote-detail-list > .item-content {
+    position: absolute;
+    left: 80px;
+    width:auto;
+    height:60px;
+}
+
+/* 投票项列表 名称（姓名）样式 */
+.vote-detail-list > .item-content > .item-heading {
+    margin:0;
+    padding:7px 0 10px 0;
+    font-weight:700;
+    font-size:14px;
+    color:#000;
+    font-family: 宋体,SimSun;
+}
+
+.vote-detail-list > .item-content > .item-heading > a {
+    color: #000;
+}
+
+.vote-detail-list > .item-content > .item-text {
+    color:#666;
+}
+
+/* 投票项列表 - 投票按钮的样式 */
+.vote-detail-list > .item-button {
+    position: absolute;
+    right: 10px;
+    top:10px;
+    width:auto;
+}
+
+.get_more{
+    margin:10px;
+    text-align:center
+}
+
+.more_loader_spinner{
+    width:20px;
+    height:20px;
+    margin:10px auto;
+    background: url(image/loader.gif) no-repeat;
+}
+/******** 前台投票模块---- 投票项列表的样式--结束 ********/
+/******** 前台投票模块---- 投票项详细的样式-vote_detail.html--开始 ********/
+/* 投票大标题样式 */
+.vote-title {
+    background-color: #fc575d;
+    color: #fff;
+    line-height:26px;
+    padding:12px 0;
+    margin:0;
+}
+
+.vote-title h1 {
+    margin:0;
+    padding:0;
+    font-size:26px;
+    font-size:2.6rem;
+    font-family: 黑体,SimHei,宋体,SimSun;
+}
+
+/* 投票详情页面，头像区域的样式 */
+.vote-detail-row > .vote-detail-row-heading {
+    width:100%;
+    margin:0 auto;
+    padding:10px 0 1px 0;
+    background-color:#fff;
+}
+
+.vote-detail-row > .vote-detail-row-heading > .detail-pic {
+    border:0;
+    width:280px;
+    margin:0 auto;
+    text-align:center;
+}
+
+.vote-detail-row > .vote-detail-row-heading > .detail-pic img {
+    width:280px;
+    height:180px;
+}
+
+.vote-detail-row > .vote-detail-row-heading > .detail-title {
+    width:280px;
+    margin:10px auto;
+    font-size:14px;
+    font-size:1.4rem;
+    color:#000;
+    font-weight:700;
+    position:relative;
+}
+
+.vote-detail-row > .vote-detail-row-heading > .detail-title span {
+    font-weight:normal;
+    position:absolute;
+    right:0;
+    bottom:0;
+    font-size:11px;
+    font-size:1.1rem;
+    color:#666;
+}
+
+/* 投票详情页面，投票项详细介绍的样式 */
+.vote-detail-row > .vote-detail-row-content {
+    width:100%;
+    margin:10px 0 0 0;
+    padding:0;
+    background-color:#fff;
+}
+
+.vote-detail-row > .vote-detail-row-content > .detail-note {
+    padding:10px;
+    color:#000;
+    border-bottom:1px solid #dcdcdc;
+    font-size:14px;
+    font-size:1.4rem;
+}
+
+.vote-detail-row > .vote-detail-row-content > .detail-content {
+    padding:5px 10px 10px 10px;
+    border-bottom:1px solid #dcdcdc;
+    margin:0;
+    line-height:180%;
+    color:#666;
+}
+
+.vote-detail-row > .vote-detail-row-content > .detail-button {
+    padding:15px 0;
+    margin:0;
+    text-align:center;
+}
+
+/******** 前台投票模块---- 投票项详细的样式--结束 ********/
+/******** 前台投票模块---- 投票结果的样式-vote_result.html--开始 ********/
+.edu-line-solid {
+    border-top:1px solid #dcdcdc;
+    color:#fff;
+    background-color:#fff;
+    height:1px;
+    margin:0 auto;
+    padding:0;
+}
+
+.edu-vline-solid {border-right:1px solid #fecdcf;}
+
+/* 投票大标题样式 */
+.vote-title {
+    background-color: #fc575d;
+    color: #fff;
+    line-height:26px;
+    padding:12px 0;
+    margin:0;
+}
+
+.vote-title h1 {
+    margin:0;
+    padding:0;
+    font-size:26px;
+    font-family: 黑体,SimHei,宋体,SimSun;
+}
+
+/* 前台投票主页 - 投票统计数字的样式  */
+.vote-index > .vote-total {
+	overflow: hidden;
+	color: #fff;
+	background-color: #fc575d;
+	padding: 16px 0;
+	text-align: center;
+	font-family: 宋体,SimSun;
+	font-weight: 700;
+	line-height: 180%;
+	width: 100%;
+}
+
+/* 投票主页界面，投票活动介绍的样式  */
+.vote-index > .vote-index-row-content {
+    width:100%;
+    margin:10px auto;
+    padding:10px 0 1px 0;
+    background-color:#fff;
+}
+
+.vote-index > .vote-index-row-content > .detail-note {
+    padding:0px 10px 15px 15px;
+    color:#df3031;
+    border-bottom:1px solid #dcdcdc;
+    font-size:14px;
+}
+
+.vote-index > .vote-index-row-content > .detail-result {
+    padding:5px 15px 10px 15px;
+    margin:0;
+    line-height:180%;
+    color:#666;
+    height:auto;
+}
+
+/* 投票主页 投票按钮区的样式 */
+.vote-index > .vote-index-row-button {
+    padding:15px 0;
+    margin:0;
+    text-align:center;
+    font-weight:700;
+}
+/* 投票状态提示样式 */
+.vote-staus-tips {
+    margin-left:20px;
+    color:#666;
+}
+/******** 前台投票模块---- 投票结果的样式-vote_result.html--结束 ********/

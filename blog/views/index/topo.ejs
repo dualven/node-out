@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico"> 
+    <link href="/plugins/inspinia/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="/plugins/inspinia/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="/plugins/inspinia/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/plugins/inspinia/css/animate.min.css" rel="stylesheet">
+    <link href="/plugins/inspinia/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="/plugins/inspinia/js/plugins/date/daterangepicker-bs3.css" rel="stylesheet">
+    <link href="/plugins/inspinia/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="/css/public.css" rel="stylesheet">
+    <link href="/css/index.css" rel="stylesheet">
+ <link href="/plugins/inspinia/js/plugins/date/daterangepicker-bs3.css" rel="stylesheet">
+</head>
+<body>
+<script src="/plugins/topo/qunee-min.js"></script>
+
+<script>
+var graph = new Q.Graph(canvas);
+var hello = graph.createNode("Hello", -100, -50);
+hello.image = Q.Graphs.server;
+var qunee = graph.createNode("Qunee", 100, 50);
+var edge = graph.createEdge("Hello\nQunee", hello, qunee);
+
+edge.setStyle(Q.Styles.LABEL_OFFSET_Y, -10);
+edge.setStyle(Q.Styles.LABEL_POSITION, Q.Position.CENTER_TOP);
+edge.setStyle(Q.Styles.LABEL_ANCHOR_POSITION, Q.Position.CENTER_BOTTOM);
+edge.setStyle(Q.Styles.LABEL_BORDER, 1);
+edge.setStyle(Q.Styles.LABEL_POINTER, true);
+edge.setStyle(Q.Styles.LABEL_PADDING, new Q.Insets(2, 5));
+edge.setStyle(Q.Styles.LABEL_BACKGROUND_GRADIENT, Q.Gradient.LINEAR_GRADIENT_VERTICAL);
+</script>
+
+<script src="/plugins/inspinia/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/plugins/inspinia/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/plugins/inspinia/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/plugins/inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="/plugins/inspinia/js/plugins/layer/layer.min.js"></script>
+    <script src="/plugins/inspinia/js/hplus.min.js?v=4.1.0"></script>
+
+<script src="/plugins/inspinia/js/plugins/date/moment.js"></script>
+<script src="/plugins/inspinia/js/plugins/date/daterangepicker.js"></script>
+<script src="/js/vote-admin.js"></script>
+</body>
+</html>

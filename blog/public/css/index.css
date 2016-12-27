@@ -1,0 +1,137 @@
+/*index themes style modify begin*/
+.wrapper-content {
+    padding-bottom: 0;
+}
+.roll-right.btn-group {
+    right: 192px;
+}
+.roll-right.J_tabRight {
+    right: 272px;
+}
+.roll-right.J_theme {
+    right: 60px;
+    width: 80px;
+    padding: 0;
+}
+.roll-right.J_news {
+    right: 140px;
+    width: 52px;
+    padding: 0;
+}
+.roll-right.J_news .count-info {
+    padding: 0;
+    width: 100%;
+}
+.count-info .label {
+    top: 6px;
+}
+.J_news .dropdown-menu{
+	right: 0;
+    left: auto;
+	width: 310px;
+}
+.navbar-minimalize{
+	position: relative;
+	padding: 4px 12px;
+    margin: 5px 16px;
+    float: right;
+    z-index: 1;
+}
+.nav-header {
+    padding: 45px 25px 33px;
+}
+.logo-element{
+	padding: 50px 0 18px;
+}
+#right-sidebar{
+	top: 42px;
+	border-top: none;
+}
+/*index themes style modify end*/
+
+/*welcome style begin*/
+/*for old android begin*/
+#content-main {
+    height: 93%;
+}
+/*for old android end*/
+#content-main {
+    height: calc(100% - 78px);
+}
+@media screen and (max-width:768px){
+    #content-main {
+        height: calc(100% - 36px);
+    }
+}
+#vertical-timeline {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.ibox-content .title{
+	font-size: 80px;
+	margin: 30px 0 10px 60px;
+	font-weight: bold;
+}
+.ibox-content h3{
+	font-size: 26px;
+	text-align: right;
+	font-weight: normal;
+}
+.mainPic .img-responsive{
+	width: 100%;
+	min-height: 250px;
+}
+.mainPic{
+	height: 250px;
+	overflow: hidden;
+}
+.file-box2{
+	float: left;
+}
+.file{
+	margin-right: 0;
+}
+.img-responsive{
+	margin:auto;
+	min-height: 100px;
+}
+/*welcome style end*/
+
+/*profile style begin*/
+.btn-mwidth {
+    margin-top: 20px;
+    width: 40%;
+    margin-left: 32%;
+}
+
+.profile-center{
+    text-align: center;
+}
+
+.input-width{
+    width:30%;
+}
+
+.profile-label-input{
+    font-size: 14px;
+    width: 100px;
+    margin-top: 20px;
+}
+
+.profile-input-head{
+    margin-top: 50px;
+}
+
+/*headimage*/
+.welcome_add_imageview{
+    overflow: hidden;
+    width:35%;
+    height:auto;
+    float:left;
+    max-width:100px;
+    max-height:100px;
+    margin:15px;
+    background:#f2f2f2;
+    width: 30%;
+    display: none;
+}

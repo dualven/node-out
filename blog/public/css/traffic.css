@@ -1,0 +1,140 @@
+
+/******** 前台校园交通模块---- 校园交通列表的样式-index.html--开始 ********/
+/*
+.padding-lr0 {
+    padding-left: 0px;
+    padding-right: 0px;
+}*/
+
+.nav.nav-tabs > li {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: medium none;
+	text-align:center;
+	width:33.33%;
+}
+
+.tabs-container .nav-tabs > li.active > a, 
+.tabs-container .nav-tabs > li.active > a:focus, 
+.tabs-container .nav-tabs > li.active > a:hover {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: transparent transparent #df3031;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px;
+	color:#df3031;
+}
+
+.nav-tabs > li > a {
+    /*border: 1px solid transparent;
+    border-radius: 0 0 0 0;*/
+    line-height: 1.42857;
+    font-size: 14px;
+    margin-right: 2px;
+	color:#000000;
+}
+
+.nav-tabs > li > a:focus, 
+.nav-tabs > li > a:hover {
+    background-color: #ffffff;
+    color: #df3031;
+}
+
+.tabs-container > .nav-tabs {
+    border-bottom: 1px solid #dcdcdc;
+	background-color: #ffffff;
+}
+	
+/* 校园交通线路-线路名称外框的样式 */
+.tabs-container > .panel-body {
+    padding: 20px 20px 7px 20px;
+}
+
+/* 校园交通线路ul样式 */
+ul.route {
+    list-style-type:none;
+    padding: 0;
+    margin:10px 0;
+    width:100%;
+    position:relative;
+}
+
+ul.route > li {
+    line-height: 25px;
+    height: 25px;
+    color: #666;
+}
+
+ul.route > li > span {
+    position: absolute;
+    right: 0px;
+}
+
+/******** 前台校园交通模块---- 校园交通列表的样式-index.html--结束 ********/
+/******** 前台校园交通模块---- 校园交通线路详细的样式-detail.html--开始 ********/
+.left-ringt-padding-0 {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+/* 校园交通线路ul样式 */
+ul.route {
+    list-style-type:none;
+    padding: 0;
+    margin:10px 0;
+    width:100%;
+    position:relative;
+}
+
+ul.route > li {
+    line-height: 25px;
+    height: 25px;
+    color: #666;
+}
+
+ul.route > li > span {
+    position: absolute;
+    right: 0px;
+}
+
+/* 校园交通线路详细界面-线路名称外框的样式 */
+.tabs-container > .panel-body {
+    padding: 20px 20px 7px 20px;
+}
+
+/* 校园交通线路详细界面-详细线路的样式 */
+.panel-body > p {
+    line-height:180%;
+}
+
+/* 前台校园交通线路详细页面大标题上的文字样式【校园交通列表页、校园交通详细页都使用】  */
+.panel-body > h3,
+.panel-body > a > h3,
+.head-bg > h3 {
+    color: #0da4d3;
+    font-size: 2rem;
+}
+
+/* 前台校园交通线路详细页面大标题上站点、时间点的文字样式  */
+.head-bg > ul > li > label,
+.head-bg > ul > li > span > label {
+    font-weight:normal;
+    color:#000;
+}
+
+/******** 前台校园交通模块---- 校园交通线路详细的样式-detail.html--结束 ********/
+
+/*traffic index modify -wuwuen begin*/
+.nav-border-app{
+	border-left: 1px solid #e7eaec;
+	border-right: 1px solid #e7eaec;
+}
+.tabs-container .tab-pane .panel-body{
+	margin-bottom: 8px;
+}
+.tabs-container .panel-body-app{
+	padding: 11px 16px 6px;
+}
+/*traffic index modify -wuwuen end*/
