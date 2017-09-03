@@ -1,0 +1,6 @@
+.test {width:65em; margin:0em auto;}
+.imagemargin {width:35em;margin: 1em auto;}
+.box { padding:0em; border:3px ridge #beceeb; 
+	border-radius:5px; position:relative; }
+.ok { color:green; font-size:6em; position:absolute; right:-11px; bottom:-.5em; }
+.two { width:25em; margin:0 0;position: absolute; top: 2em;right:-2em;}

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+
+
+    <!-- Mirrored from www.zi-han.net/theme/hplus/form_basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:15 GMT -->
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+        <title>H+ 后台主题UI框架 - 基本表单</title>
+        <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+        <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+        <link rel="shortcut icon" href="favicon.ico"> <link href="/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+        <link href="/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+        <link href="/css/plugins/iCheck/custom.css" rel="stylesheet">
+        <link href="/css/animate.min.css" rel="stylesheet">
+        <link href="/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+        <link href="/js/plugins/layer/laydate/need/laydate.css" rel="stylesheet">
+        <link href="/css/css.css" rel="stylesheet">
+        <link href="/css/plugins/dropzone/basic.css" rel="stylesheet">
+        <link href="/css/plugins/dropzone/dropzone.css" rel="stylesheet">
+
+    </head>
+
+    <body class="gray-bg">
+        <p class="text-center imagemargin">
+            <img src="/img/db-2.png">
+        </p>
+        <div class="wrapper wrapper-content animated fadeInRight ">
+            <div class="row ">
+                <div class="test ">
+                    <div class="ibox float-e-margins box">
+                        <div class="ibox-title">
+                            <h5>数据库连接信息</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <form role="form" id="dbinfo">
+                                    <div class="form-group">
+                                        <label>数据库IP</label>
+                                        <input type="text" placeholder="for example: 127.0.0.1" id="ip" class="form-control" value="<%= result[0]['db-ip'] %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>数据库端口</label>
+                                        <input type="text" placeholder="for example: 3306"  id="port" value="<%= result[0]['db-port'] %>" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>用户名</label>
+                                        <input type="text" placeholder="请输入您的用户名" id="username" value="<%= result[0]['db-username'] %>" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>密码</label>
+                                        <input type="password" placeholder="请输入密码" id="passwd"  value="<%= result[0]['db-password'] %>" class="form-control">
+                                    </div>
+                                    <div>
+                                        <input type="button" class="btn btn-sm" id="savedb" value="测试&保存"/>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="test">
+                    <div class="ibox  box">
+                        <div class="ibox-title">
+                            <h5>数据库表格</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">表选项：
+                                    </label>
+
+                                    <div class="col-sm-10">
+
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" checked="" value="option1" id="optionsRadios1" name="optionsRadios">选项1</label>
+                                            <label>
+                                                <input type="radio" checked="" value="option2" id="optionsRadios2" name="optionsRadios">选项2</label>
+                                            <label>
+                                                <input type="radio" checked="" value="option3" id="optionsRadios3" name="optionsRadios">选项3</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">字段选项：
+                                    </label>
+                                    <div class="col-sm-10">
+
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" checked="" value="option4" id="optionsRadios4" name="optionsRadios">选项4</label>
+                                            <label>
+                                                <input type="radio" checked="" value="option5" id="optionsRadios5" name="optionsRadios">选项5</label>
+                                            <label>
+                                                <input type="radio" checked="" value="option6" id="optionsRadios6" name="optionsRadios">选项6</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="test">
+                    <div class="ibox box">
+                        <div class="ibox-title">
+                            <h5>时间选择与导出</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">图标触发日期：</label>
+                                    <div class="col-sm-10">
+                                        <input placeholder="开始日期" class="form-control layer-date" id="start">
+                                        <input placeholder="结束日期" class="form-control layer-date" id="end">
+
+                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>导出</strong>
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+
+                                                <th></th>
+                                                <th>项目</th>
+                                                <th>进度</th>
+                                                <th>任务</th>
+                                                <th>日期</th>
+                                                <th>操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" checked class="i-checks" name="input[]">
+                                                </td>
+                                                <td>米莫说｜MiMO Show</td>
+                                                <td><span class="pie">0.52/1.561</span>
+                                                </td>
+                                                <td>20%</td>
+                                                <td>2014.11.11</td>
+                                                <td><a href="table_basic.html#"><i class="fa fa-check text-navy"></i></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" class="i-checks" name="input[]">
+                                                </td>
+                                                <td>商家与购物用户的交互试衣应用</td>
+                                                <td><span class="pie">6,9</span>
+                                                </td>
+                                                <td>40%</td>
+                                                <td>2014.11.11</td>
+                                                <td><a href="table_basic.html#"><i class="fa fa-check text-navy"></i></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" class="i-checks" name="input[]">
+                                                </td>
+                                                <td>天狼---智能硬件项目</td>
+                                                <td><span class="pie">3,1</span>
+                                                </td>
+                                                <td>75%</td>
+                                                <td>2014.11.11</td>
+                                                <td><a href="table_basic.html#"><i class="fa fa-check text-navy"></i></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" class="i-checks" name="input[]">
+                                                </td>
+                                                <td>线下超市+线上商城+物流配送互联系统</td>
+                                                <td><span class="pie">4,9</span>
+                                                </td>
+                                                <td>18%</td>
+                                                <td>2014.11.11</td>
+                                                <td><a href="table_basic.html#"><i class="fa fa-check text-navy"></i></a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="test">
+                    <div class="ibox box">
+                        <div class="ibox-title">
+                            <h5>文件的导入</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <form id="my-awesome-dropzone" class="dropzone" action="http://www.zi-han.net/theme/hplus/form_file_upload.html#">
+                                <div class="dropzone-previews"></div>
+                                <button type="submit" class="btn btn-primary pull-right">提交</button>
+                            </form>
+
+                            <div class="row">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+
+                                                <th></th>
+                                                <th>项目</th>
+                                                <th>进度</th>
+                                                <th>任务</th>
+                                                <th>日期</th>
+                                                <th>操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" checked class="i-checks" name="input[]">
+                                                </td>
+                                                <td>米莫说｜MiMO Show</td>
+                                                <td><span class="pie">0.52/1.561</span>
+                                                </td>
+                                                <td>20%</td>
+                                                <td>2014.11.11</td>
+                                                <td><a href="table_basic.html#"><i class="fa fa-check text-navy"></i></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" class="i-checks" name="input[]">
+                                                </td>
+                                                <td>商家与购物用户的交互试衣应用</td>
+                                                <td><span class="pie">6,9</span>
+                                                </td>
+                                                <td>40%</td>
+                                                <td>2014.11.11</td>
+                                                <td><a href="table_basic.html#"><i class="fa fa-check text-navy"></i></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" class="i-checks" name="input[]">
+                                                </td>
+                                                <td>天狼---智能硬件项目</td>
+                                                <td><span class="pie">3,1</span>
+                                                </td>
+                                                <td>75%</td>
+                                                <td>2014.11.11</td>
+                                                <td><a href="table_basic.html#"><i class="fa fa-check text-navy"></i></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" class="i-checks" name="input[]">
+                                                </td>
+                                                <td>线下超市+线上商城+物流配送互联系统</td>
+                                                <td><span class="pie">4,9</span>
+                                                </td>
+                                                <td>18%</td>
+                                                <td>2014.11.11</td>
+                                                <td><a href="table_basic.html#"><i class="fa fa-check text-navy"></i></a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="/js/jquery.min.js?v=2.1.4"></script>
+        <script src="/js/bootstrap.min.js?v=3.3.6"></script>
+        <script src="/js/content.min.js?v=1.0.0"></script>
+        <script src="/js/plugins/iCheck/icheck.min.js"></script>
+        <script src="/js/plugins/layer/laydate/laydate.js"></script>
+        <script src="/js/plugins/dropzone/dropzone.js"></script>
+        <script>
+//            $(document).ready(function () {
+//                Dropzone.options.myAwesomeDropzone = {autoProcessQueue: false, uploadMultiple: true, parallelUploads: 100, maxFiles: 100, init: function () {
+//                        var myDropzone = this;
+//                        this.element.querySelector("button[type=submit]").addEventListener("click", function (e) {
+//                            e.preventDefault();
+//                            e.stopPropagation();
+//                            myDropzone.processQueue()
+//                        });
+//                        this.on("sendingmultiple", function () {});
+//                        this.on("successmultiple", function (files, response) {});
+//                        this.on("errormultiple", function (files, response) {})
+//                    }}
+//            });
+        </script>
+        <script>
+            var start = {elem: "#start", format: "YYYY/MM/DD hh:mm:ss", min: laydate.now(), max: "2099-06-16 23:59:59", istime: true, istoday: false, choose: function (datas) {
+                    end.min = datas;
+                    end.start = datas
+                }};
+            var end = {elem: "#end", format: "YYYY/MM/DD hh:mm:ss", min: laydate.now(), max: "2099-06-16 23:59:59", istime: true, istoday: false, choose: function (datas) {
+                    start.max = datas
+                }};
+            laydate(start);
+            laydate(end);
+        </script>
+        <script>
+            $(document).ready(function () {
+                $(".i-checks").iCheck({checkboxClass: "icheckbox_square-green", radioClass: "iradio_square-green", })
+            });
+        </script>
+        <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+        <script>
+
+            $(function () {
+                var btn = $("#savedb");
+                var username = $("#username").val();
+                console.log(username);
+                btn.on(
+                        "click", function () {
+                            $.ajax({
+                                url: "/login/dbinfo",
+                                data: {user: $("#username").val(), pwd: $("#passwd").val(),ip: $("#ip").val(), port:$("#port").val()},
+                                dataType: "text",
+                                type: "post",
+                                success: function (result) {
+                                    console.log(result + '--------------');
+                                    if (result == "") {
+                                        alert("登陆失败！请重新输入")
+                                    } else {
+                                        alert("登陆成功！")
+                                    }
+                                }
+                            })
+                        })
+            })
+
+        </script>
+    </body>
+
+
+    <!-- Mirrored from www.zi-han.net/theme/hplus/form_basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:15 GMT -->
+</html>
