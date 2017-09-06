@@ -58,7 +58,7 @@ In.prototype.In = function () {
 
                     }
             );
-//            fs.unlinkSync(name);
+            fs.unlinkSync(name);
             console.log('delete file: - %s', name);
         }
       
