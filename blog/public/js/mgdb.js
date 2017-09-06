@@ -80,7 +80,7 @@ mongo.prototype.checkCon = function (ip, port, user, pwd)
             var g = new a(ip, port, user, pwd);
             g.setSchem('gwifi', 'think_history_access', 'login_time');
             var client = g.getCon();
-            client.query('select count(*) as mount  from ' + "think_history_access",
+            client.query('show databases',
                     function (err, result) {
                         if (err) {
                             console.log('[querymount ERROR] - ', err.message);
@@ -89,9 +89,7 @@ mongo.prototype.checkCon = function (ip, port, user, pwd)
                             callback([rr]);
                         }
                         if (result) {
-                            console.log('[querymount suc] - ', result[0].mount);
-                            mount = result[0].mount;
-                            console.log("Now we have,mount %s :", mount);
+                            console.log('query succ');
                             var issuc = saveData(db, callback, doc, ip, port, user, pwd);
 
 
