@@ -14,7 +14,7 @@ var TEST_TABLE = 'think_history_access';
 var ONEQUERY = 30000;
 var KEYFIELD= 'login_time'; //按这个排序与本身的id 排序是一致的，所以可以删除
 var dateFormat = require('dateformat');
-function getCon(){
+function getCon(){ 
     var client = mysql.createConnection({  
        host: '127.0.0.1',
         user: 'root',  
