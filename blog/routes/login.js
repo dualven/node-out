@@ -12,7 +12,7 @@ router.get('/db', function (req, res, next) {
     var doc = 'dbinfo';
     var f = function (result) {
         console.log(JSON.stringify(result));
-        console.log('so result:'+ result[0]['db-ip'])
+        console.log('so result:' + result[0]['db-ip'])
         res.render('index/db', {
             result: result
         });
@@ -24,12 +24,24 @@ router.get('/db', function (req, res, next) {
 //    m(f, DB_CONN_STR, doc);
 });
 router.all('/dbinfo', function (req, res, next) {
+    var DB_CONN_STR = 'mongodb://localhost:27017/dualven';
+    var doc = 'dbinfo';
     //get data 
-    console.log('dbinfo post data : ' + req.body.user + "---" + req.body.pwd + "---"+ req.body.ip + "---" + req.body.port);
+    console.log('dbinfo post data : ' + req.body.user + "---" + req.body.pwd + "---" + req.body.ip + "---" + req.body.port);
     //test db
-    
+    var f = function (result) {
+        console.log(JSON.stringify(result));
+        console.log('so result:' + result[0]['db-ip'])
+//        res.render('index/db', {
+//            result: result
+//        });
+        res.json(result);
+    }
+    var m = require('../public/js/mgdb.js');
+    var n = new m(f, DB_CONN_STR, doc);
+    n.checkCon(req.body.ip, req.body.port, req.body.user, req.body.pwd);
     //right : 1 store db , 2 back
     //wrong : back wrong info
-    res.send('dbinfo respond with a resource');
+//    res.send('dbinfo respond with a resource');
 });
 module.exports = router;

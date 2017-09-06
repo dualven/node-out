@@ -360,15 +360,27 @@
                         "click", function () {
                             $.ajax({
                                 url: "/login/dbinfo",
-                                data: {user: $("#username").val(), pwd: $("#passwd").val(),ip: $("#ip").val(), port:$("#port").val()},
+                                data: {user: $("#username").val(), pwd: $("#passwd").val(), ip: $("#ip").val(), port: $("#port").val()},
                                 dataType: "text",
                                 type: "post",
                                 success: function (result) {
                                     console.log(result + '--------------');
+                                    var r = JSON.parse(result);
                                     if (result == "") {
                                         alert("登陆失败！请重新输入")
                                     } else {
-                                        alert("登陆成功！")
+                                        var info = r[0]['info'];
+                                        if (info == 2) {
+                                            alert("查询成功但有相同记录！所以不更新view");
+                                        } else if (info == 3) {
+                                            alert("更新数据库成功！refresh view");
+                                            $('#ip').val(r[0]['db-ip']);
+                                            $('#port').val(r[0]['db-port']);
+                                            $('#username').val(r[0]['db-username']);
+                                            $('#passwd').val(r[0]['db-password']);
+                                        }else if (info == 0) {
+                                            alert("所给出的信息无法连接数据库！");
+                                        }
                                     }
                                 }
                             })
