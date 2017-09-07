@@ -78,7 +78,7 @@ mongo.prototype.checkCon = function (ip, port, user, pwd)
 
             var a = require('./mysqlout.js');
             var g = new a(ip, port, user, pwd);
-            g.setSchem('gwifi', 'think_history_access', 'login_time');
+            g.setSchem('mysql', '', '');
             var client = g.getCon();
             client.query('show databases',
                     function (err, result) {

@@ -74,6 +74,29 @@ Out.prototype.getTables = function (callback) {
     );
 
 };
+Out.prototype.getDbs = function (callback) {
+    var client = this.getCon();
+    var dbs = [];
+    client.query('show databases;',
+            function (err, result) {
+                if (err) {
+                    console.log('[query db ERROR] - ', err.message);
+                    return 0;
+                }
+                if (result) {
+                    console.log('[query dbs suc] - ', result);
+                    for (var i = 0; i < result.length; i++) {
+                        console.log(result[i]);
+                        dbs[i] = result[i]['Database' ];
+                    }
+                }
+                client.end();
+                callback(dbs);
+
+            }
+    );
+
+};
 Out.prototype.getColumns = function (table, callback) {
     var client = this.getCon();
     var database = this.database;

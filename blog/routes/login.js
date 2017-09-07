@@ -42,23 +42,43 @@ router.all('/dbinfo', function (req, res, next) {
 //    res.send('dbinfo respond with a resource');
 });
 router.all('/gettables', function (req, res, next) {
-     console.log('gettables post data : ' + req.body.user + "---" + req.body.pwd + "---" + req.body.ip + "---" + req.body.port);
+    console.log('gettables post data : ' + req.body.user + "---" + req.body.pwd + "---" + req.body.ip + "---" + req.body.port);
     var f = function (result) {
         res.json(result);
     }
     var a = require('../public/js/mysqlout.js');
     var g = new a(req.body.ip, req.body.port, req.body.user, req.body.pwd);
     g.setSchem(req.body.db, req.body.tb, req.body.co);
-    g.getTables( f);
+    g.getTables(f);
 });
 router.all('/getcolumns', function (req, res, next) {
-     console.log('gettables post data : ' + req.body.user + "---" + req.body.pwd + "---" + req.body.ip + "---" + req.body.port);
+    console.log('gettables post data : ' + req.body.user + "---" + req.body.pwd + "---" + req.body.ip + "---" + req.body.port);
     var f = function (result) {
         res.json(result);
     }
     var a = require('../public/js/mysqlout.js');
     var g = new a(req.body.ip, req.body.port, req.body.user, req.body.pwd);
     g.setSchem(req.body.db, req.body.tb, req.body.co);
-    g.getColumns( req.body.tb,f);
+    g.getColumns(req.body.tb, f);
+});
+router.all('/getdbs', function (req, res, next) {
+    console.log('gettables post data : ' + req.body.user + "---" + req.body.pwd + "---" + req.body.ip + "---" + req.body.port);
+    var f = function (result) {
+        res.json(result);
+    }
+    var a = require('../public/js/mysqlout.js');
+    var g = new a(req.body.ip, req.body.port, req.body.user, req.body.pwd);
+    g.setSchem(req.body.db, " "," ");
+    g.getDbs( f);
+});
+router.all('/output', function (req, res, next) {
+    console.log('output post data : ' + req.body.user + "---" + req.body.pwd + "---" + req.body.ip + "---" + req.body.port);
+    console.log('output post output : ' + req.body.start + "---" + req.body.end);
+     console.log('output post output : ' + req.body.tb + "---" + req.body.co);
+    var a = require('../public/js/mysqlout.js');
+    var g = new a(req.body.ip, req.body.port, req.body.user, req.body.pwd);
+    g.setSchem(req.body.db, req.body.tb, req.body.co);
+    g.setDate(req.body.end);
+    g.Out();
 });
 module.exports = router;

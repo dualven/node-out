@@ -86,6 +86,23 @@
                         <div class="ibox-content">
                             <div class="row">
                                 <div class="form-group">
+                                    <label class="col-sm-2 control-label">数据库选择：
+                                    </label>
+
+                                    <div class="col-sm-10">
+
+                                        <div class="radio" id='db'>
+                                            <label>
+                                                <input type="radio" checked="" value="option1" name="optionsRadios0">选项1</label>
+                                            <label>
+                                                <input type="radio" checked="" value="option2" name="optionsRadios0">选项2</label>
+                                            <label>
+                                                <input type="radio" checked="" value="option3" name="optionsRadios0">选项3</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-sm-2 control-label">表选项：
                                     </label>
 
@@ -143,10 +160,10 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">图标触发日期：</label>
                                     <div class="col-sm-10">
-                                        <input placeholder="开始日期" class="form-control layer-date" id="start">
-                                        <input placeholder="结束日期" class="form-control layer-date" id="end">
+                                        <input placeholder="开始日期" class="form-control layer-date" name='starttime' id="start">
+                                        <input placeholder="结束日期" class="form-control layer-date" name='endtime' id="end">
 
-                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>导出</strong>
+                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" id='output'><strong>导出</strong>
                                         </button>
                                     </div>
 
@@ -336,11 +353,11 @@
 //            });
         </script>
         <script>
-            var start = {elem: "#start", format: "YYYY/MM/DD hh:mm:ss", min: laydate.now(), max: "2099-06-16 23:59:59", istime: true, istoday: false, choose: function (datas) {
+            var start = {elem: "#start", format: "YYYY/MM/DD hh:mm:ss",min: "2017-6-7 0:0:0", max: laydate.now(), istime: true, istoday: false, choose: function (datas) {
                     end.min = datas;
                     end.start = datas
                 }};
-            var end = {elem: "#end", format: "YYYY/MM/DD hh:mm:ss", min: laydate.now(), max: "2099-06-16 23:59:59", istime: true, istoday: false, choose: function (datas) {
+            var end = {elem: "#end", format: "YYYY/MM/DD hh:mm:ss", min: "2017-6-7 0:0:0", max: laydate.now(), istime: true, istoday: false, choose: function (datas) {
                     start.max = datas
                 }};
             laydate(start);
@@ -389,14 +406,27 @@
                 btn2.on(
                         "click", function () {
                             $.ajax({
-                                url: "/login/gettables",
-                                data: {user: $("#username").val(), pwd: $("#passwd").val(), ip: $("#ip").val(), port: $("#port").val(), db: 'gwifi', tb: 'think_access', co: 'id'},
+                                url: "/login/getdbs",
+                                data: {user: $("#username").val(), pwd: $("#passwd").val(), ip: $("#ip").val(), port: $("#port").val(), db: 'mysql'},
                                 dataType: "text",
                                 type: "post",
                                 success: function (result) {
 //                                    console.log(result + '--------------');
                                     var r = JSON.parse(result);
-                                    addTables(r);
+                                    addDbs(r);
+                                }
+                            })
+                        });
+                var btn3 = $("#output");
+                btn3.on(
+                        "click", function () {
+                            $.ajax({
+                                url: "/login/output",
+                                data: {start: $("#start").val(), end: $("#end").val()},
+                                dataType: "text",
+                                type: "post",
+                                success: function (result) {
+                                    console.log( '------output success--------');
                                 }
                             })
                         });
@@ -419,7 +449,7 @@
                     b.append('<label><input type="radio" checked="false" value="' + tables[i] + '" name="optionsRadios">' + tables[i] + '</label>');
                 }
                 $("[name=optionsRadios]").click(function () {
-                    alert("您是..." + $(this).val());
+//                    alert("您是..." + $(this).val());
                     var table = $(this).val();
                     $.ajax({
                         url: "/login/getcolumns",
@@ -443,6 +473,31 @@
                     b.append('<label><input type="radio" checked="false" value="' + columns[i] + '" name="optionsRadios2">' + columns[i] + '</label>');
                 }
                 var a = $("input:radio[name=optionsRadios2]:eq(0)");
+                a.click();
+
+            }
+             function addDbs(dbs) {
+                var b = $("#db");
+                $("#db label ").remove();
+                for (var i = 0; i < dbs.length; i++) {
+                    b.append('<label><input type="radio" checked="false" value="' + dbs[i] + '" name="optionsRadios0">' + dbs[i] + '</label>');
+                }
+                 $("[name=optionsRadios0]").click(function () {
+//                    alert("您是..." + $(this).val());
+                    var db = $(this).val();
+                    $.ajax({
+                        url: "/login/gettables",
+                        data: {user: $("#username").val(), pwd: $("#passwd").val(), ip: $("#ip").val(), port: $("#port").val(), db: db},
+                        dataType: "text",
+                        type: "post",
+                        success: function (result) {
+//                                    console.log(result + '--------------');
+                            var r = JSON.parse(result);
+                            addTables(r);
+                        }
+                    });
+                });
+                var a = $("input:radio[name=optionsRadios0]:eq(0)");
                 a.click();
 
             }
