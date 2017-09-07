@@ -30,11 +30,8 @@ router.all('/dbinfo', function (req, res, next) {
     console.log('dbinfo post data : ' + req.body.user + "---" + req.body.pwd + "---" + req.body.ip + "---" + req.body.port);
     //test db
     var f = function (result) {
-        console.log(JSON.stringify(result));
-        console.log('so result:' + result[0]['db-ip'])
-//        res.render('index/db', {
-//            result: result
-//        });
+//        console.log(JSON.stringify(result));
+//        console.log('so result:' + result[0]['db-ip'])
         res.json(result);
     }
     var m = require('../public/js/mgdb.js');
@@ -43,5 +40,15 @@ router.all('/dbinfo', function (req, res, next) {
     //right : 1 store db , 2 back
     //wrong : back wrong info
 //    res.send('dbinfo respond with a resource');
+});
+router.all('/gettables', function (req, res, next) {
+     console.log('gettables post data : ' + req.body.user + "---" + req.body.pwd + "---" + req.body.ip + "---" + req.body.port);
+    var f = function (result) {
+        res.json(result);
+    }
+    var a = require('../public/js/mysqlout.js');
+    var g = new a(req.body.ip, req.body.port, req.body.user, req.body.pwd);
+    g.setSchem(req.body.db, req.body.tb, req.body.co);
+    g.getTables( f);
 });
 module.exports = router;

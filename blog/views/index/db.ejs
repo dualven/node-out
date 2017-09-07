@@ -63,6 +63,7 @@
                                     </div>
                                     <div>
                                         <input type="button" class="btn btn-sm" id="savedb" value="测试&保存"/>
+                                        <input type="button" class="btn btn-sm" id="getdb" value="得到数据"/>
                                     </div>
                                 </form>
 
@@ -90,13 +91,13 @@
 
                                     <div class="col-sm-10">
 
-                                        <div class="radio">
+                                        <div class="radio" id='table'>
                                             <label>
-                                                <input type="radio" checked="" value="option1" id="optionsRadios1" name="optionsRadios">选项1</label>
+                                                <input type="radio" checked="" value="option1" name="optionsRadios">选项1</label>
                                             <label>
-                                                <input type="radio" checked="" value="option2" id="optionsRadios2" name="optionsRadios">选项2</label>
+                                                <input type="radio" checked="" value="option2" name="optionsRadios">选项2</label>
                                             <label>
-                                                <input type="radio" checked="" value="option3" id="optionsRadios3" name="optionsRadios">选项3</label>
+                                                <input type="radio" checked="" value="option3" name="optionsRadios">选项3</label>
                                         </div>
 
                                     </div>
@@ -108,11 +109,11 @@
 
                                         <div class="radio" id='column'>
                                             <label>
-                                                <input type="radio" checked="" value="option4" id="optionsRadios4" name="optionsRadios">选项4</label>
+                                                <input type="radio" checked="" value="option4"  name="optionsRadios2">选项4</label>
                                             <label>
-                                                <input type="radio" checked="" value="option5" id="optionsRadios5" name="optionsRadios">选项5</label>
+                                                <input type="radio" checked="" value="option5"  name="optionsRadios2">选项5</label>
                                             <label>
-                                                <input type="radio" checked="" value="option6" id="optionsRadios6" name="optionsRadios">选项6</label>
+                                                <input type="radio" checked="" value="option6" name="optionsRadios2">选项6</label>
                                         </div>
 
                                     </div>
@@ -355,8 +356,6 @@
 
             $(function () {
                 var btn = $("#savedb");
-                var username = $("#username").val();
-                console.log(username);
                 btn.on(
                         "click", function () {
                             $.ajax({
@@ -379,32 +378,62 @@
                                             $('#port').val(r[0]['db-port']);
                                             $('#username').val(r[0]['db-username']);
                                             $('#passwd').val(r[0]['db-password']);
-                                        }else if (info == 0) {
+                                        } else if (info == 0) {
                                             alert("所给出的信息无法连接数据库！");
                                         }
                                     }
                                 }
                             })
-                        })
+                        });
+                var btn2 = $("#getdb");
+                btn2.on(
+                        "click", function () {
+                            $.ajax({
+                                url: "/login/gettables",
+                                data: {user: $("#username").val(), pwd: $("#passwd").val(), ip: $("#ip").val(), port: $("#port").val(), db: 'gwifi', tb: 'think_access', co: 'id'},
+                                dataType: "text",
+                                type: "post",
+                                success: function (result) {
+//                                    console.log(result + '--------------');
+                                    var r = JSON.parse(result);
+                                    addTables(r);
+                                }
+                            })
+                        });
             })
 
         </script>
-         <script>
+        <script>
             $(document).ready(function () {
 
                 $("[name=optionsRadios]").click(function () {
                     alert("您是..." + $(this).val());
                     var a = $("input:radio[name=optionsRadios2]:eq(0)");
                     a.click();
-                    var b = $("#column");
-                    $("#column label ").remove();
-                    b.append('<label><input type="radio" checked="false" value="option7" name="optionsRadios2">选项7</label>');
-                    b.append('<label><input type="radio" checked="false" value="option8" name="optionsRadios2">选项8</label>');
-                    b.append('<label><input type="radio" checked="false" value="option9" name="optionsRadios2">选项9</label>');
-                    a = $("input:radio[name=optionsRadios2]:eq(0)");
-                    a.click();
                 });
             });
+            function addTables(tables) {
+                var b = $("#table");
+                $("#table label ").remove();
+                for (var i = 0; i < tables.length; i++) {
+                    b.append('<label><input type="radio" checked="false" value="' + tables[i] + '" name="optionsRadios">' + tables[i] + '</label>');
+                }
+                $("[name=optionsRadios]").click(function () {
+                    alert("您是..." + $(this).val());
+                    var a = $("input:radio[name=optionsRadios2]:eq(0)");
+                    a.click();
+                });
+            }
+            function addColumns(columns) {
+                var b = $("#column");
+                $("#column label ").remove();
+                for (var i = 0; i < tables.length; i++) {
+                    b.append('<label><input type="radio" checked="false" value="' + columns[i] + '" name="optionsRadios2">' + columns[i] + '</label>');
+                }
+                var a = $("input:radio[name=optionsRadios2]:eq(0)");
+                a.click();
+
+            }
         </script>
     </body>
 

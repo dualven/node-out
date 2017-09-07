@@ -32,7 +32,7 @@ Out.prototype.getCon = function () {
         host: this.ip,
         user: this.user,
         password: this.pwd,
-         port: this.port,
+        port: this.port,
         connectTimeout: 100000//it is very important, its priority is higher than evn 's connect_timeout 
     });
     var handler = function (error) {
@@ -49,7 +49,56 @@ Out.prototype.getCon = function () {
     client.query("use " + this.database);
     return client;
 };
+Out.prototype.getTables = function (callback) {
+    var client = this.getCon();
+    var database = this.database;
+    var tables = [];
+    client.query('show tables;',
+            function (err, result) {
+                if (err) {
+                    console.log('[query tables ERROR] - ', err.message);
+                    return 0;
+                }
+                if (result) {
+                    console.log('[query tables suc] - ', result);
+                    for (var i = 0; i < result.length; i++) {
+//                        console.log(result[i]);
+                        console.log(result[i]['Tables_in_' + database]);
+                        tables[i] = result[i]['Tables_in_' + database];
+                    }
+                }
+                client.end();
+                callback(tables);
 
+            }
+    );
+
+};
+Out.prototype.getColumns = function (table, callback) {
+    var client = this.getCon();
+    var database = this.database;
+    var columns = [];
+    client.query('show columns from ' + table,
+            function (err, result) {
+                if (err) {
+                    console.log('[query columns ERROR] - ', err.message);
+                    return 0;
+                }
+                if (result) {
+                    console.log('[query columns suc] - ', result);
+                    for (var i = 0; i < result.length; i++) {
+//                        console.log(result[i]);
+//                        console.log(result[i]['Field']);
+                        columns[i] = result[i]['Field'];
+                    }
+                }
+                client.end();
+                callback(columns);
+
+            }
+    );
+
+};
 Out.prototype.Out = function Out() {
     console.log("%s", this.date.getTime() / 1000);
     var date = this.date.getTime() / 1000;
