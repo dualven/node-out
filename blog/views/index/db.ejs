@@ -422,11 +422,14 @@
                         "click", function () {
                             $.ajax({
                                 url: "/login/output",
-                                data: {start: $("#start").val(), end: $("#end").val()},
+                                data: {user: $("#username").val(), pwd: $("#passwd").val(), ip: $("#ip").val(), port: $("#port").val(),
+                                    db:  $("input[name='optionsRadios0']:checked").val(), tb: $("input[name='optionsRadios']:checked").val(),
+                                    co:  $("input[name='optionsRadios2']:checked").val(),
+                                    start: $("#start").val(), end: $("#end").val()},
                                 dataType: "text",
                                 type: "post",
                                 success: function (result) {
-                                    console.log( '------output success--------');
+                                    console.log( '------output success--------'+result);
                                 }
                             })
                         });
@@ -451,9 +454,10 @@
                 $("[name=optionsRadios]").click(function () {
 //                    alert("您是..." + $(this).val());
                     var table = $(this).val();
+                    var db = $("input[name='optionsRadios0']:checked").val();
                     $.ajax({
                         url: "/login/getcolumns",
-                        data: {user: $("#username").val(), pwd: $("#passwd").val(), ip: $("#ip").val(), port: $("#port").val(), db: 'gwifi', tb: table, co: 'id'},
+                        data: {user: $("#username").val(), pwd: $("#passwd").val(), ip: $("#ip").val(), port: $("#port").val(), db: db, tb: table, co: 'id'},
                         dataType: "text",
                         type: "post",
                         success: function (result) {

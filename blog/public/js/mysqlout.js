@@ -159,11 +159,11 @@ Out.prototype.Out = function Out() {
             function (err, results) {
                 console.log("after callback3 ,%s", results[0][0].mount );
                 files = write(mount, date, client, table, column);
+//                lastcallback(files);
 //                client.end();
 //            this.t1('HH');
             });
-    console.log("Out we have,mount %s :", mount);
-    return files;
+       return 0;
 }
 //write(3);
 function write(mount, date, client, table, column) {

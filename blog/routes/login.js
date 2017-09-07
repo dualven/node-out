@@ -74,11 +74,15 @@ router.all('/getdbs', function (req, res, next) {
 router.all('/output', function (req, res, next) {
     console.log('output post data : ' + req.body.user + "---" + req.body.pwd + "---" + req.body.ip + "---" + req.body.port);
     console.log('output post output : ' + req.body.start + "---" + req.body.end);
-     console.log('output post output : ' + req.body.tb + "---" + req.body.co);
+     console.log('output post output : ' + req.body.db+ "---"+ req.body.tb + "---" + req.body.co);
     var a = require('../public/js/mysqlout.js');
     var g = new a(req.body.ip, req.body.port, req.body.user, req.body.pwd);
     g.setSchem(req.body.db, req.body.tb, req.body.co);
     g.setDate(req.body.end);
+    var f = function () {
+        res.json({info:"ok!!!!!!!!!!!!!!!!!!!"});
+    }
     g.Out();
+    f();
 });
 module.exports = router;
