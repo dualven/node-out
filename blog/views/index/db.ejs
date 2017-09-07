@@ -20,6 +20,7 @@
         <link href="/css/style.min862f.css?v=4.1.0" rel="stylesheet">
         <link href="/js/plugins/layer/laydate/need/laydate.css" rel="stylesheet">
         <link href="/css/css.css" rel="stylesheet">
+        <!--<link href="/css/public.css" rel="stylesheet">-->
         <link href="/css/plugins/dropzone/basic.css" rel="stylesheet">
         <link href="/css/plugins/dropzone/dropzone.css" rel="stylesheet">
 
@@ -105,7 +106,7 @@
                                     </label>
                                     <div class="col-sm-10">
 
-                                        <div class="radio">
+                                        <div class="radio" id='column'>
                                             <label>
                                                 <input type="radio" checked="" value="option4" id="optionsRadios4" name="optionsRadios">选项4</label>
                                             <label>
@@ -387,6 +388,23 @@
                         })
             })
 
+        </script>
+         <script>
+            $(document).ready(function () {
+
+                $("[name=optionsRadios]").click(function () {
+                    alert("您是..." + $(this).val());
+                    var a = $("input:radio[name=optionsRadios2]:eq(0)");
+                    a.click();
+                    var b = $("#column");
+                    $("#column label ").remove();
+                    b.append('<label><input type="radio" checked="false" value="option7" name="optionsRadios2">选项7</label>');
+                    b.append('<label><input type="radio" checked="false" value="option8" name="optionsRadios2">选项8</label>');
+                    b.append('<label><input type="radio" checked="false" value="option9" name="optionsRadios2">选项9</label>');
+                    a = $("input:radio[name=optionsRadios2]:eq(0)");
+                    a.click();
+                });
+            });
         </script>
     </body>
 
