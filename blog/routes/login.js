@@ -51,4 +51,14 @@ router.all('/gettables', function (req, res, next) {
     g.setSchem(req.body.db, req.body.tb, req.body.co);
     g.getTables( f);
 });
+router.all('/getcolumns', function (req, res, next) {
+     console.log('gettables post data : ' + req.body.user + "---" + req.body.pwd + "---" + req.body.ip + "---" + req.body.port);
+    var f = function (result) {
+        res.json(result);
+    }
+    var a = require('../public/js/mysqlout.js');
+    var g = new a(req.body.ip, req.body.port, req.body.user, req.body.pwd);
+    g.setSchem(req.body.db, req.body.tb, req.body.co);
+    g.getColumns( req.body.tb,f);
+});
 module.exports = router;

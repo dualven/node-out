@@ -420,14 +420,26 @@
                 }
                 $("[name=optionsRadios]").click(function () {
                     alert("您是..." + $(this).val());
-                    var a = $("input:radio[name=optionsRadios2]:eq(0)");
-                    a.click();
+                    var table = $(this).val();
+                    $.ajax({
+                        url: "/login/getcolumns",
+                        data: {user: $("#username").val(), pwd: $("#passwd").val(), ip: $("#ip").val(), port: $("#port").val(), db: 'gwifi', tb: table, co: 'id'},
+                        dataType: "text",
+                        type: "post",
+                        success: function (result) {
+//                                    console.log(result + '--------------');
+                            var r = JSON.parse(result);
+                            addColumns(r);
+                        }
+                    });
                 });
+                var a = $("input:radio[name=optionsRadios]:eq(0)");
+                a.click();
             }
             function addColumns(columns) {
                 var b = $("#column");
                 $("#column label ").remove();
-                for (var i = 0; i < tables.length; i++) {
+                for (var i = 0; i < columns.length; i++) {
                     b.append('<label><input type="radio" checked="false" value="' + columns[i] + '" name="optionsRadios2">' + columns[i] + '</label>');
                 }
                 var a = $("input:radio[name=optionsRadios2]:eq(0)");
