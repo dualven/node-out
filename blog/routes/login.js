@@ -85,4 +85,9 @@ router.all('/output', function (req, res, next) {
     g.Out();
     f();
 });
+router.all('/acceptfile', function (req, res) {
+    console.log(req.files);
+    console.log(req.body);
+     res.json({acceptfile:"ok!!!!!!!!!!!!!!!!!!!"});
+});
 module.exports = router;

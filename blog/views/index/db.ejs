@@ -253,11 +253,11 @@
                             </div>
                         </div>
                         <div class="ibox-content">
-                            <form id="my-awesome-dropzone" class="dropzone" action="http://www.zi-han.net/theme/hplus/form_file_upload.html#">
+                            <form id="my-awesome-dropzone" class="dropzone" method='post' action="/login/acceptfile">
                                 <div class="dropzone-previews"></div>
                                 <button type="submit" class="btn btn-primary pull-right">提交</button>
                             </form>
-
+                            <button  id ='last' class="btn btn-primary pull-right">last</button>
                             <div class="row">
                                 <div class="table-responsive">
                                     <table class="table table-striped">
@@ -338,22 +338,36 @@
         <script src="/js/plugins/layer/laydate/laydate.js"></script>
         <script src="/js/plugins/dropzone/dropzone.js"></script>
         <script>
-//            $(document).ready(function () {
-//                Dropzone.options.myAwesomeDropzone = {autoProcessQueue: false, uploadMultiple: true, parallelUploads: 100, maxFiles: 100, init: function () {
-//                        var myDropzone = this;
-//                        this.element.querySelector("button[type=submit]").addEventListener("click", function (e) {
-//                            e.preventDefault();
-//                            e.stopPropagation();
-//                            myDropzone.processQueue()
-//                        });
-//                        this.on("sendingmultiple", function () {});
-//                        this.on("successmultiple", function (files, response) {});
-//                        this.on("errormultiple", function (files, response) {})
-//                    }}
-//            });
+            $(document).ready(function () {
+                Dropzone.options.myAwesomeDropzone = {autoProcessQueue: false, uploadMultiple: true, parallelUploads: 100, maxFiles: 100, init: function () {
+                        var myDropzone = this;
+                        this.element.querySelector("button[type=submit]").addEventListener("click", function (e) {
+                            console.log("element----------------------");
+                            e.preventDefault();
+                            e.stopPropagation();
+                            myDropzone.processQueue()
+                        });
+                        this.on("sendingmultiple", function () {
+                            console.log("sending----------------------");
+                            console.log((myDropzone));
+                        });
+                        this.on("successmultiple", function (files, response) {
+                            console.log("successmultiple----------------------");
+                            console.log(JSON.stringify(files[0].name) + "----------------------" + JSON.stringify(response));
+                        });
+                        this.on("errormultiple", function (files, response) {
+                            console.log("errormultiple----------------------");
+                        })
+                    }}
+               var aa =  $('#my-awesome-dropzone button[type=submit]');
+                $('#last').on('click', function () {
+                       alert('ok');
+                        aa.click();
+                })
+            });
         </script>
         <script>
-            var start = {elem: "#start", format: "YYYY/MM/DD hh:mm:ss",min: "2017-6-7 0:0:0", max: laydate.now(), istime: true, istoday: false, choose: function (datas) {
+            var start = {elem: "#start", format: "YYYY/MM/DD hh:mm:ss", min: "2017-6-7 0:0:0", max: laydate.now(), istime: true, istoday: false, choose: function (datas) {
                     end.min = datas;
                     end.start = datas
                 }};
@@ -423,13 +437,13 @@
                             $.ajax({
                                 url: "/login/output",
                                 data: {user: $("#username").val(), pwd: $("#passwd").val(), ip: $("#ip").val(), port: $("#port").val(),
-                                    db:  $("input[name='optionsRadios0']:checked").val(), tb: $("input[name='optionsRadios']:checked").val(),
-                                    co:  $("input[name='optionsRadios2']:checked").val(),
+                                    db: $("input[name='optionsRadios0']:checked").val(), tb: $("input[name='optionsRadios']:checked").val(),
+                                    co: $("input[name='optionsRadios2']:checked").val(),
                                     start: $("#start").val(), end: $("#end").val()},
                                 dataType: "text",
                                 type: "post",
                                 success: function (result) {
-                                    console.log( '------output success--------'+result);
+                                    console.log('------output success--------' + result);
                                 }
                             })
                         });
@@ -480,13 +494,13 @@
                 a.click();
 
             }
-             function addDbs(dbs) {
+            function addDbs(dbs) {
                 var b = $("#db");
                 $("#db label ").remove();
                 for (var i = 0; i < dbs.length; i++) {
                     b.append('<label><input type="radio" checked="false" value="' + dbs[i] + '" name="optionsRadios0">' + dbs[i] + '</label>');
                 }
-                 $("[name=optionsRadios0]").click(function () {
+                $("[name=optionsRadios0]").click(function () {
 //                    alert("您是..." + $(this).val());
                     var db = $(this).val();
                     $.ajax({
