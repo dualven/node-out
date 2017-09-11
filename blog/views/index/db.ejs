@@ -23,6 +23,7 @@
         <!--<link href="/css/public.css" rel="stylesheet">-->
         <link href="/css/plugins/dropzone/basic.css" rel="stylesheet">
         <link href="/css/plugins/dropzone/dropzone.css" rel="stylesheet">
+        <link href="/css/animate.min.css" rel="stylesheet">
 
     </head>
 
@@ -257,7 +258,6 @@
                                 <div class="dropzone-previews"></div>
                                 <button type="submit" class="btn btn-primary pull-right">提交</button>
                             </form>
-                            <button  id ='last' class="btn btn-primary pull-right">last</button>
                             <div class="row">
                                 <div class="table-responsive">
                                     <table class="table table-striped">
@@ -317,8 +317,18 @@
                                                 <td><span class="pie">4,9</span>
                                                 </td>
                                                 <td>18%</td>
-                                                <td>2014.11.11</td>
-                                                <td><a href="table_basic.html#"><i class="fa fa-check text-navy"></i></a>
+                                                <td>
+                                                    <div class="ibox-content">
+                                                        <div class="sk-spinner sk-spinner-wave">
+                                                            <div class="sk-rect1"></div>
+                                                            <div class="sk-rect2"></div>
+                                                            <div class="sk-rect3"></div>
+                                                            <div class="sk-rect4"></div>
+                                                            <div class="sk-rect5"></div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><button name="dd"><i class="fa fa-check text-navy"></i>导入</button>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -340,7 +350,7 @@
         <script>
             $(document).ready(function () {
                 Dropzone.options.myAwesomeDropzone = {
-                    autoProcessQueue: false, uploadMultiple: true, parallelUploads: 100, maxFiles: 100, 
+                    autoProcessQueue: false, uploadMultiple: true, parallelUploads: 100, maxFiles: 100,
                     init: function () {
                         var myDropzone = this;
                         this.element.querySelector("button[type=submit]").addEventListener("click", function (e) {
@@ -361,12 +371,42 @@
                             console.log("errormultiple----------------------");
                         })
                     }}
-               var aa =  $('#my-awesome-dropzone button[type=submit]');
-                $('#last').on('click', function () {
-                       alert('ok');
-                        aa.click();
-                })
+                $('button[name=dd]').on('click', function () {
+                    alert($(this).parent().parent().children()[1].innerHTML);
+                    addRow($(this).parent().parent().parent());
+                });
             });
+            function addRow(a) {
+//                a.append('<tr><td>....xxx</td></td>');
+                 a.append(oneRow());
+            }
+            ;
+            function oneRow() {
+
+                   
+                  return         ( '      <tr>                                                                            '
+                             +     '         <td>                                                                         '
+                             +     '             <input type="checkbox" class="i-checks" name="input[]">                  '
+                             +     '         </td>                                                                        '
+                             +     '         <td>线下超市+线上商城+物流配送互联系统</td>                                  '
+                             +     '         <td><span class="pie">4,9</span>                                             '
+                             +     '         </td>                                                                        '
+                             +     '         <td>18%</td>                                                                 '
+                             +     '         <td>                                                                         '
+                             +     '             <div class="ibox-content">                                               '
+                             +     '                 <div class="sk-spinner sk-spinner-wave">                             '
+                             +     '                     <div class="sk-rect1"></div>                                     '
+                             +     '                     <div class="sk-rect2"></div>                                     '
+                             +     '                     <div class="sk-rect3"></div>                                     '
+                             +     '                     <div class="sk-rect4"></div>                                     '
+                             +     '                     <div class="sk-rect5"></div>                                     '
+                             +     '                 </div>                                                               '
+                             +     '             </div>                                                                   '
+                             +     '         </td>                                                                        '
+                             +     '         <td><button name="dd"><i class="fa fa-check text-navy"></i>导入</button>     '
+                             +     '         </td>                                                                        '
+                             +     '     </tr>                                                                            ');
+            }
         </script>
         <script>
             var start = {elem: "#start", format: "YYYY/MM/DD hh:mm:ss", min: "2017-6-7 0:0:0", max: laydate.now(), istime: true, istoday: false, choose: function (datas) {
@@ -468,7 +508,7 @@
                     b.append('<label><input type="radio" checked="false" value="' + tables[i] + '" name="optionsRadios">' + tables[i] + '</label>');
                 }
                 $("[name=optionsRadios]").click(function () {
-//                    alert("您是..." + $(this).val());
+                    //                    alert("您是..." + $(this).val());
                     var table = $(this).val();
                     var db = $("input[name='optionsRadios0']:checked").val();
                     $.ajax({
@@ -477,7 +517,7 @@
                         dataType: "text",
                         type: "post",
                         success: function (result) {
-//                                    console.log(result + '--------------');
+                            //                                    console.log(result + '--------------');
                             var r = JSON.parse(result);
                             addColumns(r);
                         }
@@ -503,7 +543,7 @@
                     b.append('<label><input type="radio" checked="false" value="' + dbs[i] + '" name="optionsRadios0">' + dbs[i] + '</label>');
                 }
                 $("[name=optionsRadios0]").click(function () {
-//                    alert("您是..." + $(this).val());
+                    //                    alert("您是..." + $(this).val());
                     var db = $(this).val();
                     $.ajax({
                         url: "/login/gettables",
@@ -511,7 +551,7 @@
                         dataType: "text",
                         type: "post",
                         success: function (result) {
-//                                    console.log(result + '--------------');
+                            //                                    console.log(result + '--------------');
                             var r = JSON.parse(result);
                             addTables(r);
                         }
