@@ -253,7 +253,7 @@
                             </div>
                         </div>
                         <div class="ibox-content">
-                            <form id="my-awesome-dropzone" class="dropzone" method='post' action="/login/acceptfile">
+                            <form id="my-awesome-dropzone" class="dropzone" method='post' enctype="multipart/form-data" action="/login/acceptfile">
                                 <div class="dropzone-previews"></div>
                                 <button type="submit" class="btn btn-primary pull-right">提交</button>
                             </form>
@@ -339,7 +339,9 @@
         <script src="/js/plugins/dropzone/dropzone.js"></script>
         <script>
             $(document).ready(function () {
-                Dropzone.options.myAwesomeDropzone = {autoProcessQueue: false, uploadMultiple: true, parallelUploads: 100, maxFiles: 100, init: function () {
+                Dropzone.options.myAwesomeDropzone = {
+                    autoProcessQueue: false, uploadMultiple: true, parallelUploads: 100, maxFiles: 100, 
+                    init: function () {
                         var myDropzone = this;
                         this.element.querySelector("button[type=submit]").addEventListener("click", function (e) {
                             console.log("element----------------------");
