@@ -97,7 +97,7 @@ In.prototype.inServeral = function (files) {
 
 
 };
-In.prototype.inOne = function (file) {
+In.prototype.inOne = function (file,f ) {
     console.log('in ONe');
 //    var fs = require('fs');
     var table = this.table;
@@ -108,10 +108,11 @@ In.prototype.inOne = function (file) {
             function (err, result) {
                 if (err) {
                     console.log('[insert ERROR] - ', err.message);
+                    f({status:500,reason:err.message});
                 }
                 if (result) {
                     console.log('[insert suc] - ', result.insertId);
-
+                    f({status:0,reason:result.insertId});
                 }
                 client.end();
             }

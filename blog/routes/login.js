@@ -80,7 +80,7 @@ router.all('/output', function (req, res, next) {
     g.setSchem(req.body.db, req.body.tb, req.body.co);
     g.setDate(req.body.end);
     var f = function () {
-        res.json({info: "ok!!!!!!!!!!!!!!!!!!!"});
+        res.json({info: 0});
     }
     g.Out();
     f();
@@ -106,15 +106,16 @@ router.all('/inputxlsx', function (req, res) {
     var files = req.body.files;
     console.log(files);
     var ffs = JSON.parse(files);
+    var f = function (result) {
+         res.json({info: result.status,reason:result.reason});
+    }
     for (var file in ffs) {
          console.log(ffs[file]);
-        g.inOne(ffs[file]);
+        g.inOne(ffs[file],f);
     }
-    var f = function () {
-        res.json({info: "input ok!!!!!!!!!!!!!!!!!!!"});
-    }
+    
 
-    f();
+//    f();
 });
 
 
