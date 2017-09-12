@@ -15,14 +15,18 @@
 var b = require('./public/js/mysqlin.js');
 var h = new b('127.0.0.1', '3306', 'dxw', '123456','b');
 h.setSchem('gwifi', 'think_history_access', 'login_time');
-var ins = h.getCon();
-if (ins) {
-    console.log('it seems ok !')
-    console.log(ins);
-} else {
-    console.log('it seems no t get a instance');
-}
-h.In();
+//var ins = h.getCon();
+//if (ins) {
+//    console.log('it seems ok !')
+//    console.log(ins);
+//} else {
+//    console.log('it seems no t get a instance');
+//}
+var path= require('path');
+//h.In();
+var ss = "./public/upload/xlsx/20170912/2.xlsx";
+console.log((path.resolve(ss)));
+
 
 
 //var s = function () {

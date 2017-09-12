@@ -61,17 +61,69 @@ In.prototype.In = function () {
             fs.unlinkSync(name);
             console.log('delete file: - %s', name);
         }
-      
+
     });
-  client.end();
+    client.end();
 
 
+};
+In.prototype.inServeral = function (files) {
+    var fs = require('fs');
+    var table = this.table;
+    var client = this.getCon();
+    for (var file in files) {
+        if (endWith(file, '.xlsx')) {
+            console.log('the name is %s', file);
+            var sql = readfile(file, table);
+            client.query(sql,
+                    function (err, result) {
+                        if (err) {
+                            console.log('[insert ERROR] - ', err.message);
+                        }
+                        if (result) {
+                            console.log('[insert suc] - ', result.insertId);
+
+                        }
+
+                    }
+            );
+            fs.unlinkSync(name);
+            console.log('delete file: - %s', name);
+        }
+
+    }
+    ;
+    client.end();
+
+
+};
+In.prototype.inOne = function (file) {
+    console.log('in ONe');
+//    var fs = require('fs');
+    var table = this.table;
+    var client = this.getCon();
+    console.log('files inONe: ' +file);
+    var sql = readfile(file, table);
+    client.query(sql,
+            function (err, result) {
+                if (err) {
+                    console.log('[insert ERROR] - ', err.message);
+                }
+                if (result) {
+                    console.log('[insert suc] - ', result.insertId);
+
+                }
+                client.end();
+            }
+    );
+//    fs.unlinkSync(file);
+    console.log('delete file: - %s', file);
 };
 var readfile = function (name, table) {
     var xlsx = require('node-xlsx');
     var fs = require('fs');
     var workSheetsFromBuffer = xlsx.parse(fs.readFileSync(name));
-//    console.log(workSheetsFromBuffer[0].data);
+    console.log(workSheetsFromBuffer[0].data);
     var data = workSheetsFromBuffer[0].data;
     var sql = 'Insert  into ' + table;
     var length = data.length;//(data.length>5000?5000:data.length);mysql>set global max_allowed_packet=524288000

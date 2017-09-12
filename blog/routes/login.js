@@ -93,10 +93,29 @@ router.all('/acceptfile', function (req, res) {
     form.keepExtensions = false;		//隐藏后缀
     form.multiples = true;				//多文件上传
     form.uploadDir = './public/upload/';
-   
+
     uploadFileFun(form, req, res, fs);
 });
+router.all('/inputxlsx', function (req, res) {
+    console.log('inputxlsx!!!!!!!!!!!!');
+     console.log('inputxlsx post data : ' + req.body.user + "---" + req.body.pwd + "---" + req.body.ip + "---" + req.body.port);
+    console.log('inputxlsx post output : ' + req.body.db + "---" + req.body.tb + "---" + req.body.co);
+    var a = require('../public/js/mysqlin.js');
+    var g = new a(req.body.ip, req.body.port, req.body.user, req.body.pwd);
+    g.setSchem(req.body.db, req.body.tb, "");
+    var files = req.body.files;
+    console.log(files);
+    var ffs = JSON.parse(files);
+    for (var file in ffs) {
+         console.log(ffs[file]);
+        g.inOne(ffs[file]);
+    }
+    var f = function () {
+        res.json({info: "input ok!!!!!!!!!!!!!!!!!!!"});
+    }
 
+    f();
+});
 
 
 
@@ -108,7 +127,10 @@ function uploadOper(fs, gUpload, fileS, resultPath) {
             , catDetailDir = catDir + new Date().format('yyyyMMdd') + '/'
             , uploadPath = catDetailDir + fileS.name;
 
-    resultPath.push(uploadPath.replace('public/', ''));
+//    resultPath.push(uploadPath.replace('public/', ''));
+    var path= require('path');
+    resultPath.push(path.resolve(uploadPath));
+
 
     if (fileS.name.lastIndexOf('.') > -1) {	//只能传有后缀的文件，前台上传做个限制（后台暂时没找到方法）
         if (!fs.existsSync(catDir)) {	//2级目录不存在
@@ -127,19 +149,14 @@ function uploadOper(fs, gUpload, fileS, resultPath) {
 function uploadFileFun(form, req, res, fs) {
 //    console.log(req);
     form.parse(req, function (error, fields, files) {
-//         console.log((files));
         console.log('form.parse:');
-        console.log(typeof(files));
-//        for(var i in files){
-//       console.log(files[i]);
-//        }
+        console.log(typeof (files));
+
         var ff = files[Object('file[]')];
         console.log(ff);
-       
+
         var gUpload = './public/upload/',
-                fList = files.file;
-//                console.log(fList);
-        fileS = null,
+                fileS = null,
                 resultPath = [];
         if (ff instanceof Array) {
             for (var i = 0; i < ff.length; i++) {

@@ -272,7 +272,7 @@
                                                 <th>操作</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id ='record'>
                                             <tr>
                                                 <td>
                                                     <input type="checkbox" checked class="i-checks" name="input[]">
@@ -366,46 +366,80 @@
                         this.on("successmultiple", function (files, response) {
                             console.log("successmultiple----------------------");
                             console.log(JSON.stringify(files[0].name) + "----------------------" + JSON.stringify(response));
+                            var aa = JSON.parse(response).data.url;
+                            console.log(aa);
+                            for (var i in aa) {
+                                addRow($('#record'), aa[i]);
+                            }
                         });
                         this.on("errormultiple", function (files, response) {
                             console.log("errormultiple----------------------");
                         })
                     }}
-                $('button[name=dd]').on('click', function () {
-                    alert($(this).parent().parent().children()[1].innerHTML);
-                    addRow($(this).parent().parent().parent());
-                });
+
             });
-            function addRow(a) {
+            (function () {
+                $('button[name=dd]').on('click', function () {
+                    var file = $(this).parent().parent().children()[1].innerHTML;
+                    alert(file);
+                    inputXlsx([file]);
+                });
+            })();
+            function addRow(a, info) {
 //                a.append('<tr><td>....xxx</td></td>');
-                 a.append(oneRow());
+                a.append(oneRow(info));
+                $('button[name=dd]').on('click', function () {
+                    var file = $(this).parent().parent().children()[1].innerHTML;
+                    alert(file);
+                    inputXlsx([file]);
+                });
             }
             ;
-            function oneRow() {
+            function inputXlsx(files) {
+                console.log(JSON.stringify(files));
+                $.ajax({
+                    url: "/login/inputxlsx",
+                    data: {files: JSON.stringify(files), user: $("#username").val(), pwd: $("#passwd").val(), ip: $("#ip").val(), port: $("#port").val(),
+                        db: $("input[name='optionsRadios0']:checked").val(), tb: $("input[name='optionsRadios']:checked").val(),
+                        co: $("input[name='optionsRadios2']:checked").val()},
+                    dataType: "text",
+                    type: "post",
+                    success: function (result) {
+                        console.log(result + '--------------');
+                        var r = JSON.parse(result);
+                        if (result == "") {
+                            alert("登陆失败！请重新输入")
+                        } else {
+                        }
+                    }
+                });
+            }
+            ;
+            function oneRow(info) {
 
-                   
-                  return         ( '      <tr>                                                                            '
-                             +     '         <td>                                                                         '
-                             +     '             <input type="checkbox" class="i-checks" name="input[]">                  '
-                             +     '         </td>                                                                        '
-                             +     '         <td>线下超市+线上商城+物流配送互联系统</td>                                  '
-                             +     '         <td><span class="pie">4,9</span>                                             '
-                             +     '         </td>                                                                        '
-                             +     '         <td>18%</td>                                                                 '
-                             +     '         <td>                                                                         '
-                             +     '             <div class="ibox-content">                                               '
-                             +     '                 <div class="sk-spinner sk-spinner-wave">                             '
-                             +     '                     <div class="sk-rect1"></div>                                     '
-                             +     '                     <div class="sk-rect2"></div>                                     '
-                             +     '                     <div class="sk-rect3"></div>                                     '
-                             +     '                     <div class="sk-rect4"></div>                                     '
-                             +     '                     <div class="sk-rect5"></div>                                     '
-                             +     '                 </div>                                                               '
-                             +     '             </div>                                                                   '
-                             +     '         </td>                                                                        '
-                             +     '         <td><button name="dd"><i class="fa fa-check text-navy"></i>导入</button>     '
-                             +     '         </td>                                                                        '
-                             +     '     </tr>                                                                            ');
+
+                return         ('      <tr>                                                                            '
+                        + '         <td>                                                                         '
+                        + '             <input type="checkbox" class="i-checks" name="input[]">                  '
+                        + '         </td>                                                                        '
+                        + '         <td>' + info + '</td>                                  '
+                        + '         <td><span class="pie">4,9</span>                                             '
+                        + '         </td>                                                                        '
+                        + '         <td>18%</td>                                                                 '
+                        + '         <td>                                                                         '
+                        + '             <div class="ibox-content">                                               '
+                        + '                 <div class="sk-spinner sk-spinner-wave">                             '
+                        + '                     <div class="sk-rect1"></div>                                     '
+                        + '                     <div class="sk-rect2"></div>                                     '
+                        + '                     <div class="sk-rect3"></div>                                     '
+                        + '                     <div class="sk-rect4"></div>                                     '
+                        + '                     <div class="sk-rect5"></div>                                     '
+                        + '                 </div>                                                               '
+                        + '             </div>                                                                   '
+                        + '         </td>                                                                        '
+                        + '         <td><button name="dd"><i class="fa fa-check text-navy"></i>导入</button>     '
+                        + '         </td>                                                                        '
+                        + '     </tr>                                                                            ');
             }
         </script>
         <script>
@@ -456,7 +490,7 @@
                                         }
                                     }
                                 }
-                            })
+                            });
                         });
                 var btn2 = $("#getdb");
                 btn2.on(
@@ -523,7 +557,7 @@
                         }
                     });
                 });
-                var a = $("input:radio[name=optionsRadios]:eq(0)");
+                var a = $("input:radio[name=optionsRadios][value=think_history_access]");
                 a.click();
             }
             function addColumns(columns) {
@@ -532,7 +566,7 @@
                 for (var i = 0; i < columns.length; i++) {
                     b.append('<label><input type="radio" checked="false" value="' + columns[i] + '" name="optionsRadios2">' + columns[i] + '</label>');
                 }
-                var a = $("input:radio[name=optionsRadios2]:eq(0)");
+                var a = $("input:radio[name=optionsRadios2][value=login_time]");
                 a.click();
 
             }
@@ -557,7 +591,8 @@
                         }
                     });
                 });
-                var a = $("input:radio[name=optionsRadios0]:eq(0)");
+//                var a = $("input:radio[name=optionsRadios0]:eq(3)");
+                 var a = $("input:radio[name=optionsRadios0][value=gwifi]");
                 a.click();
 
             }
