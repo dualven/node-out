@@ -21,10 +21,11 @@ Out.prototype.setDate = function (date) {
     this.LOGIN_TIME = date;
     this.date = new Date(this.LOGIN_TIME);
 };
+var qi = 0;
 var mysql = require('mysql');
 //var TEST_DATABASE = 'gwifi';
 //var TEST_TABLE = 'think_history_access';
-var ONEQUERY = 30000;
+var ONEQUERY = 15000;
 //var KEYFIELD = 'login_time'; //按这个排序与本身的id 排序是一致的，所以可以删除
 var dateFormat = require('dateformat');
 Out.prototype.getCon = function () {
@@ -141,7 +142,7 @@ Out.prototype.Out = function Out() {
                     function (err, result) {
                         if (err) {
                             console.log('[querymount ERROR] - ', err.message);
-                            return 0;
+//                            return 0;
                         }
                         if (result) {
                             console.log('[querymount suc] - ', result[0].mount);
@@ -163,7 +164,67 @@ Out.prototype.Out = function Out() {
 //                client.end();
 //            this.t1('HH');
             });
-       return 0;
+    return 0;
+}
+function makeEvents(mount, client, date, table, column) {
+    var stage = Math.ceil(mount / ONEQUERY);
+    var xlsx = require('node-xlsx');
+    var fs = require('fs');
+    console.log("makeEvents  %s, we fen state %s :", mount, stage);
+    var aa = Array();
+    for (var i = 0; i < stage; i++) {
+        var ff = function (callback) {
+            writeQueryBack( mount, xlsx, fs, client, date, table, column, callback);
+        }
+        aa.push(ff);
+    }
+    console.log('I find the lengh is ' + aa.length);
+    return aa;
+}
+Out.prototype.outAll = function (feedback) {
+    console.log("%s", this.date.getTime() / 1000);
+    var date = this.date.getTime() / 1000;
+
+    var querymount = 'select count(*)as mount  FROM ' + this.table + ' where ' + this.column + ' < ' + date;
+    var mount = 0;
+    var client = this.getCon();
+    var over = false;
+
+    var async = require('async');
+    var files = new Array();
+    var table = this.table;
+    var column = this.column;
+    qi = 0 ;
+    client.query(querymount,
+            function (err, result) {
+                if (err) {
+                    console.log('[querymount ERROR] - ', err.message);
+                }
+                if (result) {
+                    console.log('[querymount suc] - ', result[0].mount);
+                    mount = result[0].mount;
+                    console.log("Now we have,mount %s :", mount);
+                    over = true;
+
+                    var ffall = Array();
+                    ffall = makeEvents(mount, client, date, table, column);
+                    async.series(ffall
+                            ,
+                            function (err, results) {
+                                console.log("after all 00" );
+                                if (err) {
+                                    feedback({status: 500, reason: err.message});
+                                } else {
+                                    feedback({status: 0, reason: results});
+                                }
+                                console.log(results);
+                                delRec(client, date, table, column);
+                                client.end();
+                            });
+                }
+            }
+    );
+
 }
 //write(3);
 function write(mount, date, client, table, column) {
@@ -181,6 +242,7 @@ function write(mount, date, client, table, column) {
     client.end();
     return files;
 }
+
 // 包含对数据的删除，不然要记起始位置，会增加复杂度。
 //Out.prototype.writeQuery =
 function writeQuery(qi, num, xlsx, fs, client, date, table, column) {
@@ -193,7 +255,7 @@ function writeQuery(qi, num, xlsx, fs, client, date, table, column) {
             sqls,
             function selectCb(err, results, fields) {
                 if (err) {
-                    throw err;
+//                    throw err;
                 }
                 var coldata = [];
                 if (fields)
@@ -236,6 +298,65 @@ function writeQuery(qi, num, xlsx, fs, client, date, table, column) {
                     console.log('i want to return %s', filename);
                     return filename;
                 }
+            }
+    );
+
+}
+function writeQueryBack( num, xlsx, fs, client, date, table, column, callback) {
+    //i ==0 时才要写表头
+    var qleft = num - qi * ONEQUERY;
+    var qnum = qleft > ONEQUERY ? ONEQUERY : qleft;
+    var sqls = 'SELECT * FROM ' + table + ' where ' + column + ' < ' + date + ' limit ' + qi * ONEQUERY + ', ' + qnum;
+    console.log("%s sql is  %s :", qi, sqls);
+    client.query(
+            sqls,
+            function selectCb(err, results, fields) {
+                if (err) {
+//                    throw err;
+                }
+                var coldata = [];
+                if (fields)
+                {
+                    for (var i = 0; i < fields.length; i++) {
+                        coldata.push(JSON.parse(JSON.stringify(fields[i])).name);
+                    }
+
+                }
+                if (results)
+                {
+                    var length = results.length;
+                    console.log('length is %s', length);
+                    var data2 = [];
+                    data2.push(coldata);
+                    var start;
+                    var end;
+                    for (var j = 0; j < length; j++)//
+                    {
+                        rowdata = [];
+                        temp = JSON.parse(JSON.stringify(results[j ]));
+                        for (var i = 0; i < fields.length; i++) {
+                            rowdata.push(temp[coldata[i]]);
+                        }
+                        data2.push(rowdata);
+                        if (j == 0) {
+                            start = dateFormat(new Date(temp[column] * 1000), 'yyyy-mm-dd-HH-MM-ss');
+                        }
+                        if (j == length - 1) {
+                            end = dateFormat(new Date(temp[column] * 1000), 'yyyy-mm-dd-HH-MM-ss');
+                        }
+                    }
+                    var buffer = xlsx.build([{
+                            name: table,
+                            data: data2
+                        }]);
+                    console.log("write qi %s, qnum %s,data :  ", qi, qnum);
+                    var filename = './public/output/'+table + '~' + start + '~' + end + '.xlsx';
+                    fs.writeFileSync(filename, buffer, 'binary');
+                    console.log('i want to return %s', filename);
+//                    return filename;
+                }
+                qi ++;
+                callback(err, filename);
             }
     );
 

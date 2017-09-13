@@ -79,11 +79,10 @@ router.all('/output', function (req, res, next) {
     var g = new a(req.body.ip, req.body.port, req.body.user, req.body.pwd);
     g.setSchem(req.body.db, req.body.tb, req.body.co);
     g.setDate(req.body.end);
-    var f = function () {
-        res.json({info: 0});
+    var f = function (result) {
+        res.json({info: result.status,reason:result.reason});
     }
-    g.Out();
-    f();
+    g.outAll(f);
 });
 var formidable = require('formidable');
 var fs = require('fs');
