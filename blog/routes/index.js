@@ -38,6 +38,14 @@ router.get('/index/in', function(req, res, next) {
         dtime:myDate
     });
 });
+
+router.get('/index/login3', function(req, res, next) {
+    var myDate = new Date();
+    myDate = myDate.getMilliseconds();
+    res.render('index/in', {
+        dtime:myDate
+    });
+});
 router.all('/index/topo', function(req, res, next) {
     res.render('index/topo');
 });

@@ -1,0 +1,42 @@
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+function mongo(callback, DB_CONN_STR, doc) {
+    this.MongoClient = require('mongodb').MongoClient;
+    this.DB_CONN_STR = DB_CONN_STR;
+    this.doc = doc;
+    this.callback = callback;
+//var DB_CONN_STR = 'mongodb://localhost:27017/dualven';  
+}
+    mongo.prototype.selectData = function(db, callback,doc){
+        //连接到表  
+        var collection = db.collection(doc);
+        //查询数据
+        var whereStr = {};
+        collection.find(whereStr).toArray(function (err, result) {
+            if (err)
+            {
+                console.log('Error:' + err);
+                return;
+            }
+            callback(result);
+        });
+    };
+    mongo.prototype.executeSelect = function ()
+    {
+    	var selectD = this.selectData;
+    	var callback = this.callback;
+    	var doc = this.doc;
+        console.log("let me see ------------------！"+this.DB_CONN_STR);
+        this.MongoClient.connect(this.DB_CONN_STR, function (err, db) {
+            console.log("连接成功------------------！"+err);
+            selectD(db, callback,docv);
+            db.close();
+        });
+    };
+
+module.exports = mongo;
