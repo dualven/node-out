@@ -3,7 +3,10 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    res.send('login222 respond with a resource');
+    res.render('index/login');
+});
+router.get('/check', function (req, res, next) {
+    res.render('index/db');
 });
 router.get('/db', function (req, res, next) {
     var myDate = new Date();

@@ -38,7 +38,7 @@ $(document).ready(function(){
 			// 2.判断用户名是否存在
 			// 3.判断密码是否正确
 			$.ajax({
-				url:loginUrl+"/index.php/index/eduLogin",
+				url:"/login/check",
 				dateType:'json',
 				type: 'post',
 				data:{username:username,password:password},
