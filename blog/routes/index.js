@@ -1,22 +1,22 @@
 var express = require('express');
 var router = express.Router();
-var username ='duan';
+var username = 'duan';
 /* GET home page. */
 
-router.get('/index/profile', function(req, res, next) {
-    var name= req.query.name;
+router.get('/index/profile', function (req, res, next) {
+    var name = req.query.name;
     var pwd = req.query.pwd;
     var myDate = new Date();
     myDate = myDate.getMilliseconds();
     res.render('index/profile2', {
         username: 'duanxiongwen',
-        usergroup: 'dxw' ,
-        name:name,
-        pwd:pwd,
-        dtime:myDate
+        usergroup: 'dxw',
+        name: name,
+        pwd: pwd,
+        dtime: myDate
     });
 });
-router.all('/index/profile', function(req, res, next) {
+router.all('/index/profile', function (req, res, next) {
     console.log('post data : ' + req.body.reservation);
     //    var a = require ('../out.js');
     //    var g = new a('2016-12-25');
@@ -24,63 +24,63 @@ router.all('/index/profile', function(req, res, next) {
 
     res.render('index/welcome');
 });
-router.get('/index/in', function(req, res, next) {
+router.get('/index/in', function (req, res, next) {
     var myDate = new Date();
     myDate = myDate.getMilliseconds();
     res.render('index/in', {
-        dtime:myDate
+        dtime: myDate
     });
 });
-router.get('/index/in', function(req, res, next) {
+router.get('/index/in', function (req, res, next) {
     var myDate = new Date();
     myDate = myDate.getMilliseconds();
     res.render('index/in', {
-        dtime:myDate
+        dtime: myDate
     });
 });
 
-router.get('/index/login3', function(req, res, next) {
+router.get('/index/login3', function (req, res, next) {
     var myDate = new Date();
     myDate = myDate.getMilliseconds();
     res.render('index/in', {
-        dtime:myDate
+        dtime: myDate
     });
 });
-router.all('/index/topo', function(req, res, next) {
+router.all('/index/topo', function (req, res, next) {
     res.render('index/topo');
 });
-router.get('/index/out', function(req, res, next) {
+router.get('/index/out', function (req, res, next) {
     var myDate = new Date();
     var dateFormat = require('dateformat');
-    myDate = Math.ceil(myDate.getTime()/1000);
-   var start = dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss');
+    myDate = Math.ceil(myDate.getTime() / 1000);
+    var start = dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss');
     var end = dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss');
     res.render('index/out', {
-        'end':end,
-        'dtime':start,
-        'start':start
-        
+        'end': end,
+        'dtime': start,
+        'start': start
+
     });
 });
-router.post('/index/out', function(req, res, next) {
+router.post('/index/out', function (req, res, next) {
     console.log('Out post data : ' + req.body.reservation);
     var enddate = req.body.reservation;
     var exp = enddate.split('- ');
     var start = (exp[0]);
     var end = (exp[1]);
     console.log(end);
-    var a = require ('../out.js');
+    var a = require('../out.js');
     var g = new a(end);
     var files = g.Out();
     console.log(files[0]);
     var myDate = new Date();
     res.render('index/out', {
-        dtime:myDate,
-        start:start,
+        dtime: myDate,
+        start: start,
         end: end
     });
 });
-router.get('/index/welcome', function(req, res, next) {
+router.get('/index/welcome', function (req, res, next) {
     res.render('index/welcome');
 });
 //router.get('/', function(req, res, next) {
@@ -121,40 +121,48 @@ router.get('/index/welcome', function(req, res, next) {
 //        data: data
 //    });
 //});
-function mongo(){
-var MongoClient = require('mongodb').MongoClient;
-var DB_CONN_STR = 'mongodb://localhost:27017/dualven';  
+function mongo(f) {
+    var MongoClient = require('mongodb').MongoClient;
+    var DB_CONN_STR = 'mongodb://localhost:27017/dualven';
 
-var selectData = function(db, callback) {  
-  //连接到表  
-  var collection = db.collection('fav');
-  //查询数据
-  var whereStr = {};
-  collection.find(whereStr).toArray(function(err, result) {
-    if(err)
-    {
-      console.log('Error:'+ err);
-      return;
-    }     
-    callback(result);
-  });
-}
+    var selectData = function (db, callback) {
+        //连接到表  
+        var collection = db.collection('fav');
+        //查询数据
+        var whereStr = {};
+        collection.find(whereStr).toArray(function (err, result) {
+            if (err)
+            {
+                console.log('Error:' + err);
+                return;
+            }
+            callback(result);
+        });
+    }
 
-MongoClient.connect(DB_CONN_STR, function(err, db) {
-  console.log("连接成功！");
-  selectData(db, function(result) {
-    console.log(JSON.stringify(result));
-    router.get('/', function(req, res, next) {
-   
-    res.render('index', {
-        username: 'duanxiongwen',
-        usergroup: 'dxw' ,
-        data: result
+    MongoClient.connect(DB_CONN_STR, function (err, db) {
+        console.log("连接成功！");
+        selectData(db, function (result) {
+            console.log(JSON.stringify(result));
+            f(result);
+            db.close();
+        });
     });
-});
-    db.close();
-  });
-});
 }
-mongo();
+
+router.get('/', function (req, res, next) {
+    console.log(req.session.user);
+    if (req.session.user) {
+        var f = function (result) {
+            res.render('index', {
+                username: 'duanxiongwen',
+                usergroup: 'dxw',
+                data: result
+            });
+        }
+        mongo(f);
+    } else {
+        res.render('index/login')
+    }
+});
 module.exports = router;

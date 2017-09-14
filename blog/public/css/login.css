@@ -1,0 +1,19 @@
+/*login verify style begin*/
+.tip{
+	float: left;
+	margin: -30px 312px;
+	width: 300px;
+	text-align: left;
+	font-weight: 700;
+	color: #8a1f11;
+}
+.error{
+	background: rgb(251, 227, 228);
+	border: 1px solid #fbc2c4;
+	color: #8a1f11;
+}
+
+.welcomDiv {width:100%;padding-top:28px;}
+.inputDiv {width:300px;margin:0 auto;}
+
+/*login verify style end*/

@@ -2,11 +2,26 @@ var express = require('express');
 var router = express.Router();
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res, next) {//login_out
+    req.session.destroy();
     res.render('index/login');
 });
-router.get('/check', function (req, res, next) {
-    res.render('index/db');
+router.post('/check', function (req, res, next) {
+    console.log('come here !');
+    console.log(req.body.username);
+     console.log(req.body.password);
+    var user = req.body.username;
+    var pwd = req.body.password;
+    var code = 3;
+    if(user == 'dxw'&& pwd=='123456'){//todo:1 authentication  2 get author to session
+        code = 0;
+        req.session.user=user;
+        req.session.role ='customer';
+    }
+    var data= {msg:"用户登录成功",status:code};
+    console.log(data.toString());
+    res.json(data);
+    
 });
 router.get('/db', function (req, res, next) {
     var myDate = new Date();
@@ -83,7 +98,7 @@ router.all('/output', function (req, res, next) {
     g.setSchem(req.body.db, req.body.tb, req.body.co);
     g.setDate(req.body.end);
     var f = function (result) {
-        res.json({info: result.status,reason:result.reason});
+        res.json({info: result.status, reason: result.reason});
     }
     g.outAll(f);
 });
@@ -100,7 +115,7 @@ router.all('/acceptfile', function (req, res) {
 });
 router.all('/inputxlsx', function (req, res) {
     console.log('inputxlsx!!!!!!!!!!!!');
-     console.log('inputxlsx post data : ' + req.body.user + "---" + req.body.pwd + "---" + req.body.ip + "---" + req.body.port);
+    console.log('inputxlsx post data : ' + req.body.user + "---" + req.body.pwd + "---" + req.body.ip + "---" + req.body.port);
     console.log('inputxlsx post output : ' + req.body.db + "---" + req.body.tb + "---" + req.body.co);
     var a = require('../public/js/mysqlin.js');
     var g = new a(req.body.ip, req.body.port, req.body.user, req.body.pwd);
@@ -109,13 +124,13 @@ router.all('/inputxlsx', function (req, res) {
     console.log(files);
     var ffs = JSON.parse(files);
     var f = function (result) {
-         res.json({info: result.status,reason:result.reason});
+        res.json({info: result.status, reason: result.reason});
     }
     for (var file in ffs) {
-         console.log(ffs[file]);
-        g.inOne(ffs[file],f);
+        console.log(ffs[file]);
+        g.inOne(ffs[file], f);
     }
-    
+
 
 //    f();
 });
@@ -131,7 +146,7 @@ function uploadOper(fs, gUpload, fileS, resultPath) {
             , uploadPath = catDetailDir + fileS.name;
 
 //    resultPath.push(uploadPath.replace('public/', ''));
-    var path= require('path');
+    var path = require('path');
     resultPath.push(path.resolve(uploadPath));
 
 

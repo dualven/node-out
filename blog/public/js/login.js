@@ -42,7 +42,8 @@ $(document).ready(function(){
 				dateType:'json',
 				type: 'post',
 				data:{username:username,password:password},
-				success:function(data){                         
+				success:function(data){     
+                                    console.log(data);
 					if(data.status == 1){
 						shake();	
 						$("#account").addClass("error");
@@ -64,7 +65,7 @@ $(document).ready(function(){
 						$("#pwd-tips").show().html(data.msg);
 					}
 					else{
-						window.location.href=loginUrl+"/index.php/index/index";
+						window.location.href="/";
 					}
 				},
 				error:function(e){

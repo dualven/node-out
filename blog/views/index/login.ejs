@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欢迎进入DB Opers with nodejs</title>
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="/plugins/inspinia/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="/plugins/inspinia/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+
+    <link href="/plugins/inspinia/css/animate.min.css" rel="stylesheet">
+    <link href="/plugins/inspinia/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="/css/login.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    <script>
+    if(window.top !== window.self){ window.top.location = window.location;}
+    function on_return(){
+	     if(window.event.keyCode == 13){
+	         if (document.getElementById("eduLogin")!=null){
+	             document.getElementById("eduLogin").click();
+	         }
+	     }
+    }
+    </script>
+</head>
+
+<body class="gray-bg" onkeydown="on_return();">
+    <div class="text-center loginscreen  animated fadeInDown welcomDiv" id="sway">
+        <div>
+            <div>
+               <p class="text-center imagemargin">
+            <img src="/img/db-2.png">
+        </p>
+                <h3>欢迎进入DB Opers with nodejs</h3>
+            </div>
+
+            <div class="inputDiv">
+            <form class="m-t" role="form" method="post">
+                <div class="form-group">
+                    <input id="account" class="form-control input-lg input-transparent" name='username' placeholder="用户名" type="text" autofocus="autofocus">
+                    <span class="tip tip-name" id="name-tips"></span>
+                </div>
+                <div class="form-group">
+                     <input id="password" class="form-control input-lg input-transparent"  name='password' placeholder="密 码" type="password">
+                     <span class="tip tip-pwd" id="pwd-tips"></span>
+                     <!--  
+                     <span class="tip tip-pwd" id="errorpwd">密码有误，请重新填写</span>
+                     -->
+                </div>
+                <input type="hidden" id="loginUrl" value="__ROOT__" />
+                <input type="button" id="eduLogin" class="btn btn-primary block full-width m-b" value="登 录"/>
+
+
+                <p class="text-muted text-center"> <a href="login.html#"><small>忘记密码了？</small></a> | <a href="register.html">注册一个新账号</a>
+                </p>
+
+            </form>
+            </div>
+        </div>
+    </div>
+    <script src="/plugins/inspinia/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/plugins/inspinia/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/js/login.js"></script>
+</body>
+</html>
