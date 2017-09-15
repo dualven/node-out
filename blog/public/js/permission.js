@@ -33,10 +33,10 @@ const Result = {
  * @return {Result}
  */
 const check = (actions, method, user) => {
-//    console.log('now is check -------------------');
-//    console.log(actions);
-//    console.log(method);
-//    console.log(user);
+    console.log('now is check -------------------');
+    console.log(actions);
+    console.log(method);
+    console.log(user);
     /**
      * 權限設定，必須為陣列或布林值
      * @type {[string|number]|boolean}
@@ -151,8 +151,9 @@ const permission = (setting) => {
         if (!perm) {
             return notAllowed(req, res, next);
         }
-
-        const result = check(perm.actions, method, {role: 'admin'})
+        var role = req.session.role?req.session.role:null;
+        var user = {role:role};
+        const result = check(perm.actions, method, user);
        console.log('result??????????');
        console.log(result);
         switch (result) {

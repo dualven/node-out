@@ -1,7 +1,7 @@
 module.exports = {
-//  '/api/login': {
-//    'GET': false,
-//  },
+  '/login/db': {
+    'GET': ['customer'],
+  },
 //
   '/index/welcome': {
     '*': true,
@@ -27,15 +27,14 @@ module.exports = {
 //    '*': ['admin'], 
 //  },
   '/login': {
-    'GET': ['admin'], 
-    'POST': ['admin'],
+    'GET': true, 
+    'POST': true,
   },
     '/login/check': {
     'GET': true, 
-    'POST':['admin'],
+    'POST':true,
   },
   '/': {
-    'GET': ['admin'], 
-    'POST': ['admin'],
+    'GET': ['admin','customer'], 
   },
 }
