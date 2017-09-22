@@ -94,6 +94,7 @@ mongo.prototype.checkCon = function (ip, port, user, pwd)
 
 
                         }
+                        client.end();
                     }
             );
         } else {
