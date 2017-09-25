@@ -172,11 +172,11 @@
 //                    inputXlsx(a, [file]);
 //                });
             }
-            var start = {elem: "#start", format: "YYYY/MM/DD hh:mm:ss", min: "2017-6-7 0:0:0", max: laydate.now(), istime: true, istoday: false, choose: function (datas) {
+            var start = {elem: "#start", format: "YYYY/MM/DD hh:mm:ss", min: "2015-6-7 0:0:0", max: laydate.now(), istime: true, istoday: false, choose: function (datas) {
                     end.min = datas;
                     end.start = datas
                 }};
-            var end = {elem: "#end", format: "YYYY/MM/DD hh:mm:ss", min: "2017-6-7 0:0:0", max: laydate.now(), istime: true, istoday: false, choose: function (datas) {
+            var end = {elem: "#end", format: "YYYY/MM/DD hh:mm:ss", min: "2015-6-7 0:0:0", max: laydate.now(), istime: true, istoday: false, choose: function (datas) {
                     start.max = datas
                 }};
             laydate(start);
