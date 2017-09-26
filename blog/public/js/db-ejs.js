@@ -1,4 +1,51 @@
-            $(document).ready(function () {
+            $("#ip").bsSuggest({
+                indexId: 2, //data.value 的第几个数据，作为input输入框的内容
+                indexKey: 0, //data.value 的第几个数据，作为input输入框的内容
+//                idField: '1', 
+                allowNoKeyword: false, //是否允许无关键字时请求数据。为 false 则无输入时不执行过滤请求
+                multiWord: true, //以分隔符号分割的多关键字支持
+                separator: ",", //多关键字支持时的分隔符，默认为空格
+                getDataMethod: "url", //获取数据的方式，总是从 URL 获取
+                showHeader: true, //显示多个字段的表头
+                autoDropup: true, //自动判断菜单向上展开
+                 effectiveFields: ["IP","用户名"],
+                effectiveFieldsAlias: {Id: "序号", Keyword: "关键字"},
+                url: '/users/suggest?query=', /*优先从url ajax 请求 json 帮助数据，注意最后一个参数为关键字请求参数*/
+//                jsonp: 'callback', //如果从 url 获取数据，并且需要跨域，则该参数必须设置
+                // url 获取数据时，对数据的处理，作为 fnGetData 的回调函数
+                processData: function (json) {
+                    var index, len, data = {value: []};
+                    console.log('------------------');
+                    console.log(data);
+                    if (!json || !json.result || !json.result.length) {
+                        return false;
+                    }
+
+                    len = json.result.length;
+
+                    for (index = 0; index < len; index++) {
+                        data.value.push({
+//                            "Id": (index + 1),
+                            "IP": json.result[index]['db-ip'],
+                            "port": json.result[index]['db-port'], 
+                            "用户名": json.result[index]['db-username'],
+                            "密码": json.result[index]['db-password']
+                        });
+                    }
+                    console.log('淘宝搜索 API: ', data);
+                    return data;
+                }}).on('onDataRequestSuccess', function (e, result) {
+                console.log('onDataRequestSuccess: ', result);
+            }).on('onSetSelectValue', function (e, keyword, data) {
+                console.log('onSetSelectValue: ', keyword, data);
+                $('#username').val(data['用户名']);
+                 $('#port').val(data['port']);
+                  $('#passwd').val(data['密码']);
+            }).on('onUnsetSelectValue', function () {
+                console.log("onUnsetSelectValue");
+            });
+          
+           $(document).ready(function () {
                 Dropzone.options.myAwesomeDropzone = {
                     autoProcessQueue: false, uploadMultiple: true, parallelUploads: 100, maxFiles: 100,
                     init: function () {

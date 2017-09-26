@@ -33,10 +33,10 @@ const Result = {
  * @return {Result}
  */
 const check = (actions, method, user) => {
-    console.log('now is check -------------------');
-    console.log(actions);
-    console.log(method);
-    console.log(user);
+    //console.log('now is check -------------------');
+    //console.log(actions);
+    //console.log(method);
+    //console.log(user);
     /**
      * 權限設定，必須為陣列或布林值
      * @type {[string|number]|boolean}
@@ -94,6 +94,10 @@ const formatConfig = (config) => Object.keys(config)
  */
 const match = (permissions, originalUrl) => {
     const resource = originalUrl.replace(/\?(\S|\s)*/gi, '')
+//    console.log(resource);
+//    var a = _.find(permissions, p => resource.match(p.resource));
+//    console.log(a);
+//    return a;
     return _.find(permissions, p => resource.match(p.resource))
 }
 
@@ -141,9 +145,9 @@ const permission = (setting) => {
          * @type {string}
          */
         const method = req.method.toUpperCase();
-        console.log( method);
-        console.log("permissions is :");
-                console.log(permissions);
+        //console.log( method);
+        // console.log("permissions is :");
+        //       console.log(permissions);
         console.log("originalUrl is :" + req.originalUrl);
         // 符合路徑比對的規則
         const perm = match(permissions, req.originalUrl);
@@ -151,11 +155,11 @@ const permission = (setting) => {
         if (!perm) {
             return notAllowed(req, res, next);
         }
-        var role = req.session.role?req.session.role:null;
-        var user = {role:role};
+        var role = req.session.role ? req.session.role : null;
+        var user = {role: role};
         const result = check(perm.actions, method, user);
-       console.log('result??????????');
-       console.log(result);
+        //console.log('result??????????');
+        //console.log(result);
         switch (result) {
             case Result.NOT_ALLOWED:
                 return notAllowed(req, res, next)

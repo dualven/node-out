@@ -48,7 +48,16 @@
                                 <form role="form" id="dbinfo">
                                     <div class="form-group">
                                         <label>数据库IP</label>
-                                        <input type="text" placeholder="for example: 127.0.0.1" id="ip" class="form-control" value="<%= result[0]['db-ip'] %>">
+                                        <!--<input type="text" placeholder="for example: 127.0.0.1" id="ip" class="form-control" value="<%= result[0]['db-ip'] %>">-->
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="ip" autocomplete="off">
+                                            <div class="input-group-btn">
+                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="">
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label>数据库端口</label>
@@ -185,7 +194,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id='outputrecord'>
-                                           
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -243,6 +252,7 @@
         <script src="/js/plugins/iCheck/icheck.min.js"></script>
         <script src="/js/plugins/layer/laydate/laydate.js"></script>
         <script src="/js/plugins/dropzone/dropzone.js"></script>
+        <script src="/js/plugins/suggest/bootstrap-suggest.min.js"></script>
         <script src='/js/db-ejs.js'></script>
     </body>
 

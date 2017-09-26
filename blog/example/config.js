@@ -48,4 +48,8 @@ module.exports = {
       '/index/topo': {
       'GET': ['customer'],
     },
+      '/users/suggest/': {
+      'GET': ['customer'],
+       'POST': ['customer'],
+    },
 }

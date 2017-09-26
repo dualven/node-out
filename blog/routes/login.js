@@ -19,7 +19,7 @@ router.post('/check', function (req, res, next) {
         req.session.role ='customer';
     }
     var data= {msg:"用户登录成功",status:code};
-    console.log(data.toString());
+//    console.log(data.toString());
     res.json(data);
     
 });

@@ -143,7 +143,7 @@ function mongo(f) {
     MongoClient.connect(DB_CONN_STR, function (err, db) {
         console.log("连接成功！");
         selectData(db, function (result) {
-            console.log(JSON.stringify(result));
+//            console.log(JSON.stringify(result));
             f(result);
             db.close();
         });

@@ -61,10 +61,10 @@ Out.prototype.getTables = function (callback) {
                     return 0;
                 }
                 if (result) {
-                    console.log('[query tables suc] - ', result);
+                    //console.log('[query tables suc] - ', result);
                     for (var i = 0; i < result.length; i++) {
-//                        console.log(result[i]);
-                        console.log(result[i]['Tables_in_' + database]);
+//                        //console.log(result[i]);
+                       // console.log(result[i]['Tables_in_' + database]);
                         tables[i] = result[i]['Tables_in_' + database];
                     }
                 }
@@ -85,9 +85,9 @@ Out.prototype.getDbs = function (callback) {
                     return 0;
                 }
                 if (result) {
-                    console.log('[query dbs suc] - ', result);
+                    //console.log('[query dbs suc] - ', result);
                     for (var i = 0; i < result.length; i++) {
-                        console.log(result[i]);
+                     //   console.log(result[i]);
                         dbs[i] = result[i]['Database' ];
                     }
                 }
@@ -109,7 +109,7 @@ Out.prototype.getColumns = function (table, callback) {
                     return 0;
                 }
                 if (result) {
-                    console.log('[query columns suc] - ', result);
+                    //console.log('[query columns suc] - ', result);
                     for (var i = 0; i < result.length; i++) {
 //                        console.log(result[i]);
 //                        console.log(result[i]['Field']);

@@ -28,6 +28,39 @@ mongo.prototype.selectData = function (db, callback, doc) {
         callback(result);
     });
 };
+mongo.prototype.getIPRecords = function (query)
+{
+    var getIPs = this.getIPs;
+    var callback = this.callback;
+    var doc = this.doc;
+    console.log("let me see ------------------！" + this.DB_CONN_STR);
+    this.MongoClient.connect(this.DB_CONN_STR, function (err, db) {
+        console.log("getIPRecords:连接成功------------------！" + err);
+        getIPs(db, callback, doc,query);
+        db.close();
+    });
+};
+mongo.prototype.getIPs = function (db, callback, doc,query) {
+    //连接到表  
+    var collection = db.collection(doc);
+    //查询数据
+    console.log('before');
+    console.log(query);
+    var whereStr = JSON.parse(query);
+    console.log(whereStr);
+    collection.find(whereStr).toArray(function (err, result) {
+        if (err)
+        {
+            console.log('Error:' + err);
+
+            return;
+        }
+        
+        console.log("getIPs: success ,before callback");
+        console.log(result);
+        callback(result);
+    });
+};
 //check if there is a same record & if not  ,save it !
 mongo.prototype.saveData = function (db, callback, doc, ip, port, user, pwd) {
     //连接到表  
