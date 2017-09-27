@@ -46,9 +46,9 @@ mongo.prototype.getIPs = function (db, callback, doc,query) {
     //查询数据
     console.log('before');
     console.log(query);
-    var whereStr = JSON.parse(query);
-    console.log(whereStr);
-    collection.find(whereStr).toArray(function (err, result) {
+//    var whereStr = JSON.parse(query);
+    console.log(query);
+    collection.find(query).toArray(function (err, result) {
         if (err)
         {
             console.log('Error:' + err);

@@ -10,7 +10,7 @@ router.all('/suggest', function (req, res, next) {
     console.log(req.param('query'));
      var DB_CONN_STR = 'mongodb://localhost:27017/dualven';
     var doc = 'dbinfo';
-    var query = '{"db-ip":"'+req.param('query')+'"}';
+    var query = {"db-ip": new RegExp("^.*"+req.param('query')+".*$")};
     console.log('query is :'+query);
     var f = function (result) {
         console.log(JSON.stringify(result));
