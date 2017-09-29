@@ -36,11 +36,11 @@ mongo.prototype.getIPRecords = function (query)
     console.log("let me see ------------------！" + this.DB_CONN_STR);
     this.MongoClient.connect(this.DB_CONN_STR, function (err, db) {
         console.log("getIPRecords:连接成功------------------！" + err);
-        getIPs(db, callback, doc,query);
+        getIPs(db, callback, doc, query);
         db.close();
     });
 };
-mongo.prototype.getIPs = function (db, callback, doc,query) {
+mongo.prototype.getIPs = function (db, callback, doc, query) {
     //连接到表  
     var collection = db.collection(doc);
     //查询数据
@@ -55,7 +55,7 @@ mongo.prototype.getIPs = function (db, callback, doc,query) {
 
             return;
         }
-        
+
         console.log("getIPs: success ,before callback");
         console.log(result);
         callback(result);
@@ -135,6 +135,43 @@ mongo.prototype.checkCon = function (ip, port, user, pwd)
             db.close();
             var rr = {'info': 0};
             callback([rr]);
+        }
+    });
+};
+mongo.prototype.saveOpers = function (where)
+{
+    var callback = this.callback;
+    var doc = this.doc;
+    console.log("let me see ------------------！" + this.DB_CONN_STR);
+    this.MongoClient.connect(this.DB_CONN_STR, function (err, db) {
+        if (!err) {
+            console.log("checkcon: 连接成功------------------！");
+            var collection = db.collection(doc);
+            //查询数据
+            console.log('wherestr insert is :' + JSON.stringify(where));
+            collection.find(where).toArray(function (err, result) {
+                if (err || result.length == 0)
+                {
+                    console.log('there is no same record:' + err);
+                    var k = collection.insert(where);
+                    console.log('after insert whereStr:' + JSON.stringify(where));
+                    console.log('kkkkkkkkkkkkkkkk' + JSON.stringify(k));
+                    where['info'] = 3;
+                    callback(where);
+                } else {
+                    console.log("saveData: no  " + JSON.stringify(result));
+                    console.log("saveData: no  ,before callback,has same records");
+                    where['info'] = 2;
+                    callback(where);
+                }
+                db.close();
+            });
+
+        } else {
+            console.log("checkCon:连接失败------------------！");
+            db.close();
+            var rr = {'info': 0};
+            callback(rr);
         }
     });
 };

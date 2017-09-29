@@ -125,13 +125,27 @@
             function appendOutColumn(a, type,  reason) {
                  if (type == 'pass') {
                     a.append('<td class="footable-visible footable-last-column"><a href="#"><i class="fa fa-check text-navy"></i> 通过</a></td>');
-                    a.children()[5].remove();
-                    a.children()[4].innerHTML = (reason);
+                    a.children()[4].remove();
+                    a.children()[3].innerHTML = (reason);
                 } else if (type == 'nopass') {
                     a.append('<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>');
-                    a.children()[5].remove();
-                    a.children()[4].innerHTML = (reason);
-                } 
+                    a.children()[4].remove();
+                    a.children()[3].innerHTML = (reason);
+                } else if (type == 'go') {
+                    a.append(
+                            '         <td>                                                                         '
+                            + '             <div class="ibox-content">                                               '
+                            + '                 <div class="sk-spinner sk-spinner-wave">                             '
+                            + '                     <div class="sk-rect1"></div>                                     '
+                            + '                     <div class="sk-rect2"></div>                                     '
+                            + '                     <div class="sk-rect3"></div>                                     '
+                            + '                     <div class="sk-rect4"></div>                                     '
+                            + '                 </div>                                                               '
+                            + '             </div>                                                                   '
+                            + '         </td>                                                                        ');
+
+                    a.children()[4].remove();
+                }
 
             }
             function addRow(a, info) {
@@ -281,8 +295,11 @@
                 var btn3 = $("#output");
                 btn3.on(
                         "click", function () {
-                            addOutRow($("#outputrecord"), {db: $("input[name='optionsRadios0']:checked").val(), tb: $("input[name='optionsRadios']:checked").val(),
-                                co: $("input[name='optionsRadios2']:checked").val(), starttime: $("#start").val(), endtime: $("#end").val()});
+//                            addOutRow($("#outputrecord"), {db: $("input[name='optionsRadios0']:checked").val(), tb: $("input[name='optionsRadios']:checked").val(),
+//                                co: $("input[name='optionsRadios2']:checked").val(), starttime: $("#start").val(), endtime: $("#end").val()});
+                            var iRow = $("#outputtable").dataTable().fnAddData([$("input[name='optionsRadios0']:checked").val(), $("#start").val(), $("#end").val(), "---", "New row"]);
+                            console.log($("#outputrecord").children().eq(iRow[0]));
+                             appendOutColumn($("#outputrecord").children().eq(iRow[0]), "go",'--');
                             $.ajax({
                                 url: "/login/output",
                                 data: {user: $("#username").val(), pwd: $("#passwd").val(), ip: $("#ip").val(), port: $("#port").val(),
@@ -294,11 +311,15 @@
                                 success: function (result) {
                                     var r = JSON.parse(result);
                                     if(r.info== 0){
-                                        appendOutColumn($("#outputrecord").children().last(),"pass",r.reason);
+                                        appendOutColumn($("#outputrecord").children().eq(iRow[0]),"pass",r.reason);
                                     }else if(r.info == 500){
-                                        appendOutColumn($("#outputrecord").children().last(), "nopass", JSON.stringify(r.reason));
+                                        appendOutColumn($("#outputrecord").children().eq(iRow[0]), "nopass", JSON.stringify(r.reason));
                                     }
-                                    console.log('------output success--------' + result);
+                                    console.log('------output success--------' , result);
+                                },
+                                error:function(error){
+                                     appendOutColumn($("#outputrecord").children().eq(iRow[0]), "nopass", error.statusText);
+                                     console.log('------output error--------' ,error);
                                 }
                             })
                         });

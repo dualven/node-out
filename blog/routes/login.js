@@ -9,19 +9,19 @@ router.get('/', function (req, res, next) {//login_out
 router.post('/check', function (req, res, next) {
     console.log('come here !');
     console.log(req.body.username);
-     console.log(req.body.password);
+    console.log(req.body.password);
     var user = req.body.username;
     var pwd = req.body.password;
     var code = 3;
-    if(user == 'dxw'&& pwd=='123456'){//todo:1 authentication  2 get author to session
+    if (user == 'dxw' && pwd == '123456') {//todo:1 authentication  2 get author to session
         code = 0;
-        req.session.user=user;
-        req.session.role ='customer';
+        req.session.user = user;
+        req.session.role = 'customer';
     }
-    var data= {msg:"用户登录成功",status:code};
+    var data = {msg: "用户登录成功", status: code};
 //    console.log(data.toString());
     res.json(data);
-    
+
 });
 router.get('/db', function (req, res, next) {
     var myDate = new Date();
@@ -98,6 +98,15 @@ router.all('/output', function (req, res, next) {
     g.setSchem(req.body.db, req.body.tb, req.body.co);
     g.setDate(req.body.end);
     var f = function (result) {
+        var DB_CONN_STR = 'mongodb://localhost:27017/dualven';
+        var doc = 'operslog';
+        var ff = function (result) {
+        }
+        var m = require('../public/js/mgdb.js');
+        var n = new m(ff, DB_CONN_STR, doc);
+        var where = {"ip":req.body.ip ,"dbinfo":req.body.db + "-" + req.body.tb + "-" + req.body.co, "oper_time": new Date().format('yyyyMMddhhmmss'),
+            "start":  req.body.start, "end": req.body.end, "note":result.reason, "code": result.status};
+        n.saveOpers(where);
         res.json({info: result.status, reason: result.reason});
     }
     g.outAll(f);
