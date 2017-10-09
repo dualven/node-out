@@ -1,7 +1,11 @@
 
 $(document).ready(function () {
     $("#outputtable").dataTable();
-    var oTable = $("#editable").dataTable();
+    var oTable = $("#editable").dataTable({
+        "processing": true,
+        "serverSide": true,
+        "ajax": "/users/process"
+    });
     oTable.$("td").editable("/users/edittable", {"callback": function (sValue, y) {
             var aPos = oTable.fnGetPosition(this);
             console.log('callback before', aPos, JSON.parse(sValue)['result'], aPos[0], aPos[1]);
