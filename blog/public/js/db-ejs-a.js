@@ -1,7 +1,7 @@
 
 $(document).ready(function () {
 //    $("#outputtable").dataTable();
-    var oTable = $("#outputtable").dataTable({
+    var oTable = $("#outputtable2").dataTable({
         "processing": true,
         "serverSide": true,
         "ajax": "/users/process",
