@@ -46,25 +46,14 @@ router.all('/saveOpers', function (req, res, next) {
 
 router.get('/process', function (req, res, next) {
     console.log('process post data : ');
-    console.log(req.params);
-    console.log(req.query.draw);
-//    res.json({
-//        "draw": 1,
-//        "recordsTotal": 2,
-//        "recordsFiltered": 2,
-//        "data": [["1", "2", "3", "4", "5"], ["6", "7", "8", "9", "10"]],
-//        "error": null
-//    }
-//    );
+//    console.log(req.params);
+//    console.log(req.query.draw);
     var MongoClient = require('mongodb').MongoClient;
     var MongoDataTable = require('../lib/MongoDataTable');
     var options = req.query;
-    options.caseInsensitiveSearch = true;
+    options.caseInsensitiveSearch = true; 
     options.showAlertOnError = true;
-    // Select data with state MA
-//    options.customQuery = {
-//        state: 'dbinfo',
-//    }; 
+//    console.log('in users: ',options.columns);
 
     MongoClient.connect('mongodb://localhost:27017/dualven', function (err, db) {
         if (err) {
@@ -75,7 +64,6 @@ router.get('/process', function (req, res, next) {
             if (err) {
                 console.error(err);
             }
-         console.log('now get success result',result);
             res.json(result);
         });
     });

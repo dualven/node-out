@@ -20,8 +20,8 @@ MongoDataTable.prototype.get = function (collectionName, options, onDataReady) {
     };
 
     var searchCriteria = cols.buildSearchCriteria(options);
-    console.log('now inthe table of mongo');
-    console.log(searchCriteria);
+//    console.log('now inthe table of mongo');
+//    console.log(searchCriteria);
 
     function getCollectionLength(callback) {
         if (self.db === null || typeof self.db === 'undefined') {
@@ -65,7 +65,8 @@ MongoDataTable.prototype.get = function (collectionName, options, onDataReady) {
         var collection = self.db.collection(collectionName);
 
         collection = collection.find(searchCriteria, columns);
-
+//        console.log('in getAnd columns is ', columns);
+//         console.log('in getAnd searchCriteria is ', searchCriteria);
         if (parseInt(options.length) > 0) {
             collection = collection
                     .skip(parseInt(options.start))

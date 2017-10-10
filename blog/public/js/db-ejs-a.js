@@ -1,10 +1,17 @@
 
 $(document).ready(function () {
-    $("#outputtable").dataTable();
-    var oTable = $("#editable").dataTable({
+//    $("#outputtable").dataTable();
+    var oTable = $("#outputtable").dataTable({
         "processing": true,
         "serverSide": true,
-        "ajax": "/users/process"
+        "ajax": "/users/process",
+        "columns": [
+            {"data": "dbinfo"},
+            {"data": "start"},
+            {"data": "end"},
+            {"data": "note"},
+            {"data": "code"}
+        ]
     });
     oTable.$("td").editable("/users/edittable", {"callback": function (sValue, y) {
             var aPos = oTable.fnGetPosition(this);
@@ -16,8 +23,8 @@ $(document).ready(function () {
         }, "width": "90%", "height": "100%"})
 });
 function fnClickAddRow() {
-    $("#editable").dataTable().fnAddData(["Custom row", "New row", "New row", "New row", "New row"]);
-    var oTable = $("#editable").dataTable();
+    $("#outputtable").dataTable().fnAddData(["Custom row", "New row", "New row", "New row", "New row"]);
+    var oTable = $("#outputtable").dataTable();
     oTable.$("td").editable("/users/edittable", {"callback": function (sValue, y) {
             var aPos = oTable.fnGetPosition(this);
             console.log('callback before', aPos, sValue, aPos[0], aPos[1]);
