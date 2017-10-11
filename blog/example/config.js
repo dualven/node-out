@@ -52,4 +52,16 @@ module.exports = {
       'GET': ['customer'],
        'POST': ['customer'],
     },
+      '/users/edittable/': {
+      'GET': ['customer'],
+       'POST': ['customer'],
+    },
+      '/users/saveOpers/': {
+      'GET': ['customer'],
+       'POST': ['customer'],
+    },
+      '/users/process/': {
+      'GET': ['customer'],
+       'POST': ['customer'],
+    },
 }

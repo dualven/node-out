@@ -311,9 +311,9 @@
                                 success: function (result) {
                                     var r = JSON.parse(result);
                                     if(r.info== 0){
-//                                        appendOutColumn($("#outputrecord").children().eq(iRow[0]),"pass",r.reason);
+                                        appendOutColumn($("#outputrecord").children().eq(iRow[0]),"pass",r.reason);
                                     }else if(r.info == 500){
-//                                        appendOutColumn($("#outputrecord").children().eq(iRow[0]), "nopass", JSON.stringify(r.reason));
+                                        appendOutColumn($("#outputrecord").children().eq(iRow[0]), "nopass", JSON.stringify(r.reason));
                                     }
                                     console.log('------output success--------' , result);
                                 },
