@@ -64,4 +64,8 @@ module.exports = {
       'GET': ['customer'],
        'POST': ['customer'],
     },
+    
+      '/home': {
+      'GET': true,
+    },
 }

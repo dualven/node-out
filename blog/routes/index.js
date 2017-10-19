@@ -1,8 +1,11 @@
 var express = require('express');
 var router = express.Router();
+const path = require('path')
 var username = 'duan';
 /* GET home page. */
-
+ router.get('/home', function(req, res, next) {
+    res.sendFile(path.resolve(__dirname, '../index.html'))
+  })
 router.get('/index/profile', function (req, res, next) {
     var name = req.query.name;
     var pwd = req.query.pwd;
