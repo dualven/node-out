@@ -51,7 +51,7 @@ router.get('/process', function (req, res, next) {
     var MongoClient = require('mongodb').MongoClient;
     var MongoDataTable = require('../lib/MongoDataTable');
     var options = req.query;
-    options.caseInsensitiveSearch = true; 
+    options.caseInsensitiveSearch = true;
     options.showAlertOnError = true;
 //    console.log('in users: ',options.columns);
 
@@ -66,6 +66,62 @@ router.get('/process', function (req, res, next) {
             }
             res.json(result);
         });
+    });
+});
+router.get('/onemonth', function (req, res, next) {
+    //return , all, online-all, online-today, offline-today
+    res.render('index/onemonth');
+});
+router.get('/onlinehots', function (req, res, next) {
+    var config = require('../model');
+    var Sequelize = require('sequelize');
+    var db = {
+        sequelize: new Sequelize(config.sequelize.database, config.sequelize.username, config.sequelize.password, config.sequelize)
+    };
+
+    db.Seq = db.sequelize.import('../model/seqtest.js');// get db conect
+    var Promise = require('bluebird');
+    var Builder = require('../lib/builder.js');
+    Promise.promisifyAll(db.Seq.findAndCountAll);
+
+    var builder = new Builder(db.Seq, req.query);
+    builder.getParams().where = {
+        $and:
+                [{$and:
+                                [{name: 'dxw'},
+                                    {age: {gte: 11}},
+                                ]},
+                    Sequelize.where(Sequelize.fn('unix_timestamp', Sequelize.fn('DATE_ADD', Sequelize.col('createdAt'), Sequelize.literal('INTERVAL 300 SECOND'))), "<", Sequelize.fn('unix_timestamp', Sequelize.fn('now')))]
+    };
+    var con = builder.getParams();
+    console.log(con);
+    builder.fetchResults().then(function () {
+        var response = builder.getResponse();
+        console.log('now I get *******', response);
+        res.json(response);
+    });
+
+});
+
+router.get('/offlinehots', function (req, res, next) {
+   var  add  = require('../model/offaddress.js');;
+    var Sequelize = require('sequelize');
+    var db = {
+        sequelize: new Sequelize(add.sequelize.database, add.sequelize.username, add.sequelize.password, add.sequelize)
+    };
+
+    db.Seq = db.sequelize.import('../model/offlinehots.js');// get db conect
+    var Promise = require('bluebird');
+    var Builder = require('../lib/builder.js');
+    Promise.promisifyAll(db.Seq.findAndCountAll);
+
+    var builder = new Builder(db.Seq, req.query);
+    var con = builder.getParams();
+    console.log(con);
+    builder.fetchResults().then(function () {
+        var response = builder.getResponse();
+        console.log('now I get *******', response);
+        res.json(response);
     });
 });
 module.exports = router;

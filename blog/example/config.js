@@ -64,7 +64,18 @@ module.exports = {
       'GET': ['customer'],
        'POST': ['customer'],
     },
-    
+     '/users/onemonth/': {
+      'GET': ['customer'],
+       'POST': ['customer'],
+    },
+     '/users/onelinehots/': {
+      'GET': ['customer'],
+       'POST': ['customer'],
+    },
+     '/users/offlinehots/': {
+      'GET': ['customer'],
+       'POST': ['customer'],
+    },
       '/home': {
       'GET': true,
     },
