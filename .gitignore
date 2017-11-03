@@ -1,8 +1,10 @@
 /nbproject/private/
 /node_modules/.bin/
 /blog/node_modules/.bin/
-/node_modules/.staging/
+/blog/node_modules/
+/node_modules/
 /blog/blog/nbproject/private/
 /blog/blogjs/nbproject/private/
 /blog/nbproject/private/
 /blog/nbproject/
+/company/nbproject/private/
