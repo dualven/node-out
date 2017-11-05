@@ -6,7 +6,6 @@ var Promise = require('bluebird');
 var DtMatch = require('./match.js');
 
 function DtBuilder(model, config, modelConfig){
-    console.log('now ,it time to get 1!!!!!!');
   if(model === undefined || config === undefined){ throw 'You must provide a model and a config';}
   this.model = model;
   this.config = config;

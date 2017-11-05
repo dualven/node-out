@@ -5,42 +5,40 @@
  */
 'use strict'
 var onlinehots = function(sequelize,DataTypes){
-    var User = sequelize.define('seqtest',{
-        id:{
-            type:DataTypes.UUID,
-            primaryKey:true,
-            allowNull:false,
-            defaultValue:DataTypes.UUIDV1
+    var User = sequelize.define('online',{
+        gw_id:{
+            type:DataTypes.STRING,
+            field: 'gw_id',
+            unique: true,   
+           
+            
         },
-        name:{
-            type:DataTypes.STRING
+        gw_name:{
+            type:DataTypes.STRING,
+             field: 'name',
         },
-        age:{
-            type:DataTypes.INTEGER
+        street:{
+            type:DataTypes.STRING,
+             field: 'street_address',
         },
-        height:{
-            type:DataTypes.INTEGER
+        onlinetime:{
+            type:DataTypes.DATE,
+             field: 'last_heartbeat_at',
         },
-        weight:{
-            type:DataTypes.INTEGER
-        }
+        customer_id:{
+            type:DataTypes.INTEGER,
+             unique: true,   
+              primaryKey: true
+             
+        },
     },{
-        freezeTableName: true
+        freezeTableName: true,
+        tableName: 'think_hotspot',
+          'timestamps': false,
+         createdAt:false,
+         updatedAt:false,
+         deletedAt:false
     });
     return User;
 };
-var address = {
-    sequelize:{
-        username: 'root',
-        password: '123456',
-        database: 'gwifi',
-        host: "localhost",
-        dialect: 'mysql',
-        define: {
-            underscored: false,
-            timestamps: true,
-            paranoid: true
-        }
-    }
-};
-module.exports = {onlinehots,address};
+module.exports =onlinehots;

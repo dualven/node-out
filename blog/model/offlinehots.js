@@ -4,32 +4,39 @@
  * and open the template in the editor.
  */
 'use strict'
-var offlinehots = function(sequelize,DataTypes){
-    var off = sequelize.define('think_hotspot',{
-        gw_id:{
-             type:DataTypes.INTEGER
+var offlinehots = function (sequelize, DataTypes) {
+    var off = sequelize.define('think_hotspot', {
+       gw_id:{
+            type:DataTypes.STRING,
+            field: 'gw_id',
+            unique: true,   
+           
+            
         },
-        name:{
-            type:DataTypes.STRING
+        gw_name:{
+            type:DataTypes.STRING,
+             field: 'name',
         },
-        street_address:{
-            type:DataTypes.STRING
+        street:{
+            type:DataTypes.STRING,
+             field: 'street_address',
         },
-        last_heartbeat_at:{
-            type:DataTypes.DATE
+        offlinetime:{
+            type:DataTypes.DATE,
+             field: 'last_heartbeat_at',
         },
         customer_id:{
-            type:DataTypes.INTEGER
+            type:DataTypes.INTEGER,
+             unique: true,   
+              primaryKey: true
+             
         },
-         local_name:{
-            type:DataTypes.STRING
-        }
-    },{
+    }, {
         freezeTableName: true,
-         'timestamps': false,
-         createdAt:false,
-         updatedAt:false,
-         deletedAt:false
+        'timestamps': false,
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: false
 
     });
     return off;

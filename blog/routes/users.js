@@ -72,7 +72,7 @@ router.get('/onemonth', function (req, res, next) {
     //return , all, online-all, online-today, offline-today
     res.render('index/onemonth');
 });
-router.get('/onlinehots', function (req, res, next) {
+router.get('/onlinehots_old', function (req, res, next) {
     var config = require('../model');
     var Sequelize = require('sequelize');
     var db = {
@@ -102,25 +102,113 @@ router.get('/onlinehots', function (req, res, next) {
     });
 
 });
+router.get('/onlinehots', function (req, res, next) {
+//    var config = require('../model/offaddress');
+//    var Sequelize = require('sequelize');
+//    var db = {
+//        sequelize: new Sequelize(config.sequelize.database, config.sequelize.username, config.sequelize.password, config.sequelize)
+//    };
+//
+////    db.Seq = db.sequelize.import('../model/onlinehots.js');// get db conect
+////     db.customer = db.sequelize.import('../model/customer.js');// get db conect
+////    var Promise = require('bluebird');
+////    var Builder = require('../lib/builder.js');
+////    Promise.promisifyAll(db.Seq.findAndCountAll);
+////
+////    var builder = new Builder(db.Seq, req.query);
+//////    builder.getParams().where = {
+//////        $and:
+//////                [{$and:
+//////                                [{name: 'dxw'},
+//////                                    {age: {gte: 11}},
+//////                                ]},
+//////                    Sequelize.where(Sequelize.fn('unix_timestamp', Sequelize.fn('DATE_ADD', Sequelize.col('createdAt'), Sequelize.literal('INTERVAL 300 SECOND'))), "<", Sequelize.fn('unix_timestamp', Sequelize.fn('now')))]
+//////    };
+////    var con = builder.getParams();
+//////    console.log(con);
+////    builder.fetchResults().then(function () {
+////        var response = builder.getResponse();
+//////        console.log('now I get *******', response);
+////        res.json(response);
+////    });
+//
+//    db.onlinehots = db.sequelize.import('../model/onlinehots.js');// get db conect
+//    db.customer = db.sequelize.import('../model/customer.js');// get db conect
+//    db.onlinehots.hasOne(db.customer, {foreignKey: 'id'});
+////
+//    db.onlinehots.findAndCountAll({
+//        include: [{model: db.customer, attributes: ['customer_name'], required: true}]
+////    ,
+////    attributes:['gw_id','customer_id']
+//    })
+//            .then(function (result) {
+//                console.log(result);
+//                console.log(result.rows);
+//                var response = {};
+//                response.recordsFiltered = result.count;
+//
+//                response.recordsTotal = result.count;
+//                response.draw = req.query.draw;
+////         result.rows[0]['customer_name']=result.rows[0]['customer']['customer_name'];
+////         result.rows[0].remove('customer');
+//                response.data = result.rows;
+//                res.json(response);
+////  console.log(result.get({'plain': true}));//for findOne
+//            });
+//            
+    var add = require('../model/offaddress.js');
+    var Sequelize = require('sequelize');
+    var db = {
+        sequelize: new Sequelize(add.sequelize.database, add.sequelize.username, add.sequelize.password, add.sequelize)
+    };
 
+    db.Seq = db.sequelize.import('../model/onlinehots.js');// get db conect
+    db.customer = db.sequelize.import('../model/customer.js');// get db conect
+    db.Seq.hasOne(db.customer, {foreignKey: 'id'});
+    var Promise = require('bluebird');
+    var Builder = require('../lib/builder.js');
+    Promise.promisifyAll(db.Seq.findAndCountAll);
+    var builder = new Builder(db.Seq, req.query);
+    var con = builder.getParams();
+    con.include = [{model: db.customer, attributes: ['customer_name'], required: true}];
+    con.where =
+            Sequelize.where(
+                    Sequelize.fn('unix_timestamp', Sequelize.fn('DATE_SUB', Sequelize.fn('now'), Sequelize.literal('INTERVAL 300 SECOND'))),
+                    "<", Sequelize.col('last_heartbeat_at'));
+
+    console.log(con);
+    builder.fetchResults().then(function () {
+        var response = builder.getResponse();
+        res.json(response);
+    });
+});
 router.get('/offlinehots', function (req, res, next) {
-   var  add  = require('../model/offaddress.js');;
+    var add = require('../model/offaddress.js');
+    ;
     var Sequelize = require('sequelize');
     var db = {
         sequelize: new Sequelize(add.sequelize.database, add.sequelize.username, add.sequelize.password, add.sequelize)
     };
 
     db.Seq = db.sequelize.import('../model/offlinehots.js');// get db conect
+    db.customer = db.sequelize.import('../model/customer.js');// get db conect
+    db.Seq.hasOne(db.customer, {foreignKey: 'id'});
     var Promise = require('bluebird');
     var Builder = require('../lib/builder.js');
     Promise.promisifyAll(db.Seq.findAndCountAll);
 
     var builder = new Builder(db.Seq, req.query);
     var con = builder.getParams();
+    con.include = [{model: db.customer, attributes: ['customer_name'], required: true}];
+    con.where =
+            Sequelize.where(
+                    Sequelize.fn('unix_timestamp', Sequelize.fn('DATE_SUB', Sequelize.fn('now'), Sequelize.literal('INTERVAL 300 SECOND'))),
+                    ">", Sequelize.col('last_heartbeat_at'));
+
     console.log(con);
     builder.fetchResults().then(function () {
         var response = builder.getResponse();
-        console.log('now I get *******', response);
+//        console.log('now I get *******', response);
         res.json(response);
     });
 });
