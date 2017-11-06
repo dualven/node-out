@@ -22,13 +22,18 @@ var onlinehots = function(sequelize,DataTypes){
              field: 'street_address',
         },
         onlinetime:{
-            type:DataTypes.DATE,
+            type:DataTypes.INTEGER,
              field: 'last_heartbeat_at',
         },
         customer_id:{
             type:DataTypes.INTEGER,
              unique: true,   
               primaryKey: true
+             
+        },
+         created_at_time:{
+            type:DataTypes.DATEONLY,
+             field: 'created_at',
              
         },
     },{

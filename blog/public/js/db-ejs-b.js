@@ -22,7 +22,8 @@ $(document).ready(function () {
             {"data": "street"},
             {"data": "onlinetime"},
             {"data": "customer_id"},
-            {"data": "customer_name"}
+            {"data": "customer_name"}, 
+            {"data": "created_at_time"}
         ],
 
     });
@@ -36,12 +37,13 @@ $(document).ready(function () {
         "serverSide": true,
         "ajax": "/users/offlinehots",
         "columns": [
-           {"data": "gw_id"},
+            {"data": "gw_id"},
             {"data": "gw_name"},
             {"data": "street"},
             {"data": "offlinetime"},
             {"data": "customer_id"},
-            {"data": "customer_name"}
+            {"data": "customer_name"},
+            {"data": "created_at"}
         ]
     });
 });

@@ -31,6 +31,12 @@ var offlinehots = function (sequelize, DataTypes) {
               primaryKey: true
              
         },
+           created_at:{
+            type:DataTypes.DATE,
+             unique: true,   
+              primaryKey: true
+             
+        },
     }, {
         freezeTableName: true,
         'timestamps': false,
