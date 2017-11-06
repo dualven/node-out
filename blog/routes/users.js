@@ -93,7 +93,7 @@ router.get('/onlinehots_old', function (req, res, next) {
                                 ]},
                     Sequelize.where(Sequelize.fn('unix_timestamp', Sequelize.fn('DATE_ADD', Sequelize.col('createdAt'), Sequelize.literal('INTERVAL 300 SECOND'))), "<", Sequelize.fn('unix_timestamp', Sequelize.fn('now')))]
     };
-    var con = builder.getParams();
+    var con = builder.getParams(); 
     console.log(con);
     builder.fetchResults().then(function () {
         var response = builder.getResponse();
@@ -123,7 +123,7 @@ router.get('/onlinehots', function (req, res, next) {
     con.where =
            {$and: [Sequelize.where(
                             Sequelize.fn('unix_timestamp', Sequelize.fn('DATE_SUB', Sequelize.fn('now'), Sequelize.literal('INTERVAL 60*60*24*30 SECOND'))),
-                            "<", Sequelize.col('last_heartbeat_at')),
+                            "<",Sequelize.fn('unix_timestamp', Sequelize.col('online.created_at'))),
                     Sequelize.where(
                             Sequelize.fn('unix_timestamp', Sequelize.fn('DATE_SUB', Sequelize.fn('now'), Sequelize.literal('INTERVAL 300 SECOND'))),
                             "<", Sequelize.col('last_heartbeat_at'))

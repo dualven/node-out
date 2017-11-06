@@ -23,6 +23,9 @@ module.exports = function(sequelize,DataTypes){
         },
         weight:{
             type:DataTypes.INTEGER
+        },
+         created_at:{
+            type:DataTypes.DATEONLY
         }
     },{
         freezeTableName: true

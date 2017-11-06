@@ -11,12 +11,6 @@ $(document).ready(function () {
         "serverSide": true,
         "ajax": "/users/onlinehots",
         "columns": [
-//            {"data": "name"},
-//            {"data": "age"},
-//            {"data": "weight"},
-//            {"data": "height"},
-//            {"data": "createdAt"},
-//            {"data": "updatedAt"}
             {"data": "gw_id"},
             {"data": "gw_name"},
             {"data": "street"},
@@ -30,6 +24,8 @@ $(document).ready(function () {
     var oTable2 = $("#offlinetable").on('xhr.dt', function (e, settings, json, xhr) {
         for (var i = 0, ien = json.data.length; i < ien; i++) {
             json.data[i].customer_name = json.data[i].customer.customer_name;
+            json.data[i].offlinetime= new Date(json.data[i].offlinetime * 1000).toLocaleString();
+//            var unixTimestamp = new Date(Unix timestamp * 1000) 然后 commonTime = unixTimestamp.toLocaleString()
         }
         // Note no return - manipulate the data directly in the JSON object.
     }).dataTable({

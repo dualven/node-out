@@ -4,46 +4,45 @@
  * and open the template in the editor.
  */
 'use strict'
-var onlinehots = function(sequelize,DataTypes){
-    var User = sequelize.define('online',{
-        gw_id:{
-            type:DataTypes.STRING,
+var onlinehots = function (sequelize, DataTypes) {
+    var User = sequelize.define('online', {
+        gw_id: {
+            type: DataTypes.STRING,
             field: 'gw_id',
-            unique: true,   
-           
-            
+            unique: true,
+
         },
-        gw_name:{
-            type:DataTypes.STRING,
-             field: 'name',
+        gw_name: {
+            type: DataTypes.STRING,
+            field: 'name',
         },
-        street:{
-            type:DataTypes.STRING,
-             field: 'street_address',
+        street: {
+            type: DataTypes.STRING,
+            field: 'street_address',
         },
-        onlinetime:{
-            type:DataTypes.INTEGER,
-             field: 'last_heartbeat_at',
+        onlinetime: {
+            type: DataTypes.INTEGER,
+            field: 'last_heartbeat_at',
         },
-        customer_id:{
-            type:DataTypes.INTEGER,
-             unique: true,   
-              primaryKey: true
-             
+        customer_id: {
+            type: DataTypes.INTEGER,
+            unique: true,
+            primaryKey: true
+
         },
-         created_at_time:{
-            type:DataTypes.DATEONLY,
-             field: 'created_at',
-             
-        },
-    },{
+        created_at_time: {
+            type: DataTypes.DATEONLY,
+            field: 'created_at',
+
+        }
+    }, {
         freezeTableName: true,
         tableName: 'think_hotspot',
-          'timestamps': false,
-         createdAt:false,
-         updatedAt:false,
-         deletedAt:false
+        'timestamps': false,
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: false
     });
     return User;
 };
-module.exports =onlinehots;
+module.exports = onlinehots;

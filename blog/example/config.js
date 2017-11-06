@@ -68,7 +68,7 @@ module.exports = {
       'GET': ['customer'],
        'POST': ['customer'],
     },
-     '/users/onelinehots/': {
+     '/users/onlinehots/': {
       'GET': ['customer'],
        'POST': ['customer'],
     },
