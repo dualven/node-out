@@ -6,7 +6,7 @@ $(document).ready(function () {
         var a = $('#totalhots').html('<i class="fa fa-play fa-rotate-270"></i>  ' + json.recordsTotal);
 
         var sub = $("#subhots").text();
-        var ratio = json.recordsFiltered - sub / json.recordsTotal;
+        var ratio = (json.recordsFiltered - sub) / json.recordsTotal;
         $('#comparehots').html('<i class="fa fa-play fa-rotate-270"></i>  ' + ratio);
         $('#addhots').html('<i class="fa fa-play fa-rotate-270"></i>  ' + json.recordsFiltered);
 
@@ -44,7 +44,7 @@ $(document).ready(function () {
     var oTable2 = $("#offlinetable").on('xhr.dt', function (e, settings, json, xhr) {
         $('#totalhots').html('<i class="fa fa-play fa-rotate-270"></i>  ' + json.recordsTotal);
         var add = $("#addhots").text();
-        var ratio = add - json.recordsFiltered / json.recordsTotal;
+        var ratio = (add - json.recordsFiltered )/ json.recordsTotal;
         if (ratio < 0) {
             $('#comparehots').html('<i class="fa fa-play fa-rotate-90"></i>  ' + ratio);
         } else {
