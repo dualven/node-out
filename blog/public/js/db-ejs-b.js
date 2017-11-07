@@ -2,9 +2,19 @@
 $(document).ready(function () {
 //    $("#outputtable").dataTable();
     var oTable1 = $("#onlinetable").on('xhr.dt', function (e, settings, json, xhr) {
+//        console.log("add json total is :", json.recordsTotal, json.recordsFiltered);
+        var a = $('#totalhots').html('<i class="fa fa-play fa-rotate-270"></i>  ' + json.recordsTotal);
+
+        var sub = $("#subhots").text();
+        var ratio = json.recordsFiltered - sub / json.recordsTotal;
+        $('#comparehots').html('<i class="fa fa-play fa-rotate-270"></i>  ' + ratio);
+        $('#addhots').html('<i class="fa fa-play fa-rotate-270"></i>  ' + json.recordsFiltered);
+
+        console.log(a);
         for (var i = 0, ien = json.data.length; i < ien; i++) {
             json.data[i].customer_name = json.data[i].customer.customer_name;
             json.data[i].onlinetime = new Date(json.data[i].onlinetime * 1000).toLocaleString();
+
         }
         // Note no return - manipulate the data directly in the JSON object.
     }).dataTable({
@@ -32,6 +42,15 @@ $(document).ready(function () {
         lengthMenu: [10, 50, 500]
     });
     var oTable2 = $("#offlinetable").on('xhr.dt', function (e, settings, json, xhr) {
+        $('#totalhots').html('<i class="fa fa-play fa-rotate-270"></i>  ' + json.recordsTotal);
+        var add = $("#addhots").text();
+        var ratio = add - json.recordsFiltered / json.recordsTotal;
+        if (ratio < 0) {
+            $('#comparehots').html('<i class="fa fa-play fa-rotate-90"></i>  ' + ratio);
+        } else {
+            $('#comparehots').html('<i class="fa fa-play fa-rotate-270"></i>  ' + ratio);
+        }
+        $('#subhots').html('<i class="fa fa-play fa-rotate-90"></i>   ' + json.recordsFiltered);
         for (var i = 0, ien = json.data.length; i < ien; i++) {
             json.data[i].customer_name = json.data[i].customer.customer_name;
             json.data[i].offlinetime = new Date(json.data[i].offlinetime * 1000).toLocaleString();

@@ -70,7 +70,12 @@ router.get('/process', function (req, res, next) {
 });
 router.get('/onemonth', function (req, res, next) {
     //return , all, online-all, online-today, offline-today
-    res.render('index/onemonth');
+    var result={};
+    result.total = 10;
+    result.add = 5;
+    result.sub = 4;
+    result.compare = "0.5%";
+    res.render('index/onemonth',{result:result});
 });
 router.get('/onlinehots_old', function (req, res, next) {
     var config = require('../model');

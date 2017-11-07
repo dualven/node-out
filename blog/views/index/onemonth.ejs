@@ -35,10 +35,10 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <h5 class="m-b-md">热点总数</h5>
-                            <h2 class="text-navy">
-                                <i class="fa fa-play fa-rotate-270"></i> 上升
+                            <h2 class="text-navy" id="totalhots">
+                                <i class="fa fa-play fa-rotate-270"></i> <%=result.total%>                           
                             </h2>
-                            <small>更新时间：12天以前</small>
+                            <small>更新时间：实时</small>
                         </div>
                     </div>
                 </div>
@@ -46,10 +46,10 @@
                     <div class="ibox">
                         <div class="ibox-content ">
                             <h5 class="m-b-md">一月内新增</h5>
-                            <h2 class="text-navy">
-                                <i class="fa fa-play fa-rotate-270"></i> 上升
+                            <h2 class="text-navy" id="addhots">
+                                <i class="fa fa-play fa-rotate-270"></i> <%=result.add%>   
                             </h2>
-                            <small>更新时间：12天以前</small>
+                            <small>更新时间：实时</small>
                         </div>
                     </div>
                 </div>
@@ -57,10 +57,10 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <h5 class="m-b-md">一月内减少</h5>
-                            <h2 class="text-danger">
-                                <i class="fa fa-play fa-rotate-90"></i> 下降
+                            <h2 class="text-danger" id="subhots">
+                                <i class="fa fa-play fa-rotate-90"></i> <%=result.sub%>   
                             </h2>
-                            <small>更新时间：12天以前</small>
+                            <small>更新时间：实时</small>
                         </div>
                     </div>
                 </div>
@@ -68,10 +68,10 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <h5 class="m-b-md">环比</h5>
-                            <h2 class="text-danger">
-                                <i class="fa fa-play fa-rotate-90"></i> 下降
+                            <h2 class="text-danger" id="comparehots">
+                                <i class="fa fa-play fa-rotate-90"></i> <%=result.compare%>   
                             </h2>
-                            <small>更新时间：12天以前</small>
+                            <small>更新时间：实时</small>
                         </div>
                     </div>
                 </div>
@@ -96,7 +96,7 @@
                                                 <th>热点标识</th>
                                                 <th>热点名称</th>
                                                 <th>街道信息</th>
-                                                <th>开通时间</th>
+                                                <th>最近心跳时间</th>
                                                 <th>商家标识</th>
                                                 <th>商家名称</th>
                                                 <th>创建时间</th>
