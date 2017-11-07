@@ -20,7 +20,16 @@ $(document).ready(function () {
             {"data": "customer_name"},
             {"data": "created_at_time"}
         ],
+        dom: 'Blfrtip',
+        buttons: [{
+                extend: 'excelHtml5',
+                customize: function (xlsx) {
+                    var sheet = xlsx.xl.worksheets['sheet1.xml'];
 
+                    $('row c[r^="C"]', sheet).attr('s', '2');
+                }
+            }],
+        lengthMenu: [10, 50, 500]
     });
     var oTable2 = $("#offlinetable").on('xhr.dt', function (e, settings, json, xhr) {
         for (var i = 0, ien = json.data.length; i < ien; i++) {
@@ -42,14 +51,26 @@ $(document).ready(function () {
             {"data": "customer_name"},
             {"data": "created_at"}
         ],
-         dom: 'Bfrtip',
-        buttons: [ {
-            extend: 'excelHtml5',
-            customize: function( xlsx ) {
-                var sheet = xlsx.xl.worksheets['sheet1.xml'];
- 
-                $('row c[r^="C"]', sheet).attr( 's', '2' );
-            }
-        } ]
+        dom: 'Blfrtip',
+        buttons: [{
+                extend: 'excelHtml5',
+                customize: function (xlsx) {
+                    var sheet = xlsx.xl.worksheets['sheet1.xml'];
+
+                    $('row c[r^="C"]', sheet).attr('s', '2');
+                }
+            }],
+        lengthMenu: [10, 50, 500]
+// dom: "<'row'<'col-sm-6'l><'col-sm-4 'f><'col-sm-2  text-right pull-right'B>>" +
+//                "<'row'<'col-sm-12'tr>>" +
+//                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+//        buttons: [
+//                    {
+//                        extend: 'excel',
+//                        text: '<span class="glyphicon glyphicon-export"></span> Export To Excel',
+//                        className: 'btn btn-circle btn-default btn-sm',
+//                        title: 'TQH - Resident Report'
+//                    }
+//        ],
     });
 });
