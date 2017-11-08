@@ -125,14 +125,18 @@ router.get('/onlinehots', function (req, res, next) {
     con.include = [{model: db.customer, attributes: ['customer_name'], required: true},
 //        { attributes: ['gw_id']}  
     ];
-    con.where =
+    if(con.where == null){
+        con.where = {};
+    }
+   Object.assign( con.where ,
            {$and: [Sequelize.where(
                             Sequelize.fn('unix_timestamp', Sequelize.fn('DATE_SUB', Sequelize.fn('now'), Sequelize.literal('INTERVAL 60*60*24*30 SECOND'))),
                             "<",Sequelize.fn('unix_timestamp', Sequelize.col('online.created_at'))),
                     Sequelize.where(
                             Sequelize.fn('unix_timestamp', Sequelize.fn('DATE_SUB', Sequelize.fn('now'), Sequelize.literal('INTERVAL 300 SECOND'))),
                             "<", Sequelize.col('last_heartbeat_at'))
-                ]};
+                ]}
+            );
 
     console.log(con);
     builder.fetchResults().then(function () {
@@ -158,14 +162,19 @@ router.get('/offlinehots', function (req, res, next) {
     var builder = new Builder(db.Seq, req.query);
     var con = builder.getParams();
     con.include = [{model: db.customer, attributes: ['customer_name'], required: true}];
-    con.where =
+     if(con.where == null){
+        con.where = {};
+    }
+   Object.assign( 
+           con.where,
             {$and: [Sequelize.where(
                             Sequelize.fn('unix_timestamp', Sequelize.fn('DATE_SUB', Sequelize.fn('now'), Sequelize.literal('INTERVAL 60*60*24*30 SECOND'))),
                             "<", Sequelize.col('last_heartbeat_at')),
                     Sequelize.where(
                             Sequelize.fn('unix_timestamp', Sequelize.fn('DATE_SUB', Sequelize.fn('now'), Sequelize.literal('INTERVAL 300 SECOND'))),
                             ">", Sequelize.col('last_heartbeat_at'))
-                ]};
+                ]}
+            );
 
     console.log(con);
     builder.fetchResults().then(function () {

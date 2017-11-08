@@ -16,7 +16,7 @@ DtMatch.prototype.init = function(){
   _(this.columns).each(function(column){
     var searchTerm = {};
     // In order to allow custom columns we might receive empty colu
-    if(column.data !== '' && column.searchable){
+    if(column.data !== '' && column.searchable!==false && column.searchable!=="false"){
       searchTerm[column.data] = {$like: term};
       $or.push(searchTerm);
     }

@@ -31,7 +31,7 @@ $(document).ready(function () {
             {"data": "created_at_time"}
         ],
         "columnDefs": [
-            {"orderable": false, "targets": 5}
+            {"orderable": false,"searchable":false, "targets": 5}
         ],
         dom: 'Blfrtip',
         buttons: [{
@@ -74,7 +74,7 @@ $(document).ready(function () {
             {"data": "created_at"}
         ],
           "columnDefs": [
-            {"orderable": false, "targets": 5}
+            {"orderable": false, "searchable":false,"targets": 5},
         ],
         dom: 'Blfrtip',
         buttons: [{
