@@ -22,7 +22,7 @@ var offlinehots = function (sequelize, DataTypes) {
              field: 'street_address',
         },
         offlinetime:{
-            type:DataTypes.DATE,
+            type:DataTypes.INTEGER,
              field: 'last_heartbeat_at',
         },
         customer_id:{
@@ -35,6 +35,11 @@ var offlinehots = function (sequelize, DataTypes) {
             type:DataTypes.DATE,
              unique: true,   
               primaryKey: true
+             
+        },
+         product_model:{
+            type:DataTypes.STRING,
+            field: 'product_model'
              
         },
     }, {

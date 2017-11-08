@@ -34,7 +34,12 @@ var onlinehots = function (sequelize, DataTypes) {
             type: DataTypes.DATEONLY,
             field: 'created_at',
 
-        }
+        },
+         product_model:{
+            type:DataTypes.STRING,
+            field: 'product_model'
+             
+        },
     }, {
         freezeTableName: true,
         tableName: 'think_hotspot',

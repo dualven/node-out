@@ -26,9 +26,12 @@ $(document).ready(function () {
             {"data": "gw_name"},
             {"data": "street"},
             {"data": "onlinetime"},
-            {"data": "customer_id"},
+            {"data": "product_model"},
             {"data": "customer_name"},
             {"data": "created_at_time"}
+        ],
+        "columnDefs": [
+            {"orderable": false, "targets": 5}
         ],
         dom: 'Blfrtip',
         buttons: [{
@@ -44,7 +47,7 @@ $(document).ready(function () {
     var oTable2 = $("#offlinetable").on('xhr.dt', function (e, settings, json, xhr) {
         $('#totalhots').html('<i class="fa fa-play fa-rotate-270"></i>  ' + json.recordsTotal);
         var add = $("#addhots").text();
-        var ratio = (add - json.recordsFiltered )/ json.recordsTotal;
+        var ratio = (add - json.recordsFiltered) / json.recordsTotal;
         if (ratio < 0) {
             $('#comparehots').html('<i class="fa fa-play fa-rotate-90"></i>  ' + ratio);
         } else {
@@ -66,9 +69,12 @@ $(document).ready(function () {
             {"data": "gw_name"},
             {"data": "street"},
             {"data": "offlinetime"},
-            {"data": "customer_id"},
+            {"data": "product_model"},
             {"data": "customer_name"},
             {"data": "created_at"}
+        ],
+          "columnDefs": [
+            {"orderable": false, "targets": 5}
         ],
         dom: 'Blfrtip',
         buttons: [{
