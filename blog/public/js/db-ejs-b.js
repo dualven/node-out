@@ -77,6 +77,7 @@ $(document).ready(function () {
             {"orderable": false, "searchable":false,"targets": 5},
         ],
         dom: 'Blfrtip',
+        width:'100%',
         buttons: [{
                 extend: 'excelHtml5',
                 customize: function (xlsx) {
