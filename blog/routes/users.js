@@ -183,4 +183,29 @@ router.get('/offlinehots', function (req, res, next) {
         res.json(response);
     });
 });
+router.get('/codemng', function (req, res, next) {
+     console.log('process post data : ');
+//    console.log(req.params);
+//    console.log(req.query.draw);
+    var MongoClient = require('mongodb').MongoClient;
+    var MongoDataTable = require('../lib/MongoDataTable');
+    var options = req.query;
+    options.caseInsensitiveSearch = true;
+    options.showAlertOnError = true;
+//    console.log('in users: ',options.columns);
+
+    MongoClient.connect('mongodb://localhost:27017/dualven', function (err, db) {
+        if (err) {
+            console.error(err);
+        }
+
+        new MongoDataTable(db).get('codemng', options, function (err, result) {
+            if (err) {
+                console.error(err);
+            }
+            console.log(result);
+            res.json(result);
+        });
+    });
+});
 module.exports = router;

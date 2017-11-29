@@ -34,13 +34,6 @@ router.get('/index/in', function (req, res, next) {
         dtime: myDate
     });
 });
-router.get('/index/in', function (req, res, next) {
-    var myDate = new Date();
-    myDate = myDate.getMilliseconds();
-    res.render('index/in', {
-        dtime: myDate
-    });
-});
 
 router.get('/index/login3', function (req, res, next) {
     var myDate = new Date();
@@ -52,13 +45,13 @@ router.get('/index/login3', function (req, res, next) {
 router.all('/index/topo', function (req, res, next) {
     res.render('index/topo');
 });
-router.get('/index/out', function (req, res, next) {
+router.get('/index/codemng', function (req, res, next) {
     var myDate = new Date();
     var dateFormat = require('dateformat');
     myDate = Math.ceil(myDate.getTime() / 1000);
     var start = dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss');
     var end = dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss');
-    res.render('index/out', {
+    res.render('index/codemng', {
         'end': end,
         'dtime': start,
         'start': start

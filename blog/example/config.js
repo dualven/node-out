@@ -34,7 +34,7 @@ module.exports = {
     '/': {
         'GET': ['admin', 'customer', null],
     },
-       '/index/out': {
+       '/index/codemng': {
         'GET': ['customer'],
     },   '/index/in': {
         'GET': ['customer'],
@@ -75,6 +75,10 @@ module.exports = {
      '/users/offlinehots/': {
       'GET': true,
        'POST': true,
+    },
+     '/users/codemng/': {
+     'GET': ['customer'],
+       'POST': ['customer'],
     },
       '/home': {
       'GET': true,
