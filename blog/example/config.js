@@ -78,6 +78,8 @@ module.exports = {
     },
      '/users/codemng/': {
      'GET': ['customer'],
+    },
+     '/users/saveCodemng/': {
        'POST': ['customer'],
     },
       '/home': {

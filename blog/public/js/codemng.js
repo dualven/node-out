@@ -1,7 +1,7 @@
-
+var oTable;
 $(document).ready(function () {
 
-    var oTable = $("#codemngtable").dataTable({
+     oTable = $("#codemngtable").dataTable({
         "processing": true,
         "serverSide": true,
         "ajax": "/users/codemng",
@@ -26,15 +26,19 @@ $(document).ready(function () {
 //            return{"row_id": this.parentNode.getAttribute("id"), "column": oTable.fnGetPosition(this)[2]}
 //        }, "width": "90%", "height": "100%"});
 });
-//   function fnClickAddRow() {
-//    var oTable = $("#codemngtable").DataTable();
-//    console.log('now I add row');
-//    var i = [
-//    "云主机",
-//     "x.dualven.cn",
-//    "118.18.11.11",
-//    "10.60.0.0",
-//     "xxx,123456"
-//    ];
-//    oTable.row.add(i).draw(false);
-//}   
+function fnClickAddRow() {
+    $.ajax({
+        url: "/users/saveCodemng",
+        data: {type: $("#type").val(), domain: $("#domain").val(), out: $("#out").val(), inner: $("#inner").val(),
+            userinfo: $("#userinfo").val()},
+        dataType: "text",
+        type: "post",
+        success: function (result) {
+//            oTable.ajax.reload(null,false);
+            console.log('------output success--------', result);
+        },
+        error: function (error) {
+            console.log('------output error--------', error);
+        }
+    })
+}

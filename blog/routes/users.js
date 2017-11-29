@@ -208,4 +208,17 @@ router.get('/codemng', function (req, res, next) {
         });
     });
 });
+router.all('/saveCodemng', function (req, res, next) {
+    var DB_CONN_STR = 'mongodb://localhost:27017/dualven';
+    var doc = 'codemng';
+    console.log('dbinfo post data : ' + req.body.type + "---" + req.body.domain + "---" + req.body.out + "---" + req.body.inner);
+    //test db
+    var f = function (result) {
+        res.json(result);
+    }
+    var m = require('../public/js/mgdb.js');
+    var n = new m(f, DB_CONN_STR, doc);
+    var where = {"type": req.body.type, "domain":  req.body.domain , "out_ip": req.body.out, "inner_ip": req.body.inner, "userinfo": req.body.userinfo};
+    n.saveOpers(where);
+});
 module.exports = router;

@@ -30,9 +30,29 @@
 
     <body class="gray-bg">
         <div class="wrapper wrapper-content animated fadeInRight">
-            <div class="">
-                <a onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">添加行</a>
+            <div class="ibox-content">
+                <form role="form" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" placeholder="请输入资源类型" id="type" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="请输入域名" id="domain" class="form-control">
+                    </div>
+                     <div class="form-group">
+                        <input type="text" placeholder="请输入外网地址" id="out" class="form-control">
+                    </div>
+                     <div class="form-group">
+                        <input type="text" placeholder="请输入内网地址" id="inner" class="form-control">
+                    </div>
+                     <div class="form-group">
+                        <input type="text" placeholder="请输入用户信息" id="userinfo" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <a onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">添加行</a>
+                    </div>
+                </form>
             </div>
+
             <div class="ibox-content">
                 <div class="row">
                     <div class="table-responsive">
