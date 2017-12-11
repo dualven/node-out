@@ -121,7 +121,8 @@ const permission = (setting) => {
     // 權限不符的預設處理方式
     if (!notAllowed) {
         notAllowed = (req, res, next) => {
-            next({message: 'Not allowed.', })
+//            next({message: 'Not allowed.', })
+            res.render('index/login');
         }
     }
 

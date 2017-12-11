@@ -3,6 +3,18 @@ module.exports = {
         'GET': true,
         'POST': true,
     },
+      '/user': {
+        'GET': true,
+    },
+      '/about': {
+        'GET': true,
+    },
+      '/solution': {
+        'GET': true,
+    },
+      '/product': {
+        'GET': true,
+    },
     '/login/db': {
         'GET': ['customer'],
     },

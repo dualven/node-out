@@ -9,6 +9,7 @@ const {permission} = require('./public/js/permission.js')
 var index = require('./routes/index');
 var users = require('./routes/users');
 var login = require('./routes/login');
+//var history= require('connect-history-api-fallback');
 
 var app = express();
 
@@ -32,7 +33,9 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'static')));
 app.use(permission({config: require('./example/config')}));//before route ;means useful to route ,or if do all ,the static resouces can be inflected!
-
+//app.use(history({
+//    rewrites:[{from:/\/solution/,to:'/index.html'}]
+//}));
 app.use('/', index);
 app.use('/users', users);
 app.use('/login', login);
