@@ -1,6 +1,7 @@
-var express = require('express');
+	var express = require('express');
 var router = express.Router();
-
+var info = require('./config');
+ var DB_CONN_STR = info.mongodbInfo.DB_CONN_STR;
 /* GET users listing. */
 router.get('/', function (req, res, next) {//login_out
     req.session.destroy();
@@ -26,7 +27,7 @@ router.post('/check', function (req, res, next) {
 router.get('/db', function (req, res, next) {
     var myDate = new Date();
     //read origin data from db , to init the web view 
-    var DB_CONN_STR = 'mongodb://localhost:27017/dualven';
+    // var DB_CONN_STR = 'mongodb://10.60.0.205:27017/dualven';
     var doc = 'dbinfo';
     var f = function (result) {
         console.log(JSON.stringify(result));
@@ -42,7 +43,7 @@ router.get('/db', function (req, res, next) {
 //    m(f, DB_CONN_STR, doc);
 });
 router.all('/dbinfo', function (req, res, next) {
-    var DB_CONN_STR = 'mongodb://localhost:27017/dualven';
+    // var DB_CONN_STR = 'mongodb://10.60.0.205:27017/dualven';
     var doc = 'dbinfo';
     //get data 
     console.log('dbinfo post data : ' + req.body.user + "---" + req.body.pwd + "---" + req.body.ip + "---" + req.body.port);
@@ -98,7 +99,7 @@ router.all('/output', function (req, res, next) {
     g.setSchem(req.body.db, req.body.tb, req.body.co);
     g.setDate(req.body.end);
     var f = function (result) {
-        var DB_CONN_STR = 'mongodb://localhost:27017/dualven';
+        // var DB_CONN_STR = 'mongodb://10.60.0.205:27017/dualven';
         var doc = 'operslog';
         var ff = function (result) {
         }

@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-
+var info = require('./config');
+ var DB_CONN_STR = info.mongodbInfo.DB_CONN_STR;
 /* GET users listing. */
 router.get('/', function (req, res, next) {
     res.send('respond with a resource');
@@ -8,7 +9,7 @@ router.get('/', function (req, res, next) {
 router.all('/suggest', function (req, res, next) {
     console.log('suggest post data : ');
     console.log(req.param('query'));
-    var DB_CONN_STR = 'mongodb://localhost:27017/dualven';
+    // var DB_CONN_STR = 'mongodb://10.60.0.205:27017/dualven';
     var doc = 'dbinfo';
     var query = {"db-ip": new RegExp("^.*" + req.param('query') + ".*$")};
     console.log('query is :' + query);
@@ -31,7 +32,7 @@ router.all('/edittable', function (req, res, next) {
 });
 
 router.all('/saveOpers', function (req, res, next) {
-    var DB_CONN_STR = 'mongodb://localhost:27017/dualven';
+    // var DB_CONN_STR = 'mongodb://10.60.0.205:27017/dualven';
     var doc = 'operslog';
     console.log('dbinfo post data : ' + req.body.user + "---" + req.body.pwd + "---" + req.body.ip + "---" + req.body.port);
     //test db
@@ -55,7 +56,7 @@ router.get('/process', function (req, res, next) {
     options.showAlertOnError = true;
 //    console.log('in users: ',options.columns);
 
-    MongoClient.connect('mongodb://localhost:27017/dualven', function (err, db) {
+    MongoClient.connect(DB_CONN_STR, function (err, db) {
         if (err) {
             console.error(err);
         }
@@ -194,7 +195,7 @@ router.get('/codemng', function (req, res, next) {
     options.showAlertOnError = true;
 //    console.log('in users: ',options.columns);
 
-    MongoClient.connect('mongodb://localhost:27017/dualven', function (err, db) {
+    MongoClient.connect(DB_CONN_STR, function (err, db) {
         if (err) {
             console.error(err);
         }
@@ -209,7 +210,7 @@ router.get('/codemng', function (req, res, next) {
     });
 });
 router.all('/saveCodemng', function (req, res, next) {
-    var DB_CONN_STR = 'mongodb://localhost:27017/dualven';
+    // var DB_CONN_STR = 'mongodb://10.60.0.205:27017/dualven';
     var doc = 'codemng';
     console.log('dbinfo post data : ' + req.body.type + "---" + req.body.domain + "---" + req.body.out + "---" + req.body.inner);
     //test db

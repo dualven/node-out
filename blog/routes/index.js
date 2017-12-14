@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 const path = require('path')
 var username = 'duan';
-
+var info = require('./config');
+ var DB_CONN_STR = info.mongodbInfo.DB_CONN_STR;
 /* GET home page. */
  router.get('/home', function(req, res, next) {
     res.sendFile(path.resolve(__dirname, '../index.html'))
@@ -133,7 +134,7 @@ router.get('/index/welcome', function (req, res, next) {
 //});
 function mongo(f) {
     var MongoClient = require('mongodb').MongoClient;
-    var DB_CONN_STR = 'mongodb://localhost:27017/dualven';
+    // var DB_CONN_STR = 'mongodb://10.60.0.205:27017/dualven';
 
     var selectData = function (db, callback) {
         //连接到表  
