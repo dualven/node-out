@@ -13,7 +13,7 @@ router.get('/getAccess', function (req, res, next) {
 function getAlldata(res) {
     console.log('getAll post data : ');
     var doc = 'Access';
-    var query = {"id":{$gt : 0}};
+    var query = {};
     console.log('query is :' + query);
     var f = function (result) {
        res.json({
