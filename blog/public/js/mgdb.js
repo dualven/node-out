@@ -86,6 +86,53 @@ mongo.prototype.saveData = function (db, callback, doc, ip, port, user, pwd) {
         db.close();
     });
 };
+//check if there is a same record & if not  ,save it !
+mongo.prototype.commonSave = function (whereStr) {
+    //连接到表  
+    var callback = this.callback;
+    var doc = this.doc;
+    console.log("let me see ------------------！" + this.DB_CONN_STR);
+    this.MongoClient.connect(this.DB_CONN_STR, function (err, db) {
+        if (!err) {
+            console.log("commonSave: 连接成功------------------！");
+            var collection = db.collection(doc);
+            //查询数据
+//    var whereStr = {'db-port': port, 'db-ip': ip, 'db-username': user, 'db-password': pwd};
+            console.log('wherestr save is :' + JSON.stringify(whereStr));
+            collection.save(whereStr);
+            callback([whereStr]);
+            db.close();
+        } else {
+            console.log("commonSave:连接失败------------------！");
+            db.close();
+            var rr = {'info': 0};
+            callback([rr]);
+        }
+    });
+
+};
+mongo.prototype.batchDelete = function (whereStr) {
+    //连接到表  
+    var callback = this.callback;
+    var doc = this.doc;
+    console.log("let me see ------------------！" + this.DB_CONN_STR);
+    this.MongoClient.connect(this.DB_CONN_STR, function (err, db) {
+        if (!err) {
+            console.log("batchDelete: 连接成功------------------！");
+            var collection = db.collection(doc);
+            console.log('wherestr batchDelete is :' , whereStr);
+            collection.remove(whereStr);
+            callback([whereStr]);
+            db.close();
+        } else {
+            console.log("batchDelete:连接失败------------------！");
+            db.close();
+            var rr = {'info': 0};
+            callback([rr]);
+        }
+    });
+
+};
 mongo.prototype.executeSelect = function ()
 {
     var selectD = this.selectData;

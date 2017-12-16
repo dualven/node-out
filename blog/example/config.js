@@ -3,16 +3,16 @@ module.exports = {
         'GET': true,
         'POST': true,
     },
-      '/user': {
+    '/user': {
         'GET': true,
     },
-      '/about': {
+    '/about': {
         'GET': true,
     },
-      '/solution': {
+    '/solution': {
         'GET': true,
     },
-      '/product': {
+    '/product': {
         'GET': true,
     },
     '/login/db': {
@@ -30,13 +30,13 @@ module.exports = {
     '/login/getcolumns': {
         'POST': ['customer'],
     },
-     '/login/acceptfile': {
+    '/login/acceptfile': {
         'POST': ['customer'],
     },
-     '/login/output': {
+    '/login/output': {
         'POST': ['customer'],
     },
-     '/login/inputxlsx': {
+    '/login/inputxlsx': {
         'POST': ['customer'],
     },
     '/login/check': {
@@ -46,55 +46,68 @@ module.exports = {
     '/': {
         'GET': ['admin', 'customer', null],
     },
-       '/index/codemng': {
+    '/index/codemng': {
         'GET': ['customer'],
-    },   '/index/in': {
-        'GET': ['customer'],
-    },
-       '/index/welcome': {
-       'GET': ['customer'],
-    },
-       '/index/profile': {
+    }, '/index/in': {
         'GET': ['customer'],
     },
-      '/index/topo': {
-      'GET': ['customer'],
+    '/index/welcome': {
+        'GET': ['customer'],
     },
-      '/users/suggest/': {
-      'GET': ['customer'],
-       'POST': ['customer'],
+    '/index/profile': {
+        'GET': ['customer'],
     },
-      '/users/edittable/': {
-      'GET': ['customer'],
-       'POST': ['customer'],
+    '/index/topo': {
+        'GET': ['customer'],
     },
-      '/users/saveOpers/': {
-      'GET': ['customer'],
-       'POST': ['customer'],
+    '/users/suggest/': {
+        'GET': ['customer'],
+        'POST': ['customer'],
     },
-      '/users/process/': {
-      'GET': ['customer'],
-       'POST': ['customer'],
+    '/users/edittable/': {
+        'GET': ['customer'],
+        'POST': ['customer'],
     },
-     '/users/onemonth/': {
-      'GET': true,
-       'POST': true,
+    '/users/saveOpers/': {
+        'GET': ['customer'],
+        'POST': ['customer'],
     },
-     '/users/onlinehots/': {
-      'GET': true,
-       'POST': true,
+    '/users/process/': {
+        'GET': ['customer'],
+        'POST': ['customer'],
     },
-     '/users/offlinehots/': {
-      'GET': true,
-       'POST': true,
+    '/users/onemonth/': {
+        'GET': true,
+        'POST': true,
     },
-     '/users/codemng/': {
-     'GET': ['customer'],
+    '/users/onlinehots/': {
+        'GET': true,
+        'POST': true,
     },
-     '/users/saveCodemng/': {
-       'POST': ['customer'],
+    '/users/offlinehots/': {
+        'GET': true,
+        'POST': true,
     },
-      '/home': {
-      'GET': true,
+    '/users/codemng/': {
+        'GET': ['customer'],
     },
+    '/users/saveCodemng/': {
+        'POST': ['customer'],
+    },
+    '/home': {
+        'GET': true,
+    },
+    '/tree/passChange/': {
+        'GET': true,
+        'POST': true,
+    },
+    '/tree/passDelete/': {
+        'GET': true,
+        'POST': true,
+    },
+    '/tree/getAccess/': {
+        'GET': true,
+        'POST': true,
+    }
+
 }

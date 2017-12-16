@@ -2,6 +2,7 @@
 /node_modules/.bin/
 /blog/node_modules/.bin/
 /blog/node_modules/
+/blog/node_modules/async
 /node_modules/
 /blog/blog/nbproject/private/
 /blog/blogjs/nbproject/private/
