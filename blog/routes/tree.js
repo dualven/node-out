@@ -70,4 +70,71 @@ router.all('/passDelete', function (req, res, next) {
     var whereStr = { id: { $in:condition } }; 
     deleteRow(res,whereStr);
 });
+
+router.get('/usersmng', function (req, res, next) {
+     console.log('process post data : ');
+    var MongoClient = require('mongodb').MongoClient;
+    var MongoDataTable = require('../lib/MongoDataTable');
+    var options = req.query;
+    options.caseInsensitiveSearch = true;
+    options.showAlertOnError = true;
+
+    MongoClient.connect(DB_CONN_STR, function (err, db) {
+        if (err) {
+            console.error(err);
+        }
+
+        new MongoDataTable(db).get('users', options, function (err, result) {
+            if (err) {
+                console.error(err);
+            }
+            console.log(result);
+            res.json(result);
+        });
+    });
+});
+router.get('/groupsmng', function (req, res, next) {
+     console.log('process post data : ');
+    var MongoClient = require('mongodb').MongoClient;
+    var MongoDataTable = require('../lib/MongoDataTable');
+    var options = req.query;
+    options.caseInsensitiveSearch = true;
+    options.showAlertOnError = true;
+
+    MongoClient.connect(DB_CONN_STR, function (err, db) {
+        if (err) {
+            console.error(err);
+        }
+
+        new MongoDataTable(db).get('groups', options, function (err, result) {
+            if (err) {
+                console.error(err);
+            }
+            console.log(result);
+            res.json(result);
+        });
+    });
+});
+router.all('/commonSaveuser', function (req, res, next) {
+    var doc = 'users';
+    //test db
+    var f = function (result) {
+        res.json(result);
+    }
+    var m = require('../public/js/mgdb.js');
+    var n = new m(f, DB_CONN_STR, doc);
+    var where = {"id": req.body.id, "name":  req.body.name , "sex": req.body.sex, "groupid": req.body.groupid};
+    n.commonSave(where);
+});
+router.all('/commonSavegroup', function (req, res, next) {
+    var doc = 'users';
+    //test db
+    var f = function (result) {
+        res.json(result);
+    }
+    var m = require('../public/js/mgdb.js');
+    var n = new m(f, DB_CONN_STR, doc);
+    var where = {"id": req.body.id, "name":  req.body.name , "sex": req.body.sex, "groupid": req.body.groupid};
+    n.commonSave(where);
+});
 module.exports = router;

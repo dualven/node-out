@@ -73,6 +73,32 @@ router.get('/index/codemng', function (req, res, next) {
 
     });
 });
+router.get('/index/users', function (req, res, next) {
+    var myDate = new Date();
+    var dateFormat = require('dateformat');
+    myDate = Math.ceil(myDate.getTime() / 1000);
+    var start = dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss');
+    var end = dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss');
+    res.render('index/users', {
+        'end': end,
+        'dtime': start,
+        'start': start
+
+    });
+});
+router.get('/index/groups', function (req, res, next) {
+    var myDate = new Date();
+    var dateFormat = require('dateformat');
+    myDate = Math.ceil(myDate.getTime() / 1000);
+    var start = dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss');
+    var end = dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss');
+    res.render('index/groups', {
+        'end': end,
+        'dtime': start,
+        'start': start
+
+    });
+});
 router.post('/index/out', function (req, res, next) {
     console.log('Out post data : ' + req.body.reservation);
     var enddate = req.body.reservation;

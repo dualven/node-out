@@ -46,6 +46,12 @@ module.exports = {
     '/': {
         'GET': ['admin', 'customer', null],
     },
+    '/index/users': {
+        'GET': ['customer'],
+    },
+    '/index/groups': {
+        'GET': ['customer'],
+    },
     '/index/codemng': {
         'GET': ['customer'],
     }, '/index/in': {
@@ -97,6 +103,12 @@ module.exports = {
     '/home': {
         'GET': true,
     },
+    '/tree/usersmng/': {
+        'GET': ['customer'],
+    },
+    '/tree/groupsmng/': {
+        'GET': ['customer'],
+    },
     '/tree/passChange/': {
         'GET': true,
         'POST': true,
@@ -108,6 +120,12 @@ module.exports = {
     '/tree/getAccess/': {
         'GET': true,
         'POST': true,
+    },
+    '/tree/commonSaveuser/': {
+        'POST': ['customer'],
+    },
+    '/tree/commonSavegroup/': {
+        'POST': ['customer'],
     }
 
 }
