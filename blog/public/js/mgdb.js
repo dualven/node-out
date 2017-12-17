@@ -99,7 +99,8 @@ mongo.prototype.commonSave = function (whereStr) {
             //查询数据
 //    var whereStr = {'db-port': port, 'db-ip': ip, 'db-username': user, 'db-password': pwd};
             console.log('wherestr save is :' + JSON.stringify(whereStr));
-            collection.save(whereStr);
+//            collection.save(whereStr);
+            collection.update({id:whereStr.id},whereStr,{upsert:true});
             callback([whereStr]);
             db.close();
         } else {
@@ -120,7 +121,7 @@ mongo.prototype.batchDelete = function (whereStr) {
         if (!err) {
             console.log("batchDelete: 连接成功------------------！");
             var collection = db.collection(doc);
-            console.log('wherestr batchDelete is :' , whereStr);
+            console.log('wherestr batchDelete is :', whereStr);
             collection.remove(whereStr);
             callback([whereStr]);
             db.close();
