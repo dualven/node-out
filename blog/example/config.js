@@ -12,6 +12,9 @@ module.exports = {
     '/solution': {
         'GET': true,
     },
+      '/treedist': {
+        'GET': ['customer'],
+    },
     '/product': {
         'GET': true,
     },

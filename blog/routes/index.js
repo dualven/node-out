@@ -20,7 +20,9 @@ var info = require('./config');
   router.get('/solution', function(req, res, next) {
     res.sendFile(path.resolve(__dirname, '../index.html'))
   })
-  
+  router.get('/treedist', function(req, res, next) {
+    res.sendFile(path.resolve(__dirname, '../treedist/tree.html'))//index.html会让这个文件暴露给/
+  })
 router.get('/index/profile', function (req, res, next) {
     var name = req.query.name;
     var pwd = req.query.pwd;
@@ -120,44 +122,6 @@ router.post('/index/out', function (req, res, next) {
 router.get('/index/welcome', function (req, res, next) {
     res.render('index/welcome');
 });
-//router.get('/', function(req, res, next) {
-//    var data = new Array();
-//    var _data1 = Array({
-//        'name':'导出',
-//        'mca':'index/out',
-//        'fa_home':'nan'
-//    });
-//    var _data2 = Array({
-//        'name':'导入',
-//        'mca':'index/in',
-//        'fa_home':'nan22'
-//    });
-//     var _data3 = Array({
-//        'name':'拓扑',
-//        'mca':'index/topo',
-//        'fa_home':'nan33'
-//    });
-//    data.push({
-//        'name': '导出父菜单',
-//        'fa_home':'nan',
-//        '_data':_data1
-//    });
-//    data.push({
-//        'name': '导入父菜单',
-//        'fa_home':'nan2',
-//        '_data':_data2
-//    });
-//     data.push({
-//        'name': '拓扑父菜单',
-//        'fa_home':'nan3',
-//        '_data':_data3
-//    });
-//    res.render('index', {
-//        username: 'duanxiongwen',
-//        usergroup: 'dxw' ,
-//        data: data
-//    });
-//});
 function mongo(f) {
     var MongoClient = require('mongodb').MongoClient;
     // var DB_CONN_STR = 'mongodb://10.60.0.205:27017/dualven';
