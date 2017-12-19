@@ -12,7 +12,7 @@ module.exports = {
     '/solution': {
         'GET': true,
     },
-      '/treedist': {
+    '/treedist': {
         'GET': ['customer'],
     },
     '/product': {
@@ -121,6 +121,10 @@ module.exports = {
         'POST': true,
     },
     '/tree/getAccess/': {
+        'GET': true,
+        'POST': true,
+    },
+    '/tree/playSessions/': {
         'GET': true,
         'POST': true,
     },

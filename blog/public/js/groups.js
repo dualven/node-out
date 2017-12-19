@@ -1,7 +1,25 @@
-var oTable;
-$(document).ready(function () {
+function revokeDlg(id) {
+    
+    console.log('yes it is begin ');
+    $.ajax({
+        url: "/tree/playSessions",
+        data: {operator: 'set', somebody: 'group', value: 22},
+        dataType: "json",
+        type: "post",
+        success: function (result) {
+            console.log(result );
+            $('#myModal').modal('toggle');
+        }
+    });
 
-    oTable = $("#groupsmngtable").dataTable({
+}
+$(document).ready(function () {
+//    $('#myModal').on('shown.bs.modal', function () {
+//        $('#myInput').focus();
+//        console.log('yes it is on ');
+//    });
+
+    var oTable = $("#groupsmngtable").dataTable({
         "processing": true,
         "serverSide": true,
         "ajax": "/tree/groupsmng",
@@ -11,14 +29,15 @@ $(document).ready(function () {
             {"data": "permissions"}
         ],
         "columnDefs": [{
-                "orderable": false, 
+                "orderable": false,
                 "searchable": false,
                 "targets": 3, //操作按钮目标列
                 "data": null,
                 "render": function (data, type, row) {
                     var id = '"' + row.id + '"';
                     var html = "<a href='javascript:void(0);'  class='delete btn btn-default btn-xs'  ><i class='fa fa-times'></i> 查看</a>"
-                    html += "<a href='javascript:void(0);' class='up btn btn-default btn-xs'><i class='fa fa-arrow-up'></i> 编辑</a>"
+//                    html += "<a href='javascript:void(0);' class='up btn btn-default btn-xs'><i class='fa fa-arrow-up'></i> 编辑</a>"
+                    html += "<a href='javascript:void(0);'   onclick='revokeDlg(" + id + ")'  class='up btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> 编辑</a>"
                     html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser(" + id + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> 删除</a>"
                     return html;
                 }
@@ -28,6 +47,7 @@ $(document).ready(function () {
     });
 }
 );
+
 function fnClickAddRow() {
     $.ajax({
         url: "/users/saveCodemng",
@@ -42,5 +62,5 @@ function fnClickAddRow() {
         error: function (error) {
             console.log('------output error--------', error);
         }
-    })
+    });
 }

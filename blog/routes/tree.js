@@ -137,4 +137,24 @@ router.all('/commonSavegroup', function (req, res, next) {
     var where = {"id": req.body.id, "name":  req.body.name , "sex": req.body.sex, "groupid": req.body.groupid};
     n.commonSave(where);
 });
+router.all('/playSessions', function (req, res, next) {
+    console.log('now playSessions');
+    var op = req.body.operator;
+    var result;
+    if(op === 'set'){
+        var who = req.body.somebody;
+        var value = req.body.value;
+        console.log(who,value);
+        req.session.group = value;
+        result = { info:'success'};
+    }else if (op === 'get'){
+        var who = req.body.somebody;
+        var value = req.session.group;
+         result = { info:'success'};
+         result[who]= value;
+    }else{
+        result = { info:'donothing'};
+    }
+     res.json(result);
+});
 module.exports = router;
