@@ -8,11 +8,14 @@ router.get('/', function (req, res, next) {
 });
 router.get('/getAccess', function (req, res, next) {
     addheaders(res);
-    getAlldata(res);
+    getAlldata(res,'Access');
 });
-function getAlldata(res) {
+router.post('/getCommonTb', function (req, res, next) {
+    getAlldata(res,req.body.table);
+});
+function getAlldata(res,doc) {
     console.log('getAll post data : ');
-    var doc = 'Access';
+//    var doc = 'Access';
     var query = {};
     console.log('query is :' + query);
     var f = function (result) {
@@ -90,6 +93,18 @@ router.all('/updateG', function (req, res, next) {
     var m = require('../public/js/mgdb.js');
     var n = new m(f, DB_CONN_STR, doc);
     n.commonSave(change, false);
+});
+router.all('/updateUser', function (req, res, next) {
+    console.log('my-updateUser post data : ', req.body);
+    var doc = 'users';
+    var f = function (result) {
+        res.json({
+            result: result
+        });
+    };
+    var m = require('../public/js/mgdb.js');
+    var n = new m(f, DB_CONN_STR, doc);
+    n.commonSave(req.body, false);
 });
 router.get('/usersmng', function (req, res, next) {
     console.log('process post data : ');

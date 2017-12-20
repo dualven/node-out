@@ -139,7 +139,14 @@ module.exports = {
         'POST': ['customer'],
         'GET': ['customer'],
     },
+      '/tree/updateUser/': {
+        'POST': ['customer'],
+        'GET': ['customer'],
+    },
     '/tree/commonSavegroup/': {
+        'POST': ['customer'],
+    },
+     '/tree/getCommonTb/': {
         'POST': ['customer'],
     }
 
