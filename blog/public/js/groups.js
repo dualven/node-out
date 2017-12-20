@@ -1,13 +1,14 @@
 function revokeDlg(id) {
     
-    console.log('yes it is begin ');
+    console.log('yes it is begin ',id);
     $.ajax({
         url: "/tree/playSessions",
-        data: {operator: 'set', somebody: 'group', value: 22},
+        data: {operator: 'set', somebody: 'group', value: id},
         dataType: "json",
         type: "post",
         success: function (result) {
             console.log(result );
+            $(".modal-body").append("<div id='app'></div> <script src='/acdist.js'></script>   ");
             $('#myModal').modal('toggle');
         }
     });

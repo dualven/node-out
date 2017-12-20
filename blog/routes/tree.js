@@ -16,37 +16,37 @@ function getAlldata(res) {
     var query = {};
     console.log('query is :' + query);
     var f = function (result) {
-       res.json({
-        result: result
-       });
-   };
+        res.json({
+            result: result
+        });
+    };
     var m = require('../public/js/mgdb.js');
     var n = new m(f, DB_CONN_STR, doc);
     n.getIPRecords(query);
 }
-function modifyRow(res,whereStr) {
-    console.log('modifyRow whereStr data : ',whereStr);
+function modifyRow(res, whereStr) {
+    console.log('modifyRow whereStr data : ', whereStr);
     var doc = 'Access';
     var f = function (result) {
-       res.json({
-        result: result
-       });
-   };
+        res.json({
+            result: result
+        });
+    };
     var m = require('../public/js/mgdb.js');
     var n = new m(f, DB_CONN_STR, doc);
-    n.commonSave( whereStr);
+    n.commonSave(whereStr);
 }
 function deleteRow(res, whereStr) {
-  console.log('deleteRow whereStr data : ',whereStr);
+    console.log('deleteRow whereStr data : ', whereStr);
     var doc = 'Access';
     var f = function (result) {
-       res.json({
-        result: result
-       });
-   };
+        res.json({
+            result: result
+        });
+    };
     var m = require('../public/js/mgdb.js');
     var n = new m(f, DB_CONN_STR, doc);
-    n.batchDelete( whereStr);
+    n.batchDelete(whereStr);
 }
 function addheaders(res) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -57,22 +57,42 @@ function addheaders(res) {
 router.all('/passChange', function (req, res, next) {
     addheaders(res);
     console.log('passChange post data : ', req.body);
-    var whereStr = {'id': req.body.id, 'name': req.body.name, 'level': req.body.level, 'parentid': req.body.parentid,'url': req.body.url}; 
-    modifyRow(res,whereStr);
+    var whereStr = {'id': req.body.id, 'name': req.body.name, 'level': req.body.level, 'parentid': req.body.parentid, 'url': req.body.url};
+    modifyRow(res, whereStr);
 });
 router.all('/passDelete', function (req, res, next) {
     addheaders(res);
-    console.log('passdelete post data : ', req.body); 
-    var condition=[];
-    for(i in req.body){
+    console.log('passdelete post data : ', req.body);
+    var condition = [];
+    for (i in req.body) {
         condition[i] = req.body[i];
     }
-    var whereStr = { id: { $in:condition } }; 
-    deleteRow(res,whereStr);
+    var whereStr = {id: {$in: condition}};
+    deleteRow(res, whereStr);
 });
-
+router.all('/updateG', function (req, res, next) {
+    addheaders(res);
+    console.log('my-updateG post data : ', req.body);
+    var groupinfo = req.body.groupinfo;
+    var xx = JSON.parse(groupinfo);
+    console.log(xx);
+    var change = xx;
+    change.permissions = req.body.del;
+//    change._id= ObjectId(change._id);
+    delete change._id;
+    console.log(change);
+    var doc = 'groups';
+    var f = function (result) {
+        res.json({
+            result: result
+        });
+    };
+    var m = require('../public/js/mgdb.js');
+    var n = new m(f, DB_CONN_STR, doc);
+    n.commonSave(change, false);
+});
 router.get('/usersmng', function (req, res, next) {
-     console.log('process post data : ');
+    console.log('process post data : ');
     var MongoClient = require('mongodb').MongoClient;
     var MongoDataTable = require('../lib/MongoDataTable');
     var options = req.query;
@@ -94,7 +114,7 @@ router.get('/usersmng', function (req, res, next) {
     });
 });
 router.get('/groupsmng', function (req, res, next) {
-     console.log('process post data : ');
+    console.log('process post data : ');
     var MongoClient = require('mongodb').MongoClient;
     var MongoDataTable = require('../lib/MongoDataTable');
     var options = req.query;
@@ -123,8 +143,8 @@ router.all('/commonSaveuser', function (req, res, next) {
     }
     var m = require('../public/js/mgdb.js');
     var n = new m(f, DB_CONN_STR, doc);
-    var where = {"id": req.body.id, "name":  req.body.name , "sex": req.body.sex, "groupid": req.body.groupid};
-    n.commonSave(where);
+    var where = {"id": req.body.id, "name": req.body.name, "sex": req.body.sex, "groupid": req.body.groupid};
+    n.commonSave(where, true);
 });
 router.all('/commonSavegroup', function (req, res, next) {
     var doc = 'users';
@@ -134,27 +154,48 @@ router.all('/commonSavegroup', function (req, res, next) {
     }
     var m = require('../public/js/mgdb.js');
     var n = new m(f, DB_CONN_STR, doc);
-    var where = {"id": req.body.id, "name":  req.body.name , "sex": req.body.sex, "groupid": req.body.groupid};
+    var where = {"id": req.body.id, "name": req.body.name, "sex": req.body.sex, "groupid": req.body.groupid};
     n.commonSave(where);
 });
 router.all('/playSessions', function (req, res, next) {
     console.log('now playSessions');
     var op = req.body.operator;
     var result;
-    if(op === 'set'){
+    if (op === 'set') {
         var who = req.body.somebody;
         var value = req.body.value;
-        console.log(who,value);
+        console.log(who, value);
         req.session.group = value;
-        result = { info:'success'};
-    }else if (op === 'get'){
+        result = {info: 'success'};
+    } else if (op === 'get') {
         var who = req.body.somebody;
         var value = req.session.group;
-         result = { info:'success'};
-         result[who]= value;
-    }else{
-        result = { info:'donothing'};
+        result = {info: 'success'};
+        result[who] = value;
+    } else {
+        result = {info: 'donothing'};
     }
-     res.json(result);
+    res.json(result);
+});
+router.all('/getGroupaccess', function (req, res, next) {
+    addheaders(res);
+    console.log('now getGroupaccess');
+    var groupid = req.session.group;
+    if (groupid == null) {
+        groupid = "0"
+    }
+    console.log('getAll post data : ');
+    var doc = 'groups';
+    var query = {id: groupid};
+    console.log('query is :', query);
+    var f = function (result) {
+        res.json({
+            result: result,
+            group: groupid
+        });
+    };
+    var m = require('../public/js/mgdb.js');
+    var n = new m(f, DB_CONN_STR, doc);
+    n.getIPRecords(query);
 });
 module.exports = router;

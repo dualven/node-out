@@ -131,6 +131,14 @@ module.exports = {
     '/tree/commonSaveuser/': {
         'POST': ['customer'],
     },
+     '/tree/getGroupaccess/': {
+        'POST': ['customer'],
+        'GET': ['customer'],
+    },
+      '/tree/updateG/': {
+        'POST': ['customer'],
+        'GET': ['customer'],
+    },
     '/tree/commonSavegroup/': {
         'POST': ['customer'],
     }

@@ -87,7 +87,7 @@ mongo.prototype.saveData = function (db, callback, doc, ip, port, user, pwd) {
     });
 };
 //check if there is a same record & if not  ,save it !
-mongo.prototype.commonSave = function (whereStr) {
+mongo.prototype.commonSave = function (whereStr,createnot) {
     //连接到表  
     var callback = this.callback;
     var doc = this.doc;
@@ -100,7 +100,7 @@ mongo.prototype.commonSave = function (whereStr) {
 //    var whereStr = {'db-port': port, 'db-ip': ip, 'db-username': user, 'db-password': pwd};
             console.log('wherestr save is :' + JSON.stringify(whereStr));
 //            collection.save(whereStr);
-            collection.update({id:whereStr.id},whereStr,{upsert:true});
+            collection.update({id:whereStr.id},whereStr,{upsert:createnot});
             callback([whereStr]);
             db.close();
         } else {
