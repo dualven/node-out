@@ -119,7 +119,7 @@ const permission = (setting) => {
 //    const permissions = formatConfig(setting.config)
     var aa = require('../../example/AccessMng');
 //    console.log('--------in permission--------', aa.getIns().rules);
-    
+//    const permissions = formatConfig(aa.getIns().rules);
     // 權限不符的預設處理方式
     if (!notAllowed) {
         notAllowed = (req, res, next) => {
@@ -149,7 +149,22 @@ const permission = (setting) => {
         /**
          * @type {string}
          */
-        var permissions = formatConfig(aa.getIns().rules);
+         var permissions={} ;//=formatConfig(aa.getIns().rules);
+//         console.log(permissions);
+        if(aa.getIns().store){
+//            console.log('we have ');
+             permissions = aa.getIns().permissions;
+        }else if(aa.getIns().finished){
+//            console.log(' not  have !,but I init now ');
+//            console.log(aa.getIns().rules);
+             permissions = formatConfig(aa.getIns().rules);//省N次format
+//             console.log(permissions);
+             aa.getIns().permissions =  permissions;
+             aa.getIns().store = true;
+        }else{
+            console.log(' not  have !,adn not finished ');
+        }
+        
         const method = req.method.toUpperCase();
         //console.log( method);
         // console.log("permissions is :");

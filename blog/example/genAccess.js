@@ -83,9 +83,9 @@ function genRolesAccesses(app) {
                             publics[value.url] = allaccess;
                         }
                     });
-                    console.log(publics);
-                    console.log(roleacs);
-                    console.log(roleid_rule);
+//                    console.log(publics);
+//                    console.log(roleacs);
+//                    console.log(roleid_rule);
                     if (err == null && results[1] != null) {
 //                        console.log(results[1]);
                         results[1].forEach(function (value, index, array) {
@@ -98,7 +98,7 @@ function genRolesAccesses(app) {
                                 if (url != null) {//url exists
 //                                    console.log('in---urlis ', v, url, name);
                                     var index = roleacs[url].GET.indexOf(name);
-                                    console.log(roleacs[url].GET);
+//                                    console.log(roleacs[url].GET);
 //                                    console.log('index is : ', index);
                                     if (index == -1) {
                                         roleacs[url].GET.push(name);
@@ -108,12 +108,13 @@ function genRolesAccesses(app) {
                                 }
                             })
                         });
-                        console.log(roleacs);
+//                        console.log(roleacs);
                     }
                 }
                 var together = Object.assign({}, roleacs, publics);
                 console.log('out', together);
                 app.rules = together;
+                app.finished = true;//现在获取getIns就是可用的
                 console.log('load ------------------finished');
             }
     );

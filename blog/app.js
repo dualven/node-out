@@ -9,6 +9,7 @@ const {permission} = require('./public/js/permission.js')
 var index = require('./routes/index');
 var users = require('./routes/users');
 var login = require('./routes/login');
+var tree = require('./routes/tree');
 //var history= require('connect-history-api-fallback');
 
 var app = express();
@@ -24,22 +25,30 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(session({
     secret: '12345',
-    name: 'testapp',   //这里的name值得是cookie的name，默认cookie的name是：connect.sid
-    cookie: {maxAge: 80000000 },  //设置maxAge是80000ms，即80s后session和相应的cookie失效过期
+    name: 'testapp', //这里的name值得是cookie的name，默认cookie的name是：connect.sid
+    cookie: {maxAge: 80000000}, //设置maxAge是80000ms，即80s后session和相应的cookie失效过期
     resave: false,
     saveUninitialized: true,
 }));
 app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'treedist')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'static')));
+
+aa = require('./example/AccessMng');
+aa.getIns().rules;
 app.use(permission({config: require('./example/config')}));//before route ;means useful to route ,or if do all ,the static resouces can be inflected!
+
+//
 //app.use(history({
 //    rewrites:[{from:/\/solution/,to:'/index.html'}]
 //}));
 app.use('/', index);
 app.use('/users', users);
-app.use('/login', login);
+app.use('/login', login);//app.use(permission({config: require('./example/config')}));//before route ;means useful to route ,or if do all ,the static resouces can be inflected!
 
+app.use('/tree', tree);
+console.log('now , route is over');
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

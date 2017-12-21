@@ -2,6 +2,8 @@ class AccessMng {
   
    constructor() {
      this.rules= {};
+     this.finished = false;
+     this.store = false;
     var xxx = require('./genAccess');
     xxx(this);
     console.log('user constructor');
