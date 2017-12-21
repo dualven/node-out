@@ -114,10 +114,12 @@ const match = (permissions, originalUrl) => {
  */
 const permission = (setting) => {
 
-    let {field, notLoggedIn, notAllowed} = setting
+    let {field, notLoggedIn, notAllowed} = setting;//目前只是有setting.config
 
-    const permissions = formatConfig(setting.config)
-
+//    const permissions = formatConfig(setting.config)
+    var aa = require('../../example/AccessMng');
+//    console.log('--------in permission--------', aa.getIns().rules);
+    
     // 權限不符的預設處理方式
     if (!notAllowed) {
         notAllowed = (req, res, next) => {
@@ -139,12 +141,15 @@ const permission = (setting) => {
         field = 'user'
     }
 
-
+    //
+    //
+    //（3）按原来流程校验
     return (req, res, next) => {
 
         /**
          * @type {string}
          */
+        var permissions = formatConfig(aa.getIns().rules);
         const method = req.method.toUpperCase();
         //console.log( method);
         // console.log("permissions is :");

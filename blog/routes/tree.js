@@ -37,7 +37,7 @@ function modifyRow(res, whereStr) {
     };
     var m = require('../public/js/mgdb.js');
     var n = new m(f, DB_CONN_STR, doc);
-    n.commonSave(whereStr);
+    n.commonSave(whereStr,true);
 }
 function deleteRow(res, whereStr) {
     console.log('deleteRow whereStr data : ', whereStr);
@@ -145,7 +145,7 @@ router.get('/groupsmng', function (req, res, next) {
             if (err) {
                 console.error(err);
             }
-            console.log(result);
+//            console.log(result);
             res.json(result);
         });
     });

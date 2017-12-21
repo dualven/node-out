@@ -21,11 +21,25 @@ mongo.prototype.selectData = function (db, callback, doc) {
         if (err)
         {
             console.log('Error:' + err);
-
             return;
         }
-        console.log("selectData: success ,before callback");
         callback(result);
+    });
+};
+/**
+ * 
+ * @param {type} query
+ * @returns {undefined}
+ * 与getIPRecords唯一区别  callback(err,result)
+ */
+mongo.prototype.getcommonRecords = function (query)
+{
+    var getRs = this.getRs;
+    var callback = this.callback;
+    var doc = this.doc;
+    this.MongoClient.connect(this.DB_CONN_STR, function (err, db) {
+        getRs(db, callback, doc, query);
+        db.close();
     });
 };
 mongo.prototype.getIPRecords = function (query)
@@ -33,9 +47,9 @@ mongo.prototype.getIPRecords = function (query)
     var getIPs = this.getIPs;
     var callback = this.callback;
     var doc = this.doc;
-    console.log("let me see ------------------！" + this.DB_CONN_STR);
+//    console.log("let me see ------------------！" + this.DB_CONN_STR);
     this.MongoClient.connect(this.DB_CONN_STR, function (err, db) {
-        console.log("getIPRecords:连接成功------------------！" + err);
+//        console.log("getIPRecords:连接成功------------------！" + err);
         getIPs(db, callback, doc, query);
         db.close();
     });
@@ -44,21 +58,20 @@ mongo.prototype.getIPs = function (db, callback, doc, query) {
     //连接到表  
     var collection = db.collection(doc);
     //查询数据
-    console.log('before');
-    console.log(query);
-//    var whereStr = JSON.parse(query);
-    console.log(query);
+//    console.log(query);
     collection.find(query).toArray(function (err, result) {
         if (err)
         {
             console.log('Error:' + err);
-
             return;
         }
-
-        console.log("getIPs: success ,before callback");
-        console.log(result);
         callback(result);
+    });
+};
+mongo.prototype.getRs = function (db, callback, doc, query) {
+    var collection = db.collection(doc);
+    collection.find(query).toArray(function (err, result) {
+        callback(err, result);
     });
 };
 //check if there is a same record & if not  ,save it !
@@ -67,14 +80,12 @@ mongo.prototype.saveData = function (db, callback, doc, ip, port, user, pwd) {
     var collection = db.collection(doc);
     //查询数据
     var whereStr = {'db-port': port, 'db-ip': ip, 'db-username': user, 'db-password': pwd};
-    console.log('wherestr insert is :' + JSON.stringify(whereStr));
+//    console.log('wherestr insert is :' + JSON.stringify(whereStr));
     collection.find(whereStr).toArray(function (err, result) {
         if (err || result.length == 0)
         {
-            console.log('there is no same record:' + err);
+//            console.log('there is no same record:' + err);
             var k = collection.insert(whereStr);
-            console.log('after insert whereStr:' + JSON.stringify(whereStr));
-            console.log('kkkkkkkkkkkkkkkk' + JSON.stringify(k));
             whereStr['info'] = 3;
             callback([whereStr]);
         } else {
@@ -87,20 +98,19 @@ mongo.prototype.saveData = function (db, callback, doc, ip, port, user, pwd) {
     });
 };
 //check if there is a same record & if not  ,save it !
-mongo.prototype.commonSave = function (whereStr,createnot) {
+mongo.prototype.commonSave = function (whereStr, createnot) {
     //连接到表  
     var callback = this.callback;
     var doc = this.doc;
-    console.log("let me see ------------------！" + this.DB_CONN_STR);
+//    console.log("let me see ------------------！" + this.DB_CONN_STR);
     this.MongoClient.connect(this.DB_CONN_STR, function (err, db) {
         if (!err) {
             console.log("commonSave: 连接成功------------------！");
             var collection = db.collection(doc);
             //查询数据
-//    var whereStr = {'db-port': port, 'db-ip': ip, 'db-username': user, 'db-password': pwd};
-            console.log('wherestr save is :' + JSON.stringify(whereStr));
+//            console.log('wherestr save is :' + JSON.stringify(whereStr));
 //            collection.save(whereStr);
-            collection.update({id:whereStr.id},whereStr,{upsert:createnot});
+            collection.update({id: whereStr.id}, whereStr, {upsert: createnot});
             callback([whereStr]);
             db.close();
         } else {
@@ -116,7 +126,7 @@ mongo.prototype.batchDelete = function (whereStr) {
     //连接到表  
     var callback = this.callback;
     var doc = this.doc;
-    console.log("let me see ------------------！" + this.DB_CONN_STR);
+//    console.log("let me see ------------------！" + this.DB_CONN_STR);
     this.MongoClient.connect(this.DB_CONN_STR, function (err, db) {
         if (!err) {
             console.log("batchDelete: 连接成功------------------！");
@@ -139,9 +149,9 @@ mongo.prototype.executeSelect = function ()
     var selectD = this.selectData;
     var callback = this.callback;
     var doc = this.doc;
-    console.log("let me see ------------------！" + this.DB_CONN_STR);
+//    console.log("let me see ------------------！" + this.DB_CONN_STR);
     this.MongoClient.connect(this.DB_CONN_STR, function (err, db) {
-        console.log("executeSelect:连接成功------------------！" + err);
+//        console.log("executeSelect:连接成功------------------！" + err);
         selectD(db, callback, doc);
         db.close();
     });
@@ -152,10 +162,9 @@ mongo.prototype.checkCon = function (ip, port, user, pwd)
     var saveData = this.saveData;
     var callback = this.callback;
     var doc = this.doc;
-    console.log("let me see ------------------！" + this.DB_CONN_STR);
     this.MongoClient.connect(this.DB_CONN_STR, function (err, db) {
         if (!err) {
-            console.log("checkcon: 连接成功------------------！");
+//            console.log("checkcon: 连接成功------------------！");
 
             var a = require('./mysqlout.js');
             var g = new a(ip, port, user, pwd);

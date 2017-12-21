@@ -17,7 +17,7 @@ router.post('/check', function (req, res, next) {
     if (user == 'dxw' && pwd == '123456') {//todo:1 authentication  2 get author to session
         code = 0;
         req.session.user = user;
-        req.session.role = 'customer';
+        req.session.role = 'dxw';
     }
     var data = {msg: "用户登录成功", status: code};
 //    console.log(data.toString());

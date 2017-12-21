@@ -49,7 +49,7 @@ function genPublicAccesses() {
 //genPublicAccesses();
 //拿到Acess， 获取url!=null& pid!=13 actions
 //然后将 role往里面填。
-function genRolesAccesses() {
+function genRolesAccesses(app) {
     var allaccess = {'GET': true, 'POST': true};
     var roleacs = {};
     var roleid_rule = {};
@@ -113,8 +113,14 @@ function genRolesAccesses() {
                 }
                 var together = Object.assign({}, roleacs, publics);
                 console.log('out', together);
+                app.rules = together;
+                console.log('load ------------------finished');
             }
     );
 //    console.log('outout', roleacs);//nothing
 }
-genRolesAccesses();
+function appload(app) {
+    genRolesAccesses(app);
+
+}
+module.exports = appload;
