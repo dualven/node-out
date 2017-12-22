@@ -3,26 +3,26 @@ var router = express.Router();
 const path = require('path')
 var username = 'duan';
 var info = require('./config');
- var DB_CONN_STR = info.mongodbInfo.DB_CONN_STR;
+var DB_CONN_STR = info.mongodbInfo.DB_CONN_STR;
 /* GET home page. */
- router.get('/home', function(req, res, next) {
+router.get('/home', function (req, res, next) {
     res.sendFile(path.resolve(__dirname, '../index.html'))
-  })
-   router.get('/user', function(req, res, next) {
+})
+router.get('/user', function (req, res, next) {
     res.sendFile(path.resolve(__dirname, '../index.html'))
-  })
-  router.get('/about', function(req, res, next) {
+})
+router.get('/about', function (req, res, next) {
     res.sendFile(path.resolve(__dirname, '../index.html'))
-  })
-  router.get('/product', function(req, res, next) {
+})
+router.get('/product', function (req, res, next) {
     res.sendFile(path.resolve(__dirname, '../index.html'))
-  })
-  router.get('/solution', function(req, res, next) {
+})
+router.get('/solution', function (req, res, next) {
     res.sendFile(path.resolve(__dirname, '../index.html'))
-  })
-  router.get('/treedist', function(req, res, next) {
+})
+router.get('/treedist', function (req, res, next) {
     res.sendFile(path.resolve(__dirname, '../treedist/tree.html'))//index.html会让这个文件暴露给/
-  })
+})
 router.get('/index/profile', function (req, res, next) {
     var name = req.query.name;
     var pwd = req.query.pwd;
@@ -122,6 +122,45 @@ router.post('/index/out', function (req, res, next) {
 router.get('/index/welcome', function (req, res, next) {
     res.render('index/welcome');
 });
+function getMenu(callback) {
+    var query = {'level': {'$in': ["0", "1"]}};
+    var publics = [];
+    var doc = 'Access';
+    console.log('query is :' + query);
+    var f = function (result) {
+        result.forEach(function (value, index, array) {
+            if (value.level == '0' && value.id != '11' && value.parentid != '11') {
+                publics[value.id] = {};
+                publics[value.id].name = value.name;
+                publics[value.id]._data = [];
+            }
+        });
+        result.forEach(function (value, index, array) {
+            if (value.level == '1' && value.id != '11' && value.parentid != '11' && value.url != null) {
+                console.log('now it is :', value.name, value.id);
+                if (publics[value.parentid]._data == null) {
+                    publics[value.parentid]._data = [];
+                }
+
+                publics[value.parentid]._data[value.id] = {};
+                publics[value.parentid]._data[value.id].name = value.name;
+                publics[value.parentid]._data[value.id].mca = value.url;
+            }
+        });
+//        delete publics[0];
+        console.log((publics));
+//        publics.forEach(
+//                function (value, index, array) {
+//                    console.log(value.name, value._data);
+//                }
+//        );
+        callback(publics);//
+
+    };
+    var m = require('../public/js/mgdb.js');
+    var n = new m(f, DB_CONN_STR, doc);
+    n.getIPRecords(query);
+}
 function mongo(f) {
     var MongoClient = require('mongodb').MongoClient;
     // var DB_CONN_STR = 'mongodb://10.60.0.205:27017/dualven';
@@ -137,6 +176,7 @@ function mongo(f) {
                 console.log('Error:' + err);
                 return;
             }
+            console.log(result);
             callback(result);
         });
     }
@@ -161,7 +201,8 @@ router.get('/', function (req, res, next) {
                 data: result
             });
         }
-        mongo(f);
+//        mongo(f);
+        getMenu(f);
     } else {
         res.render('index/login')
     }

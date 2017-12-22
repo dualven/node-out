@@ -122,9 +122,9 @@ const permission = (setting) => {
 //    const permissions = formatConfig(aa.getIns().rules);
     // 權限不符的預設處理方式
     if (!notAllowed) {
-        notAllowed = (req, res, next) => {
-//            next({message: 'Not allowed.', })
-            res.render('index/login');
+        notAllowed = (req, res, next,msg) => {
+            next({message: msg + 'Not allowed.', })
+//            res.render('index/login');
         }
     }
 
@@ -183,7 +183,7 @@ const permission = (setting) => {
         //console.log(result);
         switch (result) {
             case Result.NOT_ALLOWED:
-                return notAllowed(req, res, next)
+                return notAllowed(req, res, next,perm.resource.toString())
 
             case Result.NOT_LOGGED_IN:
                 return notLoggedIn(req, res, next)

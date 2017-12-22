@@ -8,12 +8,12 @@ router.get('/', function (req, res, next) {
 });
 router.get('/getAccess', function (req, res, next) {
     addheaders(res);
-    getAlldata(res,'Access');
+    getAlldata(res, 'Access');
 });
 router.post('/getCommonTb', function (req, res, next) {
-    getAlldata(res,req.body.table);
+    getAlldata(res, req.body.table);
 });
-function getAlldata(res,doc) {
+function getAlldata(res, doc) {
     console.log('getAll post data : ');
 //    var doc = 'Access';
     var query = {};
@@ -31,13 +31,14 @@ function modifyRow(res, whereStr) {
     console.log('modifyRow whereStr data : ', whereStr);
     var doc = 'Access';
     var f = function (result) {
+         refreshPer();
         res.json({
             result: result
         });
     };
     var m = require('../public/js/mgdb.js');
     var n = new m(f, DB_CONN_STR, doc);
-    n.commonSave(whereStr,true);
+    n.commonSave(whereStr, true);
 }
 function deleteRow(res, whereStr) {
     console.log('deleteRow whereStr data : ', whereStr);
@@ -73,6 +74,7 @@ router.all('/passDelete', function (req, res, next) {
     var whereStr = {id: {$in: condition}};
     deleteRow(res, whereStr);
 });
+//修改权限
 router.all('/updateG', function (req, res, next) {
     addheaders(res);
     console.log('my-updateG post data : ', req.body);
@@ -86,6 +88,7 @@ router.all('/updateG', function (req, res, next) {
     console.log(change);
     var doc = 'groups';
     var f = function (result) {
+        refreshPer();
         res.json({
             result: result
         });
@@ -94,6 +97,11 @@ router.all('/updateG', function (req, res, next) {
     var n = new m(f, DB_CONN_STR, doc);
     n.commonSave(change, false);
 });
+function refreshPer() {
+    var aa = require('../example/AccessMng');
+    aa.getIns().refreshPermission();
+}
+//only modify
 router.all('/updateUser', function (req, res, next) {
     console.log('my-updateUser post data : ', req.body);
     var doc = 'users';
@@ -150,6 +158,7 @@ router.get('/groupsmng', function (req, res, next) {
         });
     });
 });
+// 新增
 router.all('/commonSaveuser', function (req, res, next) {
     var doc = 'users';
     //test db
@@ -165,6 +174,7 @@ router.all('/commonSavegroup', function (req, res, next) {
     var doc = 'users';
     //test db
     var f = function (result) {
+        refreshPer();
         res.json(result);
     }
     var m = require('../public/js/mgdb.js');
