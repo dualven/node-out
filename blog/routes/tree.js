@@ -112,7 +112,7 @@ router.all('/updateUser', function (req, res, next) {
     };
     var m = require('../public/js/mgdb.js');
     var n = new m(f, DB_CONN_STR, doc);
-    n.commonSave(req.body, false);
+    n.commonSave(req.body, true);
 });
 router.get('/usersmng', function (req, res, next) {
     console.log('process post data : ');
@@ -131,7 +131,7 @@ router.get('/usersmng', function (req, res, next) {
             if (err) {
                 console.error(err);
             }
-            console.log(result);
+//            console.log(result);
             res.json(result);
         });
     });
@@ -158,7 +158,7 @@ router.get('/groupsmng', function (req, res, next) {
         });
     });
 });
-// 新增
+// 新增  废弃了
 router.all('/commonSaveuser', function (req, res, next) {
     var doc = 'users';
     //test db

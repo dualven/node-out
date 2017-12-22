@@ -110,7 +110,7 @@ mongo.prototype.commonSave = function (whereStr, createnot) {
             //查询数据
 //            console.log('wherestr save is :' + JSON.stringify(whereStr));
 //            collection.save(whereStr);
-            collection.update({id: whereStr.id}, whereStr, {upsert: createnot});
+            collection.update({id: whereStr.id}, {"$set":whereStr}, {upsert: createnot});
             callback([whereStr]);
             db.close();
         } else {

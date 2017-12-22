@@ -54,27 +54,21 @@ function checkuser(user, pwd, f) {
         }
     ],
             function (err, results) {
-                console.log('here');
-                console.log(err, results)
-                if (err == null && results[0] != null) {
+                if (err == null && results[0] != null && results[0].length > 0) {
                     var roleid = results[0][0].groupid;
-                    console.log('roleid', roleid);
                     if (results[1] != null) {
                         results[1].forEach(function (value, index, array) {
                             if (value.id == roleid) {
                                 var last = {code: 0, role: value.name, roleid: value.id};
-                                console.log('i get my word!', last);
                                 f(last);
                             }
                         });
                     } else {
                         var last = {code: 3, role: '0', roleid: '0'};
-                        console.log('i get my word!', last);
                         f(last);
                     }
                 } else {
                     var last = {code: 3, role: '0', roleid: '0'};
-                    console.log('i get my word!', last);
                     f(last);
                 }
 

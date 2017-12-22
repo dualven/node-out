@@ -1,9 +1,8 @@
-function revokeDlg(id, groupid, name, sex) {
-//    $(".modal-body").append("<div id='app'></div> <script src='/acdist.js'></script>   ");
-    $(".modal-body p strong").append('' + id + "," + groupid);
+function revokeDlg(id, groupid, name,pwd, sex) {
     $("#userid-e").val(id);
     $("#groupid-e").val(groupid);
     $("#name-e").val(name);
+     $("#pwd-e").val(pwd);
     $("#sex-e").val(sex);
 
     $.ajax({
@@ -76,9 +75,10 @@ $(document).ready(function () {
                     var id = '"' + row.id + '"';
                     var groupid = '"' + row.groupid + '"';
                     var name = '"' + row.name + '"';
+                     var pwd = '"' + row.password + '"';
                     var sex = '"' + row.sex + '"';
                     var html = "<a href='javascript:void(0);'  class='delete btn btn-default btn-xs'  ><i class='fa fa-times'></i> 查看</a>"
-                    html += "<a href='javascript:void(0);'   onclick='revokeDlg(" + id + "," + groupid + "," + name + "," + sex + ")'  class='up btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> 编辑</a>"
+                    html += "<a href='javascript:void(0);'   onclick='revokeDlg(" + id + "," + groupid + "," + name +"," + pwd + "," + sex + ")'  class='up btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> 编辑</a>"
                     html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser(" + id + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> 删除</a>"
                     return html;
                 }
@@ -90,17 +90,34 @@ $(document).ready(function () {
 }
 );
 function fnClickAddRow() {
-    $.ajax({
-        url: "/tree/commonSaveuser",
-        data: {id: $("#id").val(), name: $("#name").val(), sex: $("#sex").val(), groupid: $("#groupid").val()},
-        dataType: "text",
+//    $.ajax({
+//        url: "/tree/commonSaveuser",
+//        data: {id: $("#id").val(), name: $("#name").val(), sex: $("#sex").val(), groupid: $("#groupid").val()},
+//        dataType: "text",
+//        type: "post",
+//        success: function (result) {
+////            oTable.ajax.reload(null,false);
+//            console.log('------output success--------', result);
+//        },
+//        error: function (error) {
+//            console.log('------output error--------', error);
+//        }
+//    })
+ $.ajax({
+        url: "/tree/getCommonTb",
+        data: {table: 'groups'},
+        dataType: "json",
         type: "post",
-        success: function (result) {
-//            oTable.ajax.reload(null,false);
-            console.log('------output success--------', result);
-        },
-        error: function (error) {
-            console.log('------output error--------', error);
+        success: function (data) {
+            var result = data.result;
+            console.log(result);
+            
+            var columns = [];
+           result.forEach(function(value,index,array){
+                 columns[value.id] = value.name;
+            });
+            addColumns(columns, 1);
+            $('#myModal').modal('toggle');
         }
-    })
+    });
 }
