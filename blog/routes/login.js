@@ -1,7 +1,7 @@
-	var express = require('express');
+var express = require('express');
 var router = express.Router();
 var info = require('./config');
- var DB_CONN_STR = info.mongodbInfo.DB_CONN_STR;
+var DB_CONN_STR = info.mongodbInfo.DB_CONN_STR;
 /* GET users listing. */
 router.get('/', function (req, res, next) {//login_out
     req.session.destroy();
@@ -14,17 +14,73 @@ router.post('/check', function (req, res, next) {
     var user = req.body.username;
     var pwd = req.body.password;
     var code = 3;
-    if (user == 'dxw' && pwd == '123456') {//todo:1 authentication  2 get author to session
-        code = 0;
-        req.session.user = user;
-        req.session.role = 'dxw';
-        req.session.roleid = '5';
-    }
-    var data = {msg: "用户登录成功", status: code};
-//    console.log(data.toString());
-    res.json(data);
+    var msg = '用户校验失败';
+    var f = function (result) {
+        if (result.code == 0) {
+            code = result.code;
+            req.session.user = user;
+            req.session.role = result.role;
+            req.session.roleid = result.roleid;
+            msg = '用户登录成功';
+        }
+        var data = {msg: msg, status: code};
+        res.json(data);
+    };
+    checkuser(user, pwd, f);
+//    if (user == 'dxw' && pwd == '123456') {//todo:1 authentication  2 get author to session
+//        code = 0;
+//        req.session.user = user;
+//        req.session.role = 'dxw';
+//        req.session.roleid = '5';
+//    }
+//    var data = {msg: "用户登录成功", status: code};
+////    console.log(data.toString());
+//    res.json(data);
 
 });
+function checkuser(user, pwd, f) {
+    var m = require('../public/js/mgdb.js');
+    var query = {'name': user, 'password': pwd};
+    console.log(query);
+    var async = require('async');
+    async.series([
+        function (callback) {
+            var n = new m(callback, DB_CONN_STR, 'users');
+            n.getcommonRecords(query);
+        },
+        function (callback) {
+            var n = new m(callback, DB_CONN_STR, 'groups');
+            n.getcommonRecords({});
+        }
+    ],
+            function (err, results) {
+                console.log('here');
+                console.log(err, results)
+                if (err == null && results[0] != null) {
+                    var roleid = results[0][0].groupid;
+                    console.log('roleid', roleid);
+                    if (results[1] != null) {
+                        results[1].forEach(function (value, index, array) {
+                            if (value.id == roleid) {
+                                var last = {code: 0, role: value.name, roleid: value.id};
+                                console.log('i get my word!', last);
+                                f(last);
+                            }
+                        });
+                    } else {
+                        var last = {code: 3, role: '0', roleid: '0'};
+                        console.log('i get my word!', last);
+                        f(last);
+                    }
+                } else {
+                    var last = {code: 3, role: '0', roleid: '0'};
+                    console.log('i get my word!', last);
+                    f(last);
+                }
+
+            }
+    );
+}
 router.get('/db', function (req, res, next) {
     var myDate = new Date();
     //read origin data from db , to init the web view 
@@ -106,8 +162,8 @@ router.all('/output', function (req, res, next) {
         }
         var m = require('../public/js/mgdb.js');
         var n = new m(ff, DB_CONN_STR, doc);
-        var where = {"ip":req.body.ip ,"dbinfo":req.body.db + "-" + req.body.tb + "-" + req.body.co, "oper_time": new Date().format('yyyyMMddhhmmss'),
-            "start":  req.body.start, "end": req.body.end, "note":result.reason, "code": result.status};
+        var where = {"ip": req.body.ip, "dbinfo": req.body.db + "-" + req.body.tb + "-" + req.body.co, "oper_time": new Date().format('yyyyMMddhhmmss'),
+            "start": req.body.start, "end": req.body.end, "note": result.reason, "code": result.status};
         n.saveOpers(where);
         res.json({info: result.status, reason: result.reason});
     }
@@ -118,10 +174,9 @@ var fs = require('fs');
 router.all('/acceptfile', function (req, res) {
     var form = null;
     form = new formidable.IncomingForm();
-    form.keepExtensions = false;		//隐藏后缀
-    form.multiples = true;				//多文件上传
+    form.keepExtensions = false; //隐藏后缀
+    form.multiples = true; //多文件上传
     form.uploadDir = './public/upload/';
-
     uploadFileFun(form, req, res, fs);
 });
 router.all('/inputxlsx', function (req, res) {
@@ -145,9 +200,6 @@ router.all('/inputxlsx', function (req, res) {
 
 //    f();
 });
-
-
-
 function uploadOper(fs, gUpload, fileS, resultPath) {
     console.log('uploadOper:');
     console.log(fileS);
@@ -155,12 +207,9 @@ function uploadOper(fs, gUpload, fileS, resultPath) {
             , catDir = gUpload + fileTypeName + '/'
             , catDetailDir = catDir + new Date().format('yyyyMMdd') + '/'
             , uploadPath = catDetailDir + fileS.name;
-
 //    resultPath.push(uploadPath.replace('public/', ''));
     var path = require('path');
     resultPath.push(path.resolve(uploadPath));
-
-
     if (fileS.name.lastIndexOf('.') > -1) {	//只能传有后缀的文件，前台上传做个限制（后台暂时没找到方法）
         if (!fs.existsSync(catDir)) {	//2级目录不存在
             fs.mkdirSync(catDir, 0776);
@@ -180,10 +229,8 @@ function uploadFileFun(form, req, res, fs) {
     form.parse(req, function (error, fields, files) {
         console.log('form.parse:');
         console.log(typeof (files));
-
         var ff = files[Object('file[]')];
         console.log(ff);
-
         var gUpload = './public/upload/',
                 fileS = null,
                 resultPath = [];
@@ -198,7 +245,7 @@ function uploadFileFun(form, req, res, fs) {
             uploadOper(fs, gUpload, fileS, resultPath);
         }
 
-        res.setHeader('Content-Type', 'text/html');		//很重要，不然ie会弹出保存对话框
+        res.setHeader('Content-Type', 'text/html'); //很重要，不然ie会弹出保存对话框
 
         //返回结果
         res.json({
@@ -207,7 +254,6 @@ function uploadFileFun(form, req, res, fs) {
                 url: resultPath
             }
         });
-
     });
 }
 
@@ -229,6 +275,4 @@ Date.prototype.format = function (fmt) { //author: meizz
             fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
     return fmt;
 };
-
-
 module.exports = router;

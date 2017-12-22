@@ -56,7 +56,7 @@ function genRolesAccesses(app) {
     var query = {};
     var publics = {};
     var doc = 'Access';
-    console.log('query is :' + query);
+//    console.log('query is :' + query);
     var m = require('../public/js/mgdb.js');
     var async = require('async');
     async.series([
@@ -112,7 +112,7 @@ function genRolesAccesses(app) {
                     }
                 }
                 var together = Object.assign({}, roleacs, publics);
-                console.log('out', together);
+//                console.log('out', together);
                 app.rules = together;
                 app.finished = true;//现在获取getIns就是可用的
                 console.log('load ------------------finished');

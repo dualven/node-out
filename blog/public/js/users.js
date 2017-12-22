@@ -30,7 +30,7 @@ btn3.on(
         "click", function () {
             $.ajax({
                 url: "/tree/updateUser",
-                data: {id: $("#userid-e").val(), groupid: $("input[name='roleradios']:checked").val(), name: $("#name-e").val(), sex: $("#sex-e").val()},
+                data: {id: $("#userid-e").val(), groupid: $("input[name='roleradios']:checked").val(), name: $("#name-e").val(),password: $("#pwd-e").val(), sex: $("#sex-e").val()},
                 dataType: "json",
                 type: "post",
                 success: function (result) {
