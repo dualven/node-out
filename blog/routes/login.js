@@ -18,6 +18,7 @@ router.post('/check', function (req, res, next) {
         code = 0;
         req.session.user = user;
         req.session.role = 'dxw';
+        req.session.roleid = '5';
     }
     var data = {msg: "用户登录成功", status: code};
 //    console.log(data.toString());

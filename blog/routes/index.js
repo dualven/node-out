@@ -122,44 +122,94 @@ router.post('/index/out', function (req, res, next) {
 router.get('/index/welcome', function (req, res, next) {
     res.render('index/welcome');
 });
-function getMenu(callback) {
+function getMenu(callback, roleid) {
+    var m = require('../public/js/mgdb.js');
     var query = {'level': {'$in': ["0", "1"]}};
     var publics = [];
-    var doc = 'Access';
-    console.log('query is :' + query);
-    var f = function (result) {
-        result.forEach(function (value, index, array) {
-            if (value.level == '0' && value.id != '11' && value.parentid != '11') {
-                publics[value.id] = {};
-                publics[value.id].name = value.name;
-                publics[value.id]._data = [];
-            }
-        });
-        result.forEach(function (value, index, array) {
-            if (value.level == '1' && value.id != '11' && value.parentid != '11' && value.url != null) {
-                console.log('now it is :', value.name, value.id);
-                if (publics[value.parentid]._data == null) {
-                    publics[value.parentid]._data = [];
+    var async = require('async');
+    async.series([
+        function (callback) {
+            var n = new m(callback, DB_CONN_STR, 'Access');
+            n.getcommonRecords(query);
+        },
+
+        function (callback) {
+            var n = new m(callback, DB_CONN_STR, 'groups');
+            n.getcommonRecords({'id': roleid});
+        }
+    ],
+            function (err, results) {
+                if (err == null && results[0] != null) {
+                    var pp,p;
+                    if (results[1][0] != null) {
+                        pp = results[1][0].permissions;
+                        p = pp.split(',');
+                    }
+                    results[0].forEach(function (value, index, array) {
+                        if (value.level == '0' && value.id != '11' && value.parentid != '11') {
+                            if (results[1][0] != null) {
+                                if (p.indexOf(value.id) == -1) {
+                                    return;
+                                }
+                            }
+                            publics[value.id] = {};
+                            publics[value.id].name = value.name;
+                            publics[value.id]._data = [];
+                        }
+                    });
+                    results[0].forEach(function (value, index, array) {
+                        if (value.level == '1' && value.id != '11' && value.parentid != '11' && value.url != null) {
+                            console.log('now it is :', value.name, value.id);
+                            if (publics[value.parentid] == null || publics[value.parentid]._data == null) {
+//                                publics[value.parentid]._data = [];
+                                return;
+                            }
+                            if (results[1][0] != null) {
+                                if (p.indexOf(value.id) == -1) {
+                                    return;
+                                }
+                            }
+                            publics[value.parentid]._data[value.id] = {};
+                            publics[value.parentid]._data[value.id].name = value.name;
+                            publics[value.parentid]._data[value.id].mca = value.url;
+                        }
+                    });
+                    console.log((publics));
+                    callback(publics);
                 }
-
-                publics[value.parentid]._data[value.id] = {};
-                publics[value.parentid]._data[value.id].name = value.name;
-                publics[value.parentid]._data[value.id].mca = value.url;
             }
-        });
-//        delete publics[0];
-        console.log((publics));
-//        publics.forEach(
-//                function (value, index, array) {
-//                    console.log(value.name, value._data);
+    );
+//    
+//    var doc = 'Access';
+//    console.log('query is :' + query);
+//    var f = function (result) {
+//        result.forEach(function (value, index, array) {
+//            if (value.level == '0' && value.id != '11' && value.parentid != '11') {
+//                publics[value.id] = {};
+//                publics[value.id].name = value.name;
+//                publics[value.id]._data = [];
+//            }
+//        });
+//        result.forEach(function (value, index, array) {
+//            if (value.level == '1' && value.id != '11' && value.parentid != '11' && value.url != null) {
+//                console.log('now it is :', value.name, value.id);
+//                if (publics[value.parentid]._data == null) {
+//                    publics[value.parentid]._data = [];
 //                }
-//        );
-        callback(publics);//
-
-    };
-    var m = require('../public/js/mgdb.js');
-    var n = new m(f, DB_CONN_STR, doc);
-    n.getIPRecords(query);
+//
+//                publics[value.parentid]._data[value.id] = {};
+//                publics[value.parentid]._data[value.id].name = value.name;
+//                publics[value.parentid]._data[value.id].mca = value.url;
+//            }
+//        });
+////        delete publics[0];
+//        console.log((publics));
+//        callback(publics);//
+//
+//    };
+//    var m = require('../public/js/mgdb.js');
+//    var n = new m(f, DB_CONN_STR, doc);
+//    n.getIPRecords(query);
 }
 function mongo(f) {
     var MongoClient = require('mongodb').MongoClient;
@@ -193,7 +243,7 @@ function mongo(f) {
 
 router.get('/', function (req, res, next) {
     console.log(req.session.user);
-    if (req.session.user) {
+    if (req.session.user && req.session.roleid) {
         var f = function (result) {
             res.render('index', {
                 username: 'duanxiongwen',
@@ -202,7 +252,7 @@ router.get('/', function (req, res, next) {
             });
         }
 //        mongo(f);
-        getMenu(f);
+        getMenu(f, req.session.roleid);
     } else {
         res.render('index/login')
     }
