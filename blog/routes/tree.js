@@ -40,9 +40,9 @@ function modifyRow(res, whereStr) {
     var n = new m(f, DB_CONN_STR, doc);
     n.commonSave(whereStr, true);
 }
-function deleteRow(res, whereStr) {
+function deleteRow(res, whereStr,doc) {
     console.log('deleteRow whereStr data : ', whereStr);
-    var doc = 'Access';
+    
     var f = function (result) {
         res.json({
             result: result
@@ -72,7 +72,14 @@ router.all('/passDelete', function (req, res, next) {
         condition[i] = req.body[i];
     }
     var whereStr = {id: {$in: condition}};
-    deleteRow(res, whereStr);
+    var doc = 'Access';
+    deleteRow(res, whereStr,doc);
+});
+router.all('/deleteOneId', function (req, res, next) {
+    addheaders(res);
+    console.log('deleteOneId post data : ', req.body);
+    var whereStr = {id: {$in: [ req.body.id]}};
+    deleteRow(res, whereStr,req.body.doc);
 });
 //修改权限
 router.all('/updateG', function (req, res, next) {
