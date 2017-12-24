@@ -34,6 +34,7 @@ btn3.on(
                 type: "post",
                 success: function (result) {
                     console.log('------output success--------', result);
+                    $("#myModal").modal('hidden');
                 },
                 error: function (error) {
                     console.log('------output error--------', error);
@@ -98,6 +99,7 @@ function deleteThisRowPapser(id) {
         type: "post",
         success: function (data) {
             console.log(data);
+             oTable.ajax.reload();
         }
     }
     );
