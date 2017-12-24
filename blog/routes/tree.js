@@ -31,7 +31,7 @@ function modifyRow(res, whereStr) {
     console.log('modifyRow whereStr data : ', whereStr);
     var doc = 'Access';
     var f = function (result) {
-         refreshPer();
+        refreshPer();
         res.json({
             result: result
         });
@@ -40,9 +40,9 @@ function modifyRow(res, whereStr) {
     var n = new m(f, DB_CONN_STR, doc);
     n.commonSave(whereStr, true);
 }
-function deleteRow(res, whereStr,doc) {
+function deleteRow(res, whereStr, doc) {
     console.log('deleteRow whereStr data : ', whereStr);
-    
+
     var f = function (result) {
         res.json({
             result: result
@@ -73,13 +73,13 @@ router.all('/passDelete', function (req, res, next) {
     }
     var whereStr = {id: {$in: condition}};
     var doc = 'Access';
-    deleteRow(res, whereStr,doc);
+    deleteRow(res, whereStr, doc);
 });
 router.all('/deleteOneId', function (req, res, next) {
     addheaders(res);
     console.log('deleteOneId post data : ', req.body);
-    var whereStr = {id: {$in: [ req.body.id]}};
-    deleteRow(res, whereStr,req.body.doc);
+    var whereStr = {id: {$in: [req.body.id]}};
+    deleteRow(res, whereStr, req.body.doc);
 });
 //修改权限
 router.all('/updateG', function (req, res, next) {
@@ -177,17 +177,17 @@ router.all('/commonSaveuser', function (req, res, next) {
     var where = {"id": req.body.id, "name": req.body.name, "sex": req.body.sex, "groupid": req.body.groupid};
     n.commonSave(where, true);
 });
-router.all('/commonSavegroup', function (req, res, next) {
-    var doc = 'users';
-    //test db
+router.all('/commonSave', function (req, res, next) {
+    console.log('my-commonSave post data : ', req.body.data);
+    var doc =req.body.doc;
     var f = function (result) {
-        refreshPer();
-        res.json(result);
-    }
+        res.json({
+            result: result
+        });
+    };
     var m = require('../public/js/mgdb.js');
     var n = new m(f, DB_CONN_STR, doc);
-    var where = {"id": req.body.id, "name": req.body.name, "sex": req.body.sex, "groupid": req.body.groupid};
-    n.commonSave(where);
+    n.commonSave(JSON.parse(req.body.data), true);
 });
 router.all('/playSessions', function (req, res, next) {
     console.log('now playSessions');

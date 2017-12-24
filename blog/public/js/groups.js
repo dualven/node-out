@@ -15,11 +15,6 @@ function revokeDlg(id) {
 
 }
 $(document).ready(function () {
-//    $('#myModal').on('shown.bs.modal', function () {
-//        $('#myInput').focus();
-//        console.log('yes it is on ');
-//    });
-
     var oTable = $("#groupsmngtable").dataTable({
         "processing": true,
         "serverSide": true,
@@ -50,18 +45,22 @@ $(document).ready(function () {
 );
 
 function fnClickAddRow() {
-    $.ajax({
-        url: "/users/saveCodemng",
-        data: {type: $("#type").val(), domain: $("#domain").val(), out: $("#out").val(), inner: $("#inner").val(),
-            userinfo: $("#userinfo").val()},
-        dataType: "text",
-        type: "post",
-        success: function (result) {
-//            oTable.ajax.reload(null,false);
-            console.log('------output success--------', result);
-        },
-        error: function (error) {
-            console.log('------output error--------', error);
-        }
-    });
+      $('#myModal').modal('toggle');
 }
+var btn3 = $("#savegroup");
+btn3.on(
+        "click", function () {
+            $.ajax({
+                url: "/tree/commonSave",
+                data: {doc:'groups',data:JSON.stringify({id: $("#groupid-e").val(), name: $("#name-e").val(),permissions: $("#permissions-e").val()})},
+                dataType: "json",
+                type: "post",
+                success: function (result) {
+                    console.log('------output success--------', result);
+                    $("#myModal").modal('hidden');
+                },
+                error: function (error) {
+                    console.log('------output error--------', error);
+                }
+            })
+        });

@@ -33,26 +33,45 @@
             <div class="ibox-content">
                 <form role="form" class="form-inline">
                     <div class="form-group">
-                        <input type="text" placeholder="请输入资源类型" id="type" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" placeholder="请输入域名" id="domain" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" placeholder="请输入外网地址" id="out" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" placeholder="请输入内网地址" id="inner" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" placeholder="请输入用户信息" id="userinfo" class="form-control">
-                    </div>
-                    <div class="form-group">
                         <a onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">添加行</a>
                     </div>
                 </form>
             </div>
+            <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content animated bounceInRight">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+                            </button>
+                            <h4 class="modal-title">角色信息</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">角色组</label>
+                                <div class="radio" id="rolegroup">
 
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>角色id</label>
+                                <input type="text" placeholder=""  id="groupid-e" value="" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>角色命名</label>
+                                <input type="text" placeholder="请输入姓名" id="name-e"  value="" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>permissions</label>
+                                <input type="text" placeholder="请输permissions" id="permissions-e"  value="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                            <input type="button" class="btn btn-sm" id="savegroup" value="save"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="ibox-content">
                 <div class="row">
                     <div class="table-responsive">
@@ -75,48 +94,48 @@
             <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog">
                     <!--<div class="modal-content animated bounceInRight">-->
-<!--                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
-                            </button>
-                            <i class="fa fa-laptop modal-icon"></i>
-                            <h4 class="modal-title">窗口标题</h4>
-                            <small class="font-bold">这里可以显示副标题。
-                        </div>-->
-                        <div class="modal-body">
-                            <!--                                            <p><strong>H+</strong> 是一个完全响应式，基于Bootstrap3.3.6最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术，她提供了诸多的强大的可以重新组合的UI组件，并集成了最新的jQuery版本(v2.1.1)，当然，也集成了很多功能强大，用途广泛的jQuery插件，她可以用于所有的Web应用程序，如网站管理后台，网站会员中心，CMS，CRM，OA等等，当然，您也可以对她进行深度定制，以做出更强系统。</p>
-                                                                        <div class="form-group"><label>Email</label> <input type="email" placeholder="请输入您的Email" class="form-control"></div>-->
-<!--                            <div id="app"></div>-->
-                        </div>
-<!--                        <div class="modal-footer">
-                            <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-                            <button type="button" class="btn btn-primary">保存</button>
-                        </div>-->
+                    <!--                        <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+                                                </button>
+                                                <i class="fa fa-laptop modal-icon"></i>
+                                                <h4 class="modal-title">窗口标题</h4>
+                                                <small class="font-bold">这里可以显示副标题。
+                                            </div>-->
+                    <div class="modal-body">
+                        <!--                                            <p><strong>H+</strong> 是一个完全响应式，基于Bootstrap3.3.6最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术，她提供了诸多的强大的可以重新组合的UI组件，并集成了最新的jQuery版本(v2.1.1)，当然，也集成了很多功能强大，用途广泛的jQuery插件，她可以用于所有的Web应用程序，如网站管理后台，网站会员中心，CMS，CRM，OA等等，当然，您也可以对她进行深度定制，以做出更强系统。</p>
+                                                                    <div class="form-group"><label>Email</label> <input type="email" placeholder="请输入您的Email" class="form-control"></div>-->
+                        <!--                            <div id="app"></div>-->
                     </div>
+                    <!--                        <div class="modal-footer">
+                                                <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                                                <button type="button" class="btn btn-primary">保存</button>
+                                            </div>-->
                 </div>
-
-
             </div>
 
+
         </div>
+
     </div>
-    <script src="/js/jquery.min.js?v=2.1.4"></script>
-    <script src="/js/bootstrap.min.js?v=3.3.6"></script>
-    <script src="/js/plugins/sparkline/jquery.sparkline.min.js"></script>
-    <script src="/js/plugins/peity/jquery.peity.min.js"></script>
-    <script src="/js/content.min.js?v=1.0.0"></script>
+</div>
+<script src="/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+<script src="/js/plugins/peity/jquery.peity.min.js"></script>
+<script src="/js/content.min.js?v=1.0.0"></script>
 
-    <script src="/js/plugins/jeditable/jquery.jeditable.js"></script>
-    <script src="/js/plugins/dataTables/jquery.dataTables.js"></script>
-    <script src="/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+<script src="/js/plugins/jeditable/jquery.jeditable.js"></script>
+<script src="/js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="/js/plugins/dataTables/dataTables.bootstrap.js"></script>
 
-    <!--        <script src="//code.jquery.com/jquery-1.12.4.js"></script>
-            <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>-->
-    <!--        <script src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
-            <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-            <script src="//cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script>-->
-      <script src="/acdist.js"></script>    
-    <script src='/js/groups.js'></script>
-  
+<!--        <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>-->
+<!--        <script src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script src="//cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script>-->
+<script src="/acdist.js"></script>    
+<script src='/js/groups.js'></script>
+
 </body>
 
 </html>
