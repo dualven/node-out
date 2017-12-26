@@ -34,7 +34,8 @@ btn3.on(
                 type: "post",
                 success: function (result) {
                     console.log('------output success--------', result);
-                    $("#myModal").modal('hidden');
+                    oTable.ajax.reload();
+                    $("#myModal").modal('hide');
                 },
                 error: function (error) {
                     console.log('------output error--------', error);
@@ -57,7 +58,7 @@ function addColumns(columns, init) {
 var oTable;
 $(document).ready(function () {
 
-    oTable = $("#usersmngtable").dataTable({
+    oTable = $("#usersmngtable").DataTable({
         "processing": true,
         "serverSide": true,
         "ajax": "/tree/usersmng",
