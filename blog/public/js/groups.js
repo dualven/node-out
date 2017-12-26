@@ -14,8 +14,9 @@ function revokeDlg(id) {
     });
 
 }
+var oTable;
 $(document).ready(function () {
-    var oTable = $("#groupsmngtable").dataTable({
+     oTable = $("#groupsmngtable").DataTable({
         "processing": true,
         "serverSide": true,
         "ajax": "/tree/groupsmng",
@@ -43,7 +44,19 @@ $(document).ready(function () {
     });
 }
 );
-
+function deleteThisRowPapser(id) {
+    $.ajax({
+        url: "/tree/deleteOneId",
+        data: {doc: 'groups', id: id},
+        dataType: "json",
+        type: "post",
+        success: function (data) {
+            console.log(data);
+             oTable.ajax.reload();
+        }
+    }
+    );
+}
 function fnClickAddRow() {
       $('#myModal').modal('toggle');
 }
@@ -52,12 +65,13 @@ btn3.on(
         "click", function () {
             $.ajax({
                 url: "/tree/commonSave",
-                data: {doc:'groups',data:JSON.stringify({id: $("#groupid-e").val(), name: $("#name-e").val(),permissions: $("#permissions-e").val()})},
+                data: {doc:'groups',data:JSON.stringify({id: $("#groupid-e").val(), name: $("#name-e").val(),permissions:'1'})},
                 dataType: "json",
                 type: "post",
                 success: function (result) {
                     console.log('------output success--------', result);
-                    $("#myModal").modal('hidden');
+                    oTable.ajax.reload();
+                    $("#myModal").modal('hide');
                 },
                 error: function (error) {
                     console.log('------output error--------', error);
