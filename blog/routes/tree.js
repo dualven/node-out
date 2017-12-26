@@ -27,6 +27,27 @@ function getAlldata(res, doc) {
     var n = new m(f, DB_CONN_STR, doc);
     n.getIPRecords(query);
 }
+router.post('/getMaxId', function (req, res, next) {
+    var doc = req.body.doc;
+    var field = req.body.field;
+    console.log(doc,field);
+    var f = function (error,result) {
+        var max = 0;
+        if(error == null&& result!=null && result.length > 0 ){
+            result.forEach(function(value,index,array){
+                if(Number.parseInt(value[field]) > max){
+                    max = Number.parseInt(value[field]);
+                }
+            });
+        }
+        res.json({
+            result: max
+        });
+    };
+    var m = require('../public/js/mgdb.js');
+    var n = new m(f, DB_CONN_STR, doc);
+    n.getcommonRecords({});
+});
 function modifyRow(res, whereStr) {
     console.log('modifyRow whereStr data : ', whereStr);
     var doc = 'Access';
@@ -104,6 +125,7 @@ router.all('/updateG', function (req, res, next) {
     var n = new m(f, DB_CONN_STR, doc);
     n.commonSave(change, false);
 });
+//only passchange; updataG need it !
 function refreshPer() {
     var aa = require('../example/AccessMng');
     aa.getIns().refreshPermission();

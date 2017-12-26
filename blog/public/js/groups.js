@@ -1,13 +1,13 @@
 function revokeDlg(id) {
-    
-    console.log('yes it is begin ',id);
+
+    console.log('yes it is begin ', id);
     $.ajax({
         url: "/tree/playSessions",
         data: {operator: 'set', somebody: 'group', value: id},
         dataType: "json",
         type: "post",
         success: function (result) {
-            console.log(result );
+            console.log(result);
             $(".modal-body").append("<div id='app'></div> <script src='/acdist.js'></script>   ");
             $('#myModal').modal('toggle');
         }
@@ -16,7 +16,7 @@ function revokeDlg(id) {
 }
 var oTable;
 $(document).ready(function () {
-     oTable = $("#groupsmngtable").DataTable({
+    oTable = $("#groupsmngtable").DataTable({
         "processing": true,
         "serverSide": true,
         "ajax": "/tree/groupsmng",
@@ -52,20 +52,31 @@ function deleteThisRowPapser(id) {
         type: "post",
         success: function (data) {
             console.log(data);
-             oTable.ajax.reload();
+            oTable.ajax.reload();
         }
     }
     );
 }
 function fnClickAddRow() {
-      $('#myModal').modal('toggle');
+    $.ajax({
+        url: "/tree/getMaxId",
+        data: {doc: 'groups', field: 'id'},
+        dataType: "json",
+        type: "post",
+        success: function (data) {
+            var max = data.result;
+            var newid = max + 1;
+            $("#groupid-e").val(newid);
+            $('#myModal').modal('toggle');
+        }
+    });
 }
 var btn3 = $("#savegroup");
 btn3.on(
         "click", function () {
             $.ajax({
                 url: "/tree/commonSave",
-                data: {doc:'groups',data:JSON.stringify({id: $("#groupid-e").val(), name: $("#name-e").val(),permissions:'1'})},
+                data: {doc: 'groups', data: JSON.stringify({id: $("#groupid-e").val(), name: $("#name-e").val(), permissions: '1'})},
                 dataType: "json",
                 type: "post",
                 success: function (result) {

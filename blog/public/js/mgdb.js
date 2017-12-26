@@ -42,6 +42,7 @@ mongo.prototype.getcommonRecords = function (query)
         db.close();
     });
 };
+
 mongo.prototype.getIPRecords = function (query)
 {
     var getIPs = this.getIPs;
@@ -74,6 +75,7 @@ mongo.prototype.getRs = function (db, callback, doc, query) {
         callback(err, result);
     });
 };
+
 //check if there is a same record & if not  ,save it !
 mongo.prototype.saveData = function (db, callback, doc, ip, port, user, pwd) {
     //连接到表  
