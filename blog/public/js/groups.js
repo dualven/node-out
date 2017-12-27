@@ -1,4 +1,27 @@
-function revokeDlg(id) {
+function revokeDlg(id, name) {//编辑角色时
+
+    console.log('yes it is begin ', id, name);
+    $.ajax({
+        url: "/tree/playSessions",
+        data: {operator: 'set', somebody: 'group', value: id},
+        dataType: "json",
+        type: "post",
+        success: function (result) {
+            console.log(result);
+//            $(".modal-body").append("<div id='app'></div> <script src='/acdist.js'></script>   ");
+            $("#groupid-e").val(id);
+            $("#name-e").val(name);
+            $(".form-group label").css("display", "block");
+            $("#groupid-e").css("display", "block");
+            $("#name-e").css("display", "block");
+            $("#editgroup").css("display", "block");
+            $("#savegroup").css("display", "none");
+            $('#myModal').modal('toggle');
+        }
+    });
+
+}
+function accessDlg(id) {//编辑权限
 
     console.log('yes it is begin ', id);
     $.ajax({
@@ -9,11 +32,22 @@ function revokeDlg(id) {
         success: function (result) {
             console.log(result);
             $(".modal-body").append("<div id='app'></div> <script src='/acdist.js'></script>   ");
+            $(".form-group label").css("display", "none");
+            $("#groupid-e").css("display", "none");
+            $("#name-e").css("display", "none");
+            $("#savegroup").css("display", "none");
+            $("#editgroup").css("display", "none");
             $('#myModal').modal('toggle');
         }
     });
 
 }
+$(function () {
+    $('#myModal').on('hide.bs.modal', function () {
+// alert('嘿，我听说您喜欢模态框...');
+        oTable.ajax.reload();
+    })
+});
 var oTable;
 $(document).ready(function () {
     oTable = $("#groupsmngtable").DataTable({
@@ -32,9 +66,10 @@ $(document).ready(function () {
                 "data": null,
                 "render": function (data, type, row) {
                     var id = '"' + row.id + '"';
-                    var html = "<a href='javascript:void(0);'  class='delete btn btn-default btn-xs'  ><i class='fa fa-times'></i> 查看</a>"
+                    var name = '"' + row.name + '"';
+                    var html = "<a href='javascript:void(0);'   onclick='accessDlg(" + id + ")' class='delete btn btn-default btn-xs'  ><i class='fa fa-times'></i> 权限编辑</a>"
 //                    html += "<a href='javascript:void(0);' class='up btn btn-default btn-xs'><i class='fa fa-arrow-up'></i> 编辑</a>"
-                    html += "<a href='javascript:void(0);'   onclick='revokeDlg(" + id + ")'  class='up btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> 编辑</a>"
+                    html += "<a href='javascript:void(0);'   onclick='revokeDlg(" + id + "," + name + ")'  class='up btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> 角色编辑</a>"
                     html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser(" + id + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> 删除</a>"
                     return html;
                 }
@@ -67,11 +102,17 @@ function fnClickAddRow() {
             var max = data.result;
             var newid = max + 1;
             $("#groupid-e").val(newid);
+            $(".modal-body #app").css("display", "none");
+            $(".form-group label").css("display", "block");
+            $("#groupid-e").css("display", "block");
+            $("#name-e").css("display", "block");
+            $("#savegroup").css("display", "block");
+            $("#editgroup").css("display", "none");
             $('#myModal').modal('toggle');
         }
     });
 }
-var btn3 = $("#savegroup");
+var btn3 = $("#savegroup");//only for create
 btn3.on(
         "click", function () {
             $.ajax({
@@ -81,7 +122,24 @@ btn3.on(
                 type: "post",
                 success: function (result) {
                     console.log('------output success--------', result);
-                    oTable.ajax.reload();
+                    $("#myModal").modal('hide');
+                },
+                error: function (error) {
+                    console.log('------output error--------', error);
+                }
+            })
+        });
+
+var btn4 = $("#editgroup");//only for create
+btn4.on(
+        "click", function () {
+            $.ajax({
+                url: "/tree/commonSave",
+                data: {doc: 'groups', data: JSON.stringify({id: $("#groupid-e").val(), name: $("#name-e").val()})},
+                dataType: "json",
+                type: "post",
+                success: function (result) {
+                    console.log('------output success--------', result);
                     $("#myModal").modal('hide');
                 },
                 error: function (error) {
