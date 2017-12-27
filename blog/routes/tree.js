@@ -98,9 +98,16 @@ router.all('/passDelete', function (req, res, next) {
 });
 router.all('/deleteOneId', function (req, res, next) {
     addheaders(res);
+    var doc = req.body.doc;
     console.log('deleteOneId post data : ', req.body);
+    if(req.body.id!= null){
     var whereStr = {id: {$in: [req.body.id]}};
-    deleteRow(res, whereStr, req.body.doc);
+    }else{
+        delete req.body.doc;
+        var whereStr = req.body;
+    }
+    console.log(whereStr);
+    deleteRow(res, whereStr, doc);
 });
 //修改权限
 router.all('/updateG', function (req, res, next) {
