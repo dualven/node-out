@@ -9,6 +9,7 @@ function revokeDlg(id, name) {//编辑角色时
         success: function (result) {
             console.log(result);
 //            $(".modal-body").append("<div id='app'></div> <script src='/acdist.js'></script>   ");
+            $(".modal-body #app").css("display", "none");
             $("#groupid-e").val(id);
             $("#name-e").val(name);
             $(".form-group label").css("display", "block");
