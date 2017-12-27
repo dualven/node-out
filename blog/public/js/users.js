@@ -45,9 +45,6 @@ btn3.on(
 function addColumns(columns, init) {
     var b = $("#rolegroup");
     $("#rolegroup label ").remove();
-//    for (var i = 0; i < columns.length; i++) {
-//        b.append('<label><input type="radio" checked="false" value="' + columns[i] + '" name="roleradios">' + columns[i] + '</label>');
-//    }
     columns.forEach(function (value, index, array) {
         b.append('<label><input type="radio" checked="false" value="' + index + '" name="roleradios">' + value + '--' + index + '</label>');
     });
@@ -79,7 +76,7 @@ $(document).ready(function () {
                     var name = '"' + row.name + '"';
                     var pwd = '"' + row.password + '"';
                     var sex = '"' + row.sex + '"';
-                    var html = "<a href='javascript:void(0);'  class='delete btn btn-default btn-xs'  ><i class='fa fa-times'></i> 查看</a>"
+                    var html = "";
                     html += "<a href='javascript:void(0);'   onclick='revokeDlg(" + id + "," + groupid + "," + name + "," + pwd + "," + sex + ")'  class='up btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> 编辑</a>"
                     html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser(" + id + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> 删除</a>"
                     return html;
@@ -100,7 +97,7 @@ function deleteThisRowPapser(id) {
         type: "post",
         success: function (data) {
             console.log(data);
-             oTable.ajax.reload();
+            oTable.ajax.reload();
         }
     }
     );
@@ -133,7 +130,23 @@ function fnClickAddRow() {
                 columns[value.id] = value.name;
             });
             addColumns(columns, 1);
-            $('#myModal').modal('toggle');
+            getmaxid();
+//            $('#myModal').modal('toggle');
         }
     });
+
+    function getmaxid() {
+        $.ajax({
+            url: "/tree/getMaxId",
+            data: {doc: 'users', field: 'id'},
+            dataType: "json",
+            type: "post",
+            success: function (data) {
+                var max = data.result;
+                var newid = max + 1;
+                $("#userid-e").val(newid);
+                $('#myModal').modal('toggle');
+            }
+        });
+    }
 }
