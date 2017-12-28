@@ -206,6 +206,7 @@ router.all('/commonSaveuser', function (req, res, next) {
     var where = {"id": req.body.id, "name": req.body.name, "sex": req.body.sex, "groupid": req.body.groupid};
     n.commonSave(where, true);
 });
+//只适合ID为关键字的
 router.all('/commonSave', function (req, res, next) {
     console.log('my-commonSave post data : ', req.body.data);
     var doc =req.body.doc;
@@ -217,6 +218,18 @@ router.all('/commonSave', function (req, res, next) {
     var m = require('../public/js/mgdb.js');
     var n = new m(f, DB_CONN_STR, doc);
     n.commonSave(JSON.parse(req.body.data), true);
+});
+router.all('/commonSaveEx', function (req, res, next) {
+    console.log('my-commonSaveEx post data : ', req.body.old,req.body.updatestr);
+    var doc =req.body.doc;
+    var f = function (result) {
+        res.json({
+            result: result
+        });
+    };
+    var m = require('../public/js/mgdb.js');
+    var n = new m(f, DB_CONN_STR, doc);
+    n.commonSaveEx(JSON.parse(req.body.old),JSON.parse(req.body.updatestr), true);
 });
 router.all('/playSessions', function (req, res, next) {
     console.log('now playSessions');

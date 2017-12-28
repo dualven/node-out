@@ -38,13 +38,13 @@
                     <div class="form-group">
                         <input type="text" placeholder="请输入域名" id="domain" class="form-control">
                     </div>
-                     <div class="form-group">
+                    <div class="form-group">
                         <input type="text" placeholder="请输入外网地址" id="out" class="form-control">
                     </div>
-                     <div class="form-group">
+                    <div class="form-group">
                         <input type="text" placeholder="请输入内网地址" id="inner" class="form-control">
                     </div>
-                     <div class="form-group">
+                    <div class="form-group">
                         <input type="text" placeholder="请输入用户信息" id="userinfo" class="form-control">
                     </div>
                     <div class="form-group">
@@ -71,6 +71,64 @@
 
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated bounceInRight">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+                        </button>
+                        <h4 class="modal-title">账号信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="old"  style="display: none">
+                            <div class="form-group">
+                                <label>类型</label>
+                                <input type="text"  placeholder=""  id="type-old" value="" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>域名</label>
+                                <input type="text" placeholder="请输入域名" id="domain-old"  value="" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>外部IP</label>
+                                <input type="text" placeholder="请输入外部IP" id="out_ip-old"  value="" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>内部IP</label>
+                                <input type="text" placeholder="请输入内部IP" id="inner_ip-old"  value="" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>用户信息</label>
+                                <input type="text" placeholder="请输入用户信息" id="userinfo-old"  value="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>类型</label>
+                            <input type="text"  placeholder=""  id="type-e" value="" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>域名</label>
+                            <input type="text" placeholder="请输入域名" id="domain-e"  value="" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>外部IP</label>
+                            <input type="text" placeholder="请输入外部IP" id="out_ip-e"  value="" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>内部IP</label>
+                            <input type="text" placeholder="请输入内部IP" id="inner_ip-e"  value="" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>用户信息</label>
+                            <input type="text" placeholder="请输入用户信息" id="userinfo-e"  value="" class="form-control">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-sm" id="editgroup" value="edit"/>
                     </div>
                 </div>
             </div>

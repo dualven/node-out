@@ -68,10 +68,10 @@ $(document).ready(function () {
                 "render": function (data, type, row) {
                     var id = '"' + row.id + '"';
                     var name = '"' + row.name + '"';
-                    var html = "<a href='javascript:void(0);'   onclick='accessDlg(" + id + ")' class='delete btn btn-default btn-xs'  ><i class='fa fa-times'></i> 权限编辑</a>"
+                    var html = "<a href='javascript:void(0);'   onclick='accessDlg(" + id + ")' class='glyphicon glyphicon-pencil'> 权限编辑</a>"
 //                    html += "<a href='javascript:void(0);' class='up btn btn-default btn-xs'><i class='fa fa-arrow-up'></i> 编辑</a>"
-                    html += "<a href='javascript:void(0);'   onclick='revokeDlg(" + id + "," + name + ")'  class='up btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> 角色编辑</a>"
-                    html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser(" + id + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> 删除</a>"
+                    html += "<a href='javascript:void(0);'   onclick='revokeDlg(" + id + "," + name + ")' class='glyphicon glyphicon-pencil'> 角色编辑</a>"
+                    html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser(" + id + ")'   class='glyphicon glyphicon-remove'> 删除</a>"
                     return html;
                 }
             }],

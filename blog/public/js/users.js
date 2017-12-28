@@ -77,8 +77,8 @@ $(document).ready(function () {
                     var pwd = '"' + row.password + '"';
                     var sex = '"' + row.sex + '"';
                     var html = "";
-                    html += "<a href='javascript:void(0);'   onclick='revokeDlg(" + id + "," + groupid + "," + name + "," + pwd + "," + sex + ")'  class='up btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> 编辑</a>"
-                    html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser(" + id + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> 删除</a>"
+                    html += "<a href='javascript:void(0);'   onclick='revokeDlg(" + id + "," + groupid + "," + name + "," + pwd + "," + sex + ")'   class='glyphicon glyphicon-pencil'> 编辑</a>"
+                    html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser(" + id + ")'   class='glyphicon glyphicon-remove'> 删除</a>"
                     return html;
                 }
             }],

@@ -124,6 +124,30 @@ mongo.prototype.commonSave = function (whereStr, createnot) {
     });
 
 };
+mongo.prototype.commonSaveEx = function (whereStr,updateStr, createnot) {
+    //连接到表  
+    var callback = this.callback;
+    var doc = this.doc;
+//    console.log("let me see ------------------！" + this.DB_CONN_STR);
+    this.MongoClient.connect(this.DB_CONN_STR, function (err, db) {
+        if (!err) {
+            console.log("commonSaveEx: 连接成功------------------！");
+            var collection = db.collection(doc);
+            //查询数据
+//            console.log('wherestr save is :' + JSON.stringify(whereStr));
+//            collection.save(whereStr);
+            collection.update(whereStr, {"$set":updateStr}, {upsert: createnot});
+            callback([updateStr]);
+            db.close();
+        } else {
+            console.log("commonSaveEx:连接失败------------------！");
+            db.close();
+            var rr = {'info': 0};
+            callback([rr]);
+        }
+    });
+
+};
 mongo.prototype.batchDelete = function (whereStr) {
     //连接到表  
     var callback = this.callback;
