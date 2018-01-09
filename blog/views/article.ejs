@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>帖子</title>
+	<link rel="stylesheet" href="/css/bootstrap.min14ed.css">
+	<link rel="stylesheet" href="/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/animate.min.css">
+	<link rel="stylesheet" href="/css/style.min862f.css">
+	<script src="/js/vue.min.js"></script>
+	<script src="/js/vue-resource.min.js"></script>
+	<style>
+	.circleBg{
+		height: 220px;
+		overflow: hidden;
+		margin: 0 -20px;
+	}
+	.circleBg img{
+		width: 100%;
+	}
+	.ibox-content p{
+		word-break: break-all;
+	}
+	.text-center{
+		text-align: center;
+	}
+	.personblock{
+		margin-bottom: 12px;
+	}
+	.headimg{
+		float: left;
+		margin-right: 20px;
+		width: 60px;
+		height: 60px;
+		border-radius: 50%;
+		overflow: hidden;
+	}
+	.headimg img{
+		width: 100%;
+	}
+	.personblock h3{
+		margin-bottom: 8px;
+		padding-top: 12px 
+	}
+	.memberHead{
+		display: inline-block;
+		width: 15%;
+        height: 0;
+        margin-right: 5%;
+        padding-bottom: 15%;
+		border-radius: 50%;
+		overflow: hidden;
+	}
+	.memberHead img{
+		width: 100%;
+		margin-bottom: 10px;
+	}
+	.pink{
+		color: #FF6A8F;
+	}
+	.blue{
+		color: #1296db;
+	}
+	.notepic{
+		float: left;
+		width: 32%;
+        height: 0;
+        padding-bottom: 30%;
+        margin-right: 2%;
+        margin-bottom: 6px;
+        overflow: hidden;
+	}
+	.notepic:nth-child(3n+0){
+        margin-right: 0;
+	}
+	.notepic img{
+		width: 100%;
+	}
+	.praisePeopleHead{
+		display: inline-block;
+		width: 12%;
+        height: 0;
+        margin-left: -2%;
+        padding-bottom: 12%;
+        border-radius: 50%;
+        box-shadow: 0 0px 0px 3px #fff;
+        overflow: hidden;
+	}
+	.praisePeopleHead:first-child{
+		margin-left: 0;
+	}
+	.praisePeopleHead img{
+		width: 100%;
+	}
+	.more{
+		display: inline-block;
+		width: 12%;
+        height: 0;
+        margin-left: -6%;
+        padding-bottom: 12%;
+        border-radius: 50%;
+        box-shadow: 0 0px 0px 3px #fff;
+        background: #ccc;
+        text-align: center;
+        overflow: hidden;
+	}
+	.more i{
+		color: #fff;
+		font-size: 1.8em;
+		margin-top: 25%;
+	}
+	.clear{
+		clear: both;
+	}
+	.maxWidth768{
+		max-width: 768px;
+	}
+	.head{
+		position: fixed;
+		top: 0;
+		width: 100%;
+		padding: 8px 20px;
+		background: #fff;
+		border-bottom: 1px solid #ddd;
+		box-shadow: 0 2px 2px rgba(0,0,0,.2);
+		z-index: 1;
+	}
+	.head img{
+		height: 40px;
+	}
+	.wrapper-content{
+		margin-top: 52px;
+	}
+	.erweima{
+		height: 160px;
+	}
+	.fs16{
+		font-size: 16px;
+	}
+	</style>
+</head>
+<body class="gray-bg">
+  <div class="head">
+    <img src="/image/applogo.png">
+    <button class="btn btn-primary pull-right">下载客户端</button>
+  </div>
+  <div id="box" class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox-content m-b-md">
+	  <div class="personblock">
+	    <div class="headimg">
+	      <img :src="'/image/userhead/'+authorInfo.headimage">
+	    </div>
+	    <h3>{{authorInfo.name}}
+	      <i :class="authorInfo.sex=='1'?'fa fa-venus pink':'fa fa-mars blue'"></i>
+	    </h3>
+	    <span class="text-muted">{{articleInfo.createdTime | date}}</span>
+	    <span class="text-muted">{{authorInfo.school}}</span>
+	  </div>
+	  <p class="fs16">{{articleInfo.content}}</p>
+	  <div class="maxWidth768">
+	    <div class="notepic" v-for="src in articleImg">
+	      <img :src="'/image/notepic/'+src">
+	    </div>
+	  </div>
+	  <div class="clear"></div>
+	  <div class="row maxWidth768 fs16">
+	    <div class="col-xs-4">
+	      <i class="fa fa-heart text-danger"></i> <span class="text-muted">{{articleInfo.thumbs}}</span>
+	    </div>
+	    <div class="col-xs-4">
+	      <i class="fa fa-commenting text-warning"></i> <span class="text-muted">{{articleInfo.comments}}</span>
+	    </div>
+	    <div class="col-xs-4">
+	      <i class="fa fa-share-alt text-info"></i> <span class="text-muted">{{articleInfo.shares}}</span>
+	    </div>
+	  </div>
+	  <div class="maxWidth768">
+	    <div class="praisePeopleHead" v-for="src in praisePeopleHead">
+	      <img :src="'/image/userhead/'+src">
+	    </div>
+	    <div class="more" v-if="praisePeopleHead.length==9">
+	      <i class="fa fa-ellipsis-h"></i>
+	    </div>
+	  </div>
+	</div>
+	<div class="ibox-content text-center">
+	  <h2 class="text-success">关注“寰创通信公众号”</h2>
+	  <p>搜索微信公众号“完美校园”或者扫描下方二维码，加入寰创智慧校园！</p>
+	  <img class="erweima" src="/image/erweima.png">
+	</div>
+  </div>
+</body>
+<script>
+Vue.filter('date',function(input){
+    if((input+'').length==10){
+		var oDate = new Date();
+		oDate.setTime(input*1000);
+	}else{
+		var oDate=new Date(input);
+	}
+         y = oDate.getFullYear();
+         M = (oDate.getMonth()+1);
+         M = M<10?'0'+M:''+M;
+         d = oDate.getDate();
+         d = d<10?'0'+d:''+d;
+     return y+'-'+M+'-'+d;
+});
+var vm = new Vue({
+	el: '#box',
+	created: function(){
+  		this.getData();
+  	},
+	data: {
+		authorInfo: {
+			headimage: '1.png'
+		},
+		articleInfo: {},
+		articleImg: [],
+		praisePeopleHead: []
+	},
+	methods:{
+		getData(){  
+		    var that = this;
+		    that.$http.post('/note/getArticleData',{}).then(function(res){
+		    	
+		    	this.authorInfo=res.body.author;
+		    	this.articleInfo=res.body.article;
+		    	this.articleImg=res.body.articleImg;
+		    	this.praisePeopleHead=res.body.praisePeopleHead;
+
+		    },function(err){});
+		    
+  		},
+	}
+})
+</script>
+</html>

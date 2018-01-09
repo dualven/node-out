@@ -57,13 +57,13 @@ $(document).ready(function () {
         "ajax": "/tree/groupsmng",
         "columns": [
             {"data": "id"},
-            {"data": "name"},
-            {"data": "permissions"}
+            {"data": "name"}
+//            {"data": "permissions"}
         ],
         "columnDefs": [{
                 "orderable": false,
                 "searchable": false,
-                "targets": 3, //操作按钮目标列
+                "targets": 2, //操作按钮目标列
                 "data": null,
                 "render": function (data, type, row) {
                     var id = '"' + row.id + '"';

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>圈子统计</title>
+	<link rel="stylesheet" href="/css/bootstrap.min14ed.css">
+	<link rel="stylesheet" href="/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/animate.min.css">
+	<link rel="stylesheet" href="/css/style.min862f.css">
+	<script src="/js/vue.min.js"></script>
+	<script src="/js/vue-resource.min.js"></script>
+	<script src="/js/plugins/echarts.common.min.js"></script>
+	<script src="/js/plugins/laydate/laydate.js"></script>
+	<style>
+	.widget{
+		margin: 0;
+	}
+	.forum-img{
+		float: left;
+		width: 46px;
+		height: 46px;
+		margin-right: 20px;
+		overflow: hidden;
+	}
+	.forum-img-c{
+		border-radius: 50%;
+	}
+	.forum-img-r{
+		border-radius: 3px;
+
+	}
+	.forum-img img{
+		width: 100%;
+	}
+	.pink{
+		color: #FF6A8F;
+	}
+	.blue{
+		color: #1296db;
+	}
+	a.forum-item-title span{
+		font-weight: normal;
+		font-size: 13px;
+		margin: 0 4px;
+		color: #999;
+	}
+	a.forum-item-title i{
+		font-weight: normal;
+		font-size: 13px;
+	}
+	.pagination{
+		margin: 15px 0 0;
+	}
+	.clear{
+		clear: both;
+	}
+	</style>
+</head>
+<body class="gray-bg">
+	<div id="box" class="wrapper wrapper-content animated fadeInRight">
+	  <div class="row m-b-md">
+	    <div v-for="message in sunMsg" class="col-sm-4">
+	      <Nunpanel :message="message"></Nunpanel>
+	    </div>
+	  </div>
+	  <div class="ibox-content">
+	    <div class="row">
+	      <div class="col-xs-5"></div>
+	      <div class="col-xs-3">
+	        <select class="form-control" v-model="s_period">
+	          <option>一周内</option>
+	          <option>一月内</option>
+	          <option>三月内</option>
+	          <option>半年内</option>
+	          <option>一年内</option>
+	        </select>
+	      </div>
+	      <div class="col-xs-3">
+	        <input type="text" class="form-control layer-date" id="rangedate" v-model="s_date">
+	      </div>
+	      <div class="col-xs-1">
+	        <button class="btn btn-primary" @click="updateChart()">
+	          <i class="fa fa-search"></i> 搜索
+	        </button>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="ibox-content forum-container m-b-md">
+	    <h3>圈子活跃度</h3>
+	    <div id="activechart" style="height: 400px;width: 100%">
+	    </div>	
+	  </div>
+	  <div class="ibox-content forum-container">
+	    <div class="row">
+	      <div class="col-sm-8">
+	        <h3>圈子</h3>
+	      </div>
+	      <div class="col-xs-3">
+	        <input type="text" placeholder="关键字" class="form-control" v-model="s_key">
+	      </div>
+	      <div class="col-xs-1">
+	        <button class="btn btn-primary" @click="searchTable()">
+	          <i class="fa fa-search"></i> 搜索
+	        </button>
+	      </div>
+	    </div>
+	    <div class="forum-item" v-for="item in circlelist">
+	      <div class="row">
+	        <div class="col-sm-3">
+	          <div class="forum-img forum-img-r">
+	            <img :src="'/image/circlehead/'+item.headimg" alt="">
+	          </div>
+	          <a :href="'/community/detail?id='+item.id" class="forum-item-title">
+	          {{item.name | limitBy(12)}}
+	          </a>
+	          <div class="forum-sub-title">{{item.summary | limitBy(16)}}</div>
+	        </div>
+	        <div class="col-sm-1 forum-info">
+	          <h3>{{item.createdTime | date}}</h3>
+	          <div>
+	            <small>成立日期</small>
+	          </div>
+	        </div>
+	        <div class="col-sm-3">
+	          <div class="forum-img forum-img-c">
+	            <img :src="'/image/userhead/'+item.creatorHead" alt="">
+	          </div>
+	          <a class="forum-item-title">{{item.creatorName}}
+	            <span>{{item.creatorSchool}}</span>
+	            <i :class="item.creatorSex==1?'fa fa-venus pink':'fa fa-mars blue'"></i>
+	          </a>
+	          <div class="forum-sub-title">群主</div>
+	        </div>
+	        <div class="col-sm-1 forum-info">
+	          <span class="views-number">{{item.memberNum | notNull}}</span>
+	          <div>
+	            <small>{{item.memberName}}</small>
+	          </div>
+	        </div>
+	        <div class="col-sm-1 forum-info">
+	          <span class="views-number">{{item.articleNum | notNull}}</span>
+	          <div>
+	            <small>{{item.articleName}}</small>
+	          </div>
+	        </div>
+	        <div class="col-sm-1 forum-info">
+	          <span class="views-number">{{item.thumbsum | notNull}}</span>
+	          <div>
+	            <small>点赞</small>
+	          </div>
+	        </div>
+	        <div class="col-sm-1 forum-info">
+	          <span class="views-number">{{item.commentsum | notNull}}</span>
+	          <div>
+	            <small>评论</small>
+	          </div>
+	        </div>
+	        <div class="col-sm-1 forum-info">
+	          <span class="views-number">{{item.sharesum | notNull}}</span>
+	          <div>
+	            <small>分享</small>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	    <div>
+	      <page v-if="pageShow" :msg="listSum"></page>
+	      <div class="clear"></div>
+	    </div>
+	  </div>
+	</div>
+
+	<template id="nunpanel">
+	  <div class="widget style1 navy-bg">
+	    <div class="row">
+	      <div class="col-xs-4 text-center">
+	        <i :class="'fa fa-'+message.icon+' fa-5x'"></i>
+	      </div>
+	      <div class="col-xs-8 text-right">
+	        <h2 class="font-bold">{{message.num1}}</h2>
+	        <span>{{message.title1}}</span>
+	        <h2 class="font-bold"><span>{{message.num2}}</h2>
+	        </span>{{message.title2}}</span>
+	      </div>
+	    </div>
+      </div>
+	</template>
+	<template id="page">
+	  <ul class="pagination pull-right">
+        <li v-show="current != 1" @click="current-- && goto(current)"><a href="javascript:">&laquo;</a></li>
+        <li v-for="index in pages" @click="goto(index)" :class="{'active':current==index}" :key="index">
+          <a href="javascript:">{{index}}</a>
+        </li>
+        <li v-show="allpage != current && allpage != 0" @click="current++ && goto(current++)">
+          <a href="javascript:">&raquo;</a>
+        </li>
+      </ul>
+	</template>
+</body>
+<script>
+  //import NumPanel from './components/numPanel.vue'
+  Vue.filter('date',function(input){
+    if((input+'').length==10){
+		var oDate = new Date();
+		oDate.setTime(input*1000);
+	}else{
+		var oDate=new Date(input);
+	}
+         y = oDate.getFullYear();
+         M = (oDate.getMonth()+1);
+         M = M<10?'0'+M:''+M;
+         d = oDate.getDate();
+         d = d<10?'0'+d:''+d;
+     return y+'-'+M+'-'+d;
+  });
+  Vue.filter('limitBy',function(input,capacity){
+     if(input.length<capacity){
+     	return input;
+     }else{
+     	let showCapacity = capacity-2;
+     	return input.slice(0,showCapacity)+'……';
+     }
+  });
+  Vue.filter('notNull',function(input){
+     if(input!=null){
+     	return input;
+     }else{
+     	return 0;
+     }
+  });
+  var vm = new Vue({
+  	el: '#box',
+  	created: function(){
+  		this.getData();
+  	},
+  	mounted: function(){
+  		this.s_date = this.initialDate();
+  		laydate.render({
+  			elem:'#rangedate',
+	  	    range: true,
+	  	    done: function(value, date, endDate){
+	  				vm.s_date = value;
+	  				vm.s_period = '';
+			}
+  		});
+  	},
+  	data: {
+  		sunMsg: [],
+  		activeChart: {},
+  		circlelist: [],
+  		s_period: '一周内',
+  		s_key: '',
+  		s_date: '',
+  		listSum: 0,
+  	},
+  	computed: {
+  		s_date: function(){
+  			return this.initialDate();
+  		},
+  		pageShow: function(){
+  			if(this.listSum>10){
+  				return true;
+  			}else{
+  				return false;
+  			}
+  		}
+  	},
+  	watch:{
+  		s_period: function(){
+  			if(this.s_period!=''){
+  				this.s_date = this.initialDate();
+  			}
+  		},
+  	},
+  	methods:{
+  		formatDate(date){
+  			var y = date.getFullYear();  
+		    var m = date.getMonth() + 1;  
+		    m = m < 10 ? '0' + m : m;  
+		    var d = date.getDate();  
+		    d = d < 10 ? ('0' + d) : d;  
+		    return y + '-' + m + '-' + d;
+  		},
+  		initialDate(){
+  			var today = new Date();
+  			today = this.formatDate(today);
+  			var beginDate = new Date();
+  			switch(this.s_period){
+  				case '一周内':
+  				    beginDate.setDate(beginDate.getDate()-6);
+  				    beginDate = this.formatDate(beginDate);
+  					return beginDate+' - '+today;
+  				    break;
+  				case '一月内':
+  				    beginDate.setMonth(beginDate.getMonth()-1);
+  				    beginDate.setDate(beginDate.getDate()+1);
+  				    beginDate = this.formatDate(beginDate);
+  					return beginDate+' - '+today;
+  				    break;
+  				case '三月内':
+  				    beginDate.setMonth(beginDate.getMonth()-3);
+  				    beginDate.setDate(beginDate.getDate()+1);
+  				    beginDate = this.formatDate(beginDate);
+  					return beginDate+' - '+today;
+  				    break;
+  				case '半年内':
+  				    beginDate.setMonth(beginDate.getMonth()-6);
+  				    beginDate.setDate(beginDate.getDate()+1);
+  				    beginDate = this.formatDate(beginDate);
+  					return beginDate+' - '+today;
+  				    break;
+  				case '一年内':
+  				    beginDate.setFullYear(beginDate.getFullYear()-1);
+  				    beginDate.setDate(beginDate.getDate()+1);
+  				    beginDate = this.formatDate(beginDate);
+  					return beginDate+' - '+today;
+  				    break;
+  				default:
+  				    return this.s_date;
+  				    break;
+  			}
+  		},
+  		getData(){  
+		    var that = this;
+		    that.$http({
+		    	method: 'POST',
+		    	url: '/community/getData'
+		    }).then(function(res){
+  				this.sunMsg=res.data.sunMsg;
+  				this.activeChart=res.data.activeChart;
+  				this.circlelist=res.data.circlelist;
+  				this.listSum=res.data.listSum;
+  				this.echart1();
+
+		    },function(err){});
+		    
+  		},
+  		updateChart(){
+		    var that = this;
+		    that.$http.post('/community/updateChart', {
+		    	date: this.s_date
+		    }, {emulateJSON:true}).then(function(res){
+		    	this.sunMsg[0].num1=res.data.newcirclenum;
+  				this.activeChart=res.data.activeChart;
+  				this.echart1();
+
+		    },function(err){});
+		    
+  		},
+  		searchTable(){
+  			var that = this;
+		    that.$http.post('/community/searchTable', {
+		    	key: this.s_key
+		    }, {emulateJSON:true}).then(function(res){
+  				this.circlelist=res.body.circlelist;
+  				this.listSum=res.body.listSum;
+
+		    },function(err){});
+  		},
+  		updatePage(index,item){
+  			var that = this;
+		    that.$http.post('/community/paging', {
+		    	listIndex: index,
+		    	showItem: item
+		    }, {emulateJSON:true}).then(function(res){
+		    	
+  				this.circlelist=res.body.circlelist;
+
+		    },function(err){});
+  		},
+  		echart1(){
+  			//圈子活跃度折线图
+	  		var myChart = echarts.init(document.getElementById('activechart'));
+	        var colors = ['#51A5DE', '#76DDFB'];
+			option = {
+			    color: colors,
+			    tooltip: {
+			        trigger: 'axis'
+			    },
+			    legend: {
+			        data:['帖子', '评论']
+			    },
+			    grid: {
+			        top: 30,
+			        bottom: 30
+			    },
+			    xAxis: {
+			        type: 'category',
+			        boundaryGap: false,
+			        data: this.activeChart.date
+			    },
+			    yAxis: {
+			        type: 'value'
+			    },
+			    series: [
+			        {
+			            name:'帖子',
+			            type:'line',
+			            smooth: true,
+			            data: this.activeChart.article
+			        },
+			        {
+			            name:'评论',
+			            type:'line',
+			            smooth: true,
+			            data: this.activeChart.comment
+			        }
+			    ]
+			};
+	        myChart.setOption(option);
+  		},
+  	},
+  	components:{
+      'Nunpanel':{
+		    template:'#nunpanel',
+		    props: ['message'],
+	  },
+	  'page':{
+	  	template: '#page',
+	  	props: ['msg'],
+	  	data: function(){
+	  		return{
+  		      current: 1,
+  		      showItem: 10,
+	  		}
+	  	},
+	  	computed: {
+	  		allpage: function(){
+	  			return Math.ceil(this.msg/this.showItem);
+	  		},
+	  		pages: function(){
+	  			var pag = [];
+	  			if(this.current < this.showItem){
+	  				var i = Math.min(this.showItem, this.allpage);
+	  				while(i){
+	  					pag.unshift(i--);
+	  				}
+	  			}else{
+	  				var middle = this.current - Math.floor(this.showItem/2);
+	  				i = this.showItem;
+	  				if(middle > (this.allpage - this.showItem)){
+	  					middle = (this.allpage - this.showItem) + 1
+	  				}
+	  				while(i--){
+	  					pag.push( middle++ );
+	  				}
+	  			}
+	  			return pag;
+	  		}
+	  	},
+	  	methods: {
+	  		goto: function(index){
+	  			this.current = index;
+	  			var item = this.showItem;
+	  			//ajax
+	  			this.$parent.updatePage(index,item);
+	  			
+	  		}
+	  	}
+	  },
+    }
+  })
+</script>
+</html>

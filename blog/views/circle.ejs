@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>圈子详情</title>
+	<link rel="stylesheet" href="/css/bootstrap.min14ed.css">
+	<link rel="stylesheet" href="/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/animate.min.css">
+	<link rel="stylesheet" href="/css/style.min862f.css">
+	<script src="/js/vue.min.js"></script>
+	<script src="/js/vue-resource.min.js"></script>
+	<style>
+	.circleBg{
+		height: 220px;
+		overflow: hidden;
+		margin: 0 -20px;
+	}
+	.circleBg img{
+		width: 100%;
+	}
+	.ibox-content p{
+		word-break: break-all;
+	}
+	.text-center{
+		text-align: center;
+	}
+	.personblock{
+		margin-bottom: 12px;
+	}
+	.headimg{
+		float: left;
+		margin-right: 20px;
+		width: 60px;
+		height: 60px;
+		border-radius: 50%;
+		overflow: hidden;
+	}
+	.headimg img{
+		width: 100%;
+	}
+	.personblock h3{
+		margin-bottom: 8px;
+		padding-top: 12px 
+	}
+	.memberHead{
+		display: inline-block;
+		width: 15%;
+        height: 0;
+        margin-right: 5%;
+        padding-bottom: 15%;
+		border-radius: 50%;
+		overflow: hidden;
+	}
+	.memberHead img{
+		width: 100%;
+		margin-bottom: 10px;
+	}
+	.pink{
+		color: #FF6A8F;
+	}
+	.blue{
+		color: #1296db;
+	}
+	.allnotepic{
+		width: 100%;
+		height: 0;
+		padding-bottom: 100%;
+	}
+	.notepic{
+		float: left;
+		width: 32%;
+        height: 0;
+        padding-bottom: 30%;
+        margin-right: 2%;
+        margin-bottom: 6px;
+        overflow: hidden;
+	}
+	.notepic:nth-child(3n+0){
+        margin-right: 0;
+	}
+	.notepic img{
+		width: 100%;
+	}
+	.praisePeopleHead{
+		display: inline-block;
+		width: 12%;
+        height: 0;
+        margin-left: -2%;
+        padding-bottom: 12%;
+        border-radius: 50%;
+        box-shadow: 0 0px 0px 3px #fff;
+        overflow: hidden;
+	}
+	.praisePeopleHead:first-child{
+		margin-left: 0;
+	}
+	.praisePeopleHead img{
+		width: 100%;
+	}
+	.more{
+		display: inline-block;
+		width: 12%;
+        height: 0;
+        margin-left: -6%;
+        padding-bottom: 12%;
+        border-radius: 50%;
+        box-shadow: 0 0px 0px 3px #fff;
+        background: #999;
+        text-align: center;
+        overflow: hidden;
+	}
+	.more i{
+		color: #fff;
+		font-size: 1.2em;
+		margin-top: 20%;
+	}
+	.clear{
+		clear: both;
+	}
+	</style>
+</head>
+<body class="gray-bg">
+	<div id="box" class="wrapper wrapper-content animated fadeInRight">
+	  <div class="row">
+	    <div class="col-sm-4">
+	      <div class="ibox-content">
+	        <h3>圈子信息</h3>
+	        <div class="circleBg">
+	          <img :src="'/image/circlebg/'+circleInfo.backimg" alt="">
+	        </div>
+	        <div class="profile-content">
+	          <h3><strong>{{circleInfo.name}}</strong></h3>
+	        </div>
+	        <p>{{circleInfo.summary}}</p>
+	        <div class="row text-center">
+	            <div class="col-xs-6">
+	              <p class="views-number text-success">{{circleInfo.memberNum}}</p>
+	              <p>{{circleInfo.memberName}}</p>
+	            </div>
+	            <div class="col-xs-6">
+	              <p class="views-number text-info">{{circleInfo.articleNum}}</p>
+	              <p>{{circleInfo.articleName}}</p>
+	            </div>
+	            <div class="col-xs-6">
+	              <p class="views-number text-danger">{{circleInfo.thumbsum}}</p>
+	              <p>点赞</p>
+	            </div>
+	            <div class="col-xs-6">
+	              <p class="views-number text-warning">{{circleInfo.sharesum}}</p>
+	              <p>分享</p>
+	            </div>
+	        </div>
+	        <h4>管理员</h4>
+	        <div class="personblock">
+	          <div class="headimg">
+	            <img :src="'/image/userhead/'+circleInfo.creatorHead" alt="">
+	          </div>
+	          <h3>{{circleInfo.creatorName}} <i :class="circleInfo.creatorSex==1?'fa fa-venus pink':'fa fa-mars blue'"></i></h3>
+	          <span>{{circleInfo.creatorSchool}}</span>
+	        </div>
+	        <h4>兴趣圈成员</h4>
+	        <div class="">
+	          <div class="memberHead" v-for="src in circleInfo.memberHead">
+	            <img :src="'/image/userhead/'+src">
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	    <div class="col-sm-8">
+	      <div class="row">
+	        <div v-for="message in sunNotes" class="col-sm-4">
+	          <Notepanel :message="message"></Notepanel>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<template id="notepanel">
+	  <div class="ibox-content m-b-sm">
+	  <div class="personblock">
+	    <div class="headimg">
+	      <img :src="'/image/userhead/'+message.authorHead" alt="">
+	    </div>
+
+	    <h3>{{message.authorName}}
+	      <i :class="message.authorSex=='girl'?'fa fa-venus pink':'fa fa-mars blue'"></i>
+	      <small class="pull-right">{{message.createdTime | date}}</small>
+	    </h3>
+	    <span>{{message.authorSchool}}</span>
+	  </div>
+	  <p>{{message.content}}</p>
+	  <div class="allnotepic">
+	    <div class="notepic" v-if="haveimg(message.image1)">
+	      <img :src="'/image/notepic/'+message.image1">
+	    </div>
+	    <div class="notepic" v-if="haveimg(message.image2)">
+	      <img :src="'/image/notepic/'+message.image2">
+	    </div>
+	    <div class="notepic" v-if="haveimg(message.image3)">
+	      <img :src="'/image/notepic/'+message.image3">
+	    </div>
+	    <div class="notepic" v-if="haveimg(message.image4)">
+	      <img :src="'/image/notepic/'+message.image4">
+	    </div>
+	    <div class="notepic" v-if="haveimg(message.image5)">
+	      <img :src="'/image/notepic/'+message.image5">
+	    </div>
+	    <div class="notepic" v-if="haveimg(message.image6)">
+	      <img :src="'/image/notepic/'+message.image6">
+	    </div>
+	    <div class="notepic" v-if="haveimg(message.image7)">
+	      <img :src="'/image/notepic/'+message.image7">
+	    </div>
+	    <div class="notepic" v-if="haveimg(message.image8)">
+	      <img :src="'/image/notepic/'+message.image8">
+	    </div>
+	    <div class="notepic" v-if="haveimg(message.image9)">
+	      <img :src="'/image/notepic/'+message.image9">
+	    </div>
+	  </div>
+	  <div class="clear"></div>
+	  <div class="row">
+	    <div class="col-xs-4 m-b-sm">
+	      <i class="fa fa-heart"></i> {{message.thumbs}}
+	    </div>
+	    <div class="col-xs-4 m-b-sm">
+	      <i class="fa fa-commenting"></i> {{message.comments}}
+	    </div>
+	    <div class="col-xs-4 m-b-sm">
+	      <i class="fa fa-share-alt"></i> {{message.shares}}
+	    </div>
+	  </div>
+	  <!-- 点赞人头像
+	  <div>
+	    <div class="praisePeopleHead" v-for="src in message.praisePeopleHead">
+	      <img :src="src">
+	    </div>
+	    <div class="more" v-if="message.praisePeopleHead.length==9">
+	      <i class="fa fa-ellipsis-h"></i>
+	    </div>
+	  </div>-->
+	  </div>
+	</template>
+</body>
+<script>
+Vue.filter('date',function(input){
+    if((input+'').length==10){
+		var oDate = new Date();
+		oDate.setTime(input*1000);
+	}else{
+		var oDate=new Date(input);
+	}
+         y = oDate.getFullYear();
+         M = (oDate.getMonth()+1);
+         M = M<10?'0'+M:''+M;
+         d = oDate.getDate();
+         d = d<10?'0'+d:''+d;
+     return y+'-'+M+'-'+d;
+  });
+var vm = new Vue({
+	el: '#box',
+	created: function(){
+  		this.getData();
+  	},
+	data: {
+		circleInfo: {},
+		sunNotes: []
+	},
+	methods:{
+		getData(){  
+		    var that = this;
+		    that.$http.post('/getDetailData', {}, {emulateJSON:true}).then(function(res){
+		    	
+		    	this.circleInfo=res.body.circleInfo;
+		    	this.sunNotes=res.body.sunNotes;
+
+		    },function(err){});
+		    
+  		},
+	},
+	components:{
+      'Notepanel':{
+		    template:'#notepanel',
+		    props: ['message'],
+		    methods:{
+		    	haveimg(input){
+		  			if(input){
+		  				return true;
+		  			}else{
+		  				return false;
+		  			}
+		  		}
+		    }
+		}
+    }
+})
+</script>
+</html>

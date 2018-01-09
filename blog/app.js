@@ -48,6 +48,11 @@ app.use('/users', users);
 app.use('/login', login);//app.use(permission({config: require('./example/config')}));//before route ;means useful to route ,or if do all ,the static resouces can be inflected!
 
 app.use('/tree', tree);
+app.use('/note', require('./routes/note.js')());
+app.use('/community', require('./routes/community.js')());
+app.use('/notice', require('./routes/notice.js')());
+app.use('/im', require('./routes/im.js')());
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

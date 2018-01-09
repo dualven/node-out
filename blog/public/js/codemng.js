@@ -24,7 +24,7 @@ $(document).ready(function () {
                     var inner_ip = '"' + row.inner_ip + '"';
                     var userinfo = '"' + row.userinfo + '"';
                     var html = ""
-                    html += "<a href='javascript:void(0);'   onclick='revokeDlg(" + type + "," + domain + "," + out_ip + "," + inner_ip + "," + userinfo + ")'  class='glyphicon glyphicon-pencil'> 角色编辑</a>"
+                    html += "<a href='javascript:void(0);'   onclick='revokeDlg(" + type + "," + domain + "," + out_ip + "," + inner_ip + "," + userinfo + ")'  class='glyphicon glyphicon-pencil'> 编辑</a>"
                     html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser(" + type + "," + userinfo + ")'  class='glyphicon glyphicon-remove'> 删除</a>"
                     return html;
                 }

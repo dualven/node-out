@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>帖子统计</title>
+	<link rel="stylesheet" href="/css/bootstrap.min14ed.css">
+	<link rel="stylesheet" href="/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/animate.min.css">
+	<link rel="stylesheet" href="/css/style.min862f.css">
+	<script src="/js/vue.min.js"></script>
+	<script src="/js/vue-resource.min.js"></script>
+	<script src="/js/plugins/echarts.common.min.js"></script>
+	<script src="/js/plugins/laydate/laydate.js"></script>
+	<style>
+	a.forum-item-title{
+		color: #1296db;
+	}
+	.clear{
+		clear: both;
+	}
+	</style>
+</head>
+<body class="gray-bg">
+	<div id="box" class="wrapper wrapper-content animated fadeInRight">
+	  <div class="ibox-content">
+	    <div class="row">
+          <div class="col-xs-3">
+	        <select class="form-control" v-model="s_school">
+	          <option v-for="item in allschool" :value="item.id">{{item.school}}</option>
+	        </select>
+	      </div>
+	      <div class="col-xs-1"></div>
+	      <div class="col-xs-3">
+	        <select class="form-control" v-model="s_period">
+	          <option>一周内</option>
+	          <option>一月内</option>
+	          <option>三月内</option>
+	          <option>半年内</option>
+	          <option>一年内</option>
+	        </select>
+	      </div>
+	      <div class="col-xs-1"></div>
+	      <div class="col-xs-3">
+	        <input type="text" class="form-control layer-date" id="rangedate" v-model="s_date">
+	      </div>
+	      <div class="col-xs-1">
+	        <button class="btn btn-primary" @click="updateData()">
+	          <i class="fa fa-search"></i> 搜索
+	        </button>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="row">
+	    <div v-for="message in sunMsg" class="col-sm-3">
+	      <Nunpanel :message="message"></Nunpanel>
+	    </div>
+	  </div>
+	  <div class="row">
+	    <div class="col-xs-4">
+	      <div class="ibox-content forum-container m-b-sm">
+	        <h3>评论 点赞 分享占比环图</h3>
+	        <div id="propotionechart" style="height: 360px;width: 100%"></div>
+	      </div>
+	    </div>
+	    <div class="col-xs-8">
+	      <div class="ibox-content forum-container m-b-sm">
+	        <h3>发帖折线图</h3>
+	        <div id="noteechart" style="height: 360px;width: 100%"></div>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="ibox-content forum-container">
+	    <div class="row">
+	      <div class="col-sm-8">
+	        <h3>话题</h3>
+	      </div>
+	      <div class="col-xs-3">
+	        <input type="text" placeholder="＃话题＃" class="form-control" v-model="s_key">
+	      </div>
+	      <div class="col-xs-1">
+	        <button class="btn btn-primary" @click="searchTable()">
+	          <i class="fa fa-search"></i> 搜索
+	        </button>
+	      </div>
+	    </div>
+	    <div class="forum-item" v-for="item in topiclist">
+	      <div class="row">
+	        <div class="col-sm-4">
+	          <a href="#" class="forum-item-title blue">＃{{item.keywords}}＃</a>
+	          <p>{{item.summary | limitBy(30)}}</p>
+	        </div>
+	        <div class="col-sm-4 forum-info">
+	          <span class="views-number">{{item.createdTime | date}}</span>
+	          <div>
+	            <small>成立日期</small>
+	          </div>
+	        </div>
+	        <div class="col-sm-1 forum-info">
+	          <span class="views-number">{{item.articlenums | notNull}}</span>
+	          <div>
+	            <small>帖子</small>
+	          </div>
+	        </div>
+	        <div class="col-sm-1 forum-info">
+	          <span class="views-number">{{item.comments | notNull}}</span>
+	          <div>
+	            <small>评论</small>
+	          </div>
+	        </div>
+	        <div class="col-sm-1 forum-info">
+	          <span class="views-number">{{item.thumbs | notNull}}</span>
+	          <div>
+	            <small>点赞</small>
+	          </div>
+	        </div>
+	        <div class="col-sm-1 forum-info">
+	          <span class="views-number">{{item.shares | notNull}}</span>
+	          <div>
+	            <small>话题分享</small>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	    <div>
+	      <page v-if="pageShow" :msg="listSum"></page>
+	      <div class="clear"></div>
+	    </div>
+	  </div>
+	</div>
+
+	<template id="nunpanel">
+	  <div class="widget style1 navy-bg">
+	    <div class="row">
+	      <div class="col-xs-4 text-center">
+	        <i :class="'fa fa-'+message.icon+' fa-5x'"></i>
+	      </div>
+	      <div class="col-xs-8 text-right">
+	        <h2 class="font-bold">{{message.num1}}</h2>
+	        <span>{{message.title1}}</span>
+	        <h2 class="font-bold"><span>{{message.num2}}</h2>
+	        <span>{{message.title2}}</span>
+	      </div>
+	    </div>
+      </div>
+	</template>
+	<template id="page">
+	  <ul class="pagination pull-right">
+        <li v-show="current != 1" @click="current-- && goto(current)"><a href="javascript:">&laquo;</a></li>
+        <li v-for="index in pages" @click="goto(index)" :class="{'active':current==index}" :key="index">
+          <a href="javascript:">{{index}}</a>
+        </li>
+        <li v-show="allpage != current && allpage != 0" @click="current++ && goto(current++)">
+          <a href="javascript:">&raquo;</a>
+        </li>
+      </ul>
+	</template>
+</body>
+<script>
+  //import NumPanel from './components/numPanel.vue'
+  Vue.filter('date',function(input){
+	if((input+'').length==10){
+		var oDate = new Date();
+		oDate.setTime(input*1000);
+	}else{
+		var oDate=new Date(input);
+	}
+         y = oDate.getFullYear();
+         M = (oDate.getMonth()+1);
+         M = M<10?'0'+M:''+M;
+         d = oDate.getDate();
+         d = d<10?'0'+d:''+d;
+     return y+'-'+M+'-'+d;
+  });
+  Vue.filter('limitBy',function(input,capacity){
+     if(input.length<capacity){
+     	return input;
+     }else{
+     	let showCapacity = capacity-2;
+     	return input.slice(0,showCapacity)+'……';
+     }
+  });
+  Vue.filter('notNull',function(input){
+     if(input!=null){
+     	return input;
+     }else{
+     	return 0;
+     }
+  });
+  var vm = new Vue({
+  	el: '#box',
+  	created: function(){
+  		this.getData();
+  	},
+  	mounted: function(){
+  		this.s_date = this.initialDate();
+  		laydate.render({
+  			elem:'#rangedate',
+	  	    range: true,
+	  	    done: function(value, date, endDate){
+	  				vm.s_date = value;
+	  				vm.s_period = '';
+			}
+  		});
+  	},
+  	data: {
+  		allschool: [],
+  		s_school: '00',
+  		sunMsg: [],
+  		noteChart: {},
+  		noteLoopChart: [],
+  		topiclist: [],
+  		s_period: '一周内',
+  		s_date: '',
+  		s_key: '',
+  		listSum: 0,
+  	},
+  	computed: {
+  		s_date: function(){
+  			return this.initialDate();
+  		},
+  		pageShow: function(){
+  			if(this.listSum>10){
+  				return true;
+  			}else{
+  				return false;
+  			}
+  		}
+  	},
+  	watch:{
+  		s_period: function(){
+  			if(this.s_period!=''){
+  				this.s_date = this.initialDate();
+  			}
+  		},
+  	},
+  	methods:{
+  		formatDate(date){
+  			var y = date.getFullYear();  
+		    var m = date.getMonth() + 1;  
+		    m = m < 10 ? '0' + m : m;  
+		    var d = date.getDate();  
+		    d = d < 10 ? ('0' + d) : d;  
+		    return y + '-' + m + '-' + d;
+  		},
+  		initialDate(){
+  			var today = new Date();
+  			today = this.formatDate(today);
+  			var beginDate = new Date();
+  			switch(this.s_period){
+  				case '一周内':
+  				    beginDate.setDate(beginDate.getDate()-6);
+  				    beginDate = this.formatDate(beginDate);
+  					return beginDate+' - '+today;
+  				    break;
+  				case '一月内':
+  				    beginDate.setMonth(beginDate.getMonth()-1);
+  				    beginDate.setDate(beginDate.getDate()+1);
+  				    beginDate = this.formatDate(beginDate);
+  					return beginDate+' - '+today;
+  				    break;
+  				case '三月内':
+  				    beginDate.setMonth(beginDate.getMonth()-3);
+  				    beginDate.setDate(beginDate.getDate()+1);
+  				    beginDate = this.formatDate(beginDate);
+  					return beginDate+' - '+today;
+  				    break;
+  				case '半年内':
+  				    beginDate.setMonth(beginDate.getMonth()-6);
+  				    beginDate.setDate(beginDate.getDate()+1);
+  				    beginDate = this.formatDate(beginDate);
+  					return beginDate+' - '+today;
+  				    break;
+  				case '一年内':
+  				    beginDate.setFullYear(beginDate.getFullYear()-1);
+  				    beginDate.setDate(beginDate.getDate()+1);
+  				    beginDate = this.formatDate(beginDate);
+  					return beginDate+' - '+today;
+  				    break;
+  				default:
+  				    return this.s_date;
+  				    break;
+  			}
+  		},
+  		getData(){  
+		    var that = this;
+		    that.$http({
+		    	method: 'POST',
+		    	url: '/note/getNoteData'
+		    }).then(function(res){
+		    	
+		    	this.allschool=res.data.allschool;
+		    	this.allschool.unshift({id:'00',school:'全部'});
+  				this.sunMsg=res.data.sunMsg;
+  				this.noteChart=res.data.noteChart;
+  				this.noteLoopChart=res.data.noteLoopChart;
+  				this.topiclist=res.data.topiclist;
+  				this.listSum=res.data.listSum;
+  				this.echart1();
+  				this.echart2();
+
+		    },function(err){});
+		    
+  		},
+  		updateData(){  
+		    var that = this;
+		    that.$http.post('/note/updateNoteData', {
+		    	school: this.s_school,
+		    	date: this.s_date
+		    }, {emulateJSON:true}).then(function(res){
+		    	
+  				this.sunMsg=res.data.sunMsg;
+  				this.noteChart=res.data.noteChart;
+  				this.noteLoopChart=res.data.noteLoopChart;
+  				this.echart1();
+  				this.echart2();
+
+		    },function(err){});
+		    
+  		},
+  		searchTable(){
+  			var that = this;
+		    that.$http.post('/note/searchTable', {
+		    	key: this.s_key
+		    }, {emulateJSON:true}).then(function(res){
+  				this.topiclist=res.body.topiclist;
+  				this.listSum=res.body.listSum;
+
+		    },function(err){});
+  		},
+  		updatePage(index,item){
+  			var that = this;
+		    that.$http.post('/note/paging', {
+		    	listIndex: index,
+		    	showItem: item
+		    }, {emulateJSON:true}).then(function(res){
+		    	
+  				this.topiclist=res.body.topiclist;
+
+		    },function(err){});
+  		},
+  		echart1(){
+  			//评论点赞、分享占比环图
+	  		var myChart = echarts.init(document.getElementById('propotionechart'));
+	  		option1 = {
+			    tooltip: {
+			        trigger: 'item',
+			        formatter: "{a} <br/>{b}: {c} ({d}%)"
+			    },
+			    legend: {
+			        orient: 'vertical',
+			        x: 'left',
+			        data:['点赞','评论','分享']
+			    },
+			    series: [
+			        {
+			            name:'',
+			            type:'pie',
+			            radius: ['50%', '70%'],
+			            avoidLabelOverlap: false,
+			            color: ['#FF8E73', '#75B6FF', '#FFDA47'],
+			            label: {
+			                normal: {
+			                    show: false,
+			                    position: 'center'
+			                },
+			                emphasis: {
+			                    show: true,
+			                    textStyle: {
+			                        fontSize: '30',
+			                        fontWeight: 'bold'
+			                    }
+			                }
+			            },
+			            labelLine: {
+			                normal: {
+			                    show: false
+			                }
+			            },
+			            data: this.noteLoopChart
+			        }
+			    ]
+			};
+	  		myChart.setOption(option1);
+  		},
+  		echart2(){
+  			//每日发帖折线图
+	  		var myChart = echarts.init(document.getElementById('noteechart'));
+	  		option2 = {
+	  			color: '#51A5DE',
+			    tooltip: {
+			        trigger: 'none',
+			        axisPointer: {
+			            type: 'cross'
+			        }
+			    },
+			    xAxis: {
+			        type: 'category',
+			        axisTick: {
+			                alignWithLabel: true
+			            },
+			            axisLine: {
+			                onZero: false,
+			                lineStyle: {
+			                    color: '#51A5DE'
+			                }
+			            },
+			            axisPointer: {
+			                label: {
+			                    formatter: function (params) {
+			                        return params.value +' 发帖数 '
+			                            + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
+			                    }
+			                }
+			            },
+			        data: this.noteChart.date
+			    },
+			    grid: {
+			        left: '3%',
+			        right: '4%',
+			        bottom: '3%',
+			        containLabel: true
+			    },
+			    yAxis: {
+			        type: 'value',
+			        name: '/条'
+			    },
+			    series: [
+			        {
+			            name: '每日发帖折线图',
+			            type: 'line',
+			            smooth: true,
+			            data: this.noteChart.notes
+			        }
+			    ]
+			};
+	        myChart.setOption(option2);
+  		},
+  	  },
+  	components:{
+      'Nunpanel':{
+		    template:'#nunpanel',
+		    props: ['message'],
+		},
+		'page':{
+	  	template: '#page',
+	  	props: ['msg'],
+	  	data: function(){
+	  		return{
+  		      current: 1,
+  		      showItem: 10,
+	  		}
+	  	},
+	  	computed: {
+	  		allpage: function(){
+	  			return Math.ceil(this.msg/this.showItem);
+	  		},
+	  		pages: function(){
+	  			var pag = [];
+	  			if(this.current < this.showItem){
+	  				var i = Math.min(this.showItem, this.allpage);
+	  				while(i){
+	  					pag.unshift(i--);
+	  				}
+	  			}else{
+	  				var middle = this.current - Math.floor(this.showItem/2);
+	  				i = this.showItem;
+	  				if(middle > (this.allpage - this.showItem)){
+	  					middle = (this.allpage - this.showItem) + 1
+	  				}
+	  				while(i--){
+	  					pag.push( middle++ );
+	  				}
+	  			}
+	  			return pag;
+	  		}
+	  	},
+	  	methods: {
+	  		goto: function(index){
+	  			this.current = index;
+	  			var item = this.showItem;
+	  			//ajax
+	  			this.$parent.updatePage(index,item);
+	  			
+	  		}
+	  	}
+	  },
+    }
+  })
+</script>
+</html>
