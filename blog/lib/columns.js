@@ -12,6 +12,9 @@ function buildSearchCriteria(options) {
   var currentSearch;
   var currentSearchValue;
   var escapedSearchValue;
+  if(options.domain_userid){
+      searchCriteria[options.domain_userid] = options.domain_userid_value;
+  }
 
   var shouldCaseInsensitive = typeof options.caseInsensitiveSearch !== 'undefined'
     ? string.stringToBoolean(options.caseInsensitiveSearch)

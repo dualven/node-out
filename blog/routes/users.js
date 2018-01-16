@@ -194,7 +194,8 @@ router.get('/codemng', function (req, res, next) {
     options.caseInsensitiveSearch = true;
     options.showAlertOnError = true;
 //    console.log('in users: ',options.columns);
-
+    options.domain_userid ='user_name';
+    options.domain_userid_value = req.session.user;
     MongoClient.connect(DB_CONN_STR, function (err, db) {
         if (err) {
             console.error(err);
@@ -219,7 +220,7 @@ router.all('/saveCodemng', function (req, res, next) {
     }
     var m = require('../public/js/mgdb.js');
     var n = new m(f, DB_CONN_STR, doc);
-    var where = {"type": req.body.type, "domain":  req.body.domain , "out_ip": req.body.out, "inner_ip": req.body.inner, "userinfo": req.body.userinfo};
+    var where = {"type": req.body.type, "domain":  req.body.domain , "out_ip": req.body.out, "inner_ip": req.body.inner, "userinfo": req.body.userinfo,"user_name":req.session.user};
     n.saveOpers(where);
 });
 module.exports = router;
